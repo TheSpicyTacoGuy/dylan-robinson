@@ -2,9 +2,32 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta
+      name="description"
+      content="Portfolio website for Dylan Robinson, software developer."
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+    <title>Dylan Robinson | Software Developer Portfolio</title>
+    <script>
+      // Apply saved theme (or system preference) as early as possible to prevent a flash of the wrong theme.
+      (function () {
+        const STORAGE_KEY = "theme-preference";
+        const stored = localStorage.getItem(STORAGE_KEY);
+        const systemDark = window.matchMedia?.(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        const resolved =
+          stored === "light" || stored === "dark"
+            ? stored
+            : systemDark
+              ? "dark"
+              : "light";
+        const html = document.documentElement;
+        html.classList.toggle("dark", resolved === "dark");
+        html.classList.toggle("light", resolved === "light");
+        html.dataset.theme = resolved;
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

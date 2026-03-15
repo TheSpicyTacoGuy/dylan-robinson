@@ -1,68 +1,376 @@
+@import "tailwindcss";
+@import "@heroui/styles";
+
+/*
+ * HeroUI Theme Customization
+ * Add this to your global.css after importing @heroui/styles
+ * Only includes base variables from variables.css
+ * @see https://v3.heroui.com/docs/react/getting-started/theming
+ */
+:root,
+.light,
+.default,
+[data-theme="light"],
+[data-theme="default"] {
+  /* Theme Colors (Light Mode) */
+  --accent: oklch(76.97% 0.2124 136.67);
+  --accent-foreground: oklch(15% 0.03 136.67);
+  --background: oklch(97.02% 0.002 136.67);
+  --border: oklch(90% 0.002 136.67);
+  --danger: oklch(65.32% 0.2337 11.68);
+  --danger-foreground: oklch(99.11% 0 0);
+  --default: oklch(94% 0.002 136.67);
+  --default-foreground: oklch(21.03% 0.0059 136.67);
+  --field-background: oklch(100% 0.001 136.67);
+  --field-foreground: oklch(21.03% 0.002 136.67);
+  --field-placeholder: oklch(55.17% 0.004 136.67);
+  --focus: oklch(76.97% 0.2124 136.67);
+  --foreground: oklch(21.03% 0.002 136.67);
+  --muted: oklch(55.17% 0.004 136.67);
+  --overlay: oklch(100% 0.0006 136.67);
+  --overlay-foreground: oklch(21.03% 0.002 136.67);
+  --scrollbar: oklch(87.1% 0.002 136.67);
+  --segment: oklch(100% 0.002 136.67);
+  --segment-foreground: oklch(21.03% 0.002 136.67);
+  --separator: oklch(92% 0.002 136.67);
+  --success: oklch(73.29% 0.1943 136.75);
+  --success-foreground: oklch(21.03% 0.0059 136.75);
+  --surface: oklch(100% 0.001 136.67);
+  --surface-foreground: oklch(21.03% 0.002 136.67);
+  --surface-secondary: oklch(95.24% 0.0016 136.67);
+  --surface-secondary-foreground: oklch(21.03% 0.002 136.67);
+  --surface-tertiary: oklch(93.73% 0.0016 136.67);
+  --surface-tertiary-foreground: oklch(21.03% 0.002 136.67);
+  --warning: oklch(78.19% 0.1591 58.27);
+  --warning-foreground: oklch(21.03% 0.0059 58.27);
+
+  /* Border Radius */
+  --radius: 0.125rem;
+  --field-radius: 0.125rem;
+
+  /* Font Family */
+  /* Make sure to load Inter font in your app */
+  --font-sans: var(--font-inter);
+}
+
+.dark,
+[data-theme="dark"] {
+  color-scheme: dark;
+  /* Theme Colors (Dark Mode) */
+  --accent: oklch(76.97% 0.2124 136.67);
+  --accent-foreground: oklch(15% 0.03 136.67);
+  --background: oklch(12% 0.002 136.67);
+  --border: oklch(28% 0.002 136.67);
+  --danger: oklch(59.4% 0.1975 10.57);
+  --danger-foreground: oklch(99.11% 0 0);
+  --default: oklch(27.4% 0.002 136.67);
+  --default-foreground: oklch(99.11% 0 0);
+  --field-background: oklch(21.03% 0.004 136.67);
+  --field-foreground: oklch(99.11% 0.002 136.67);
+  --field-placeholder: oklch(70.5% 0.004 136.67);
+  --focus: oklch(76.97% 0.2124 136.67);
+  --foreground: oklch(99.11% 0.002 136.67);
+  --muted: oklch(70.5% 0.004 136.67);
+  --overlay: oklch(21.03% 0.004 136.67);
+  --overlay-foreground: oklch(99.11% 0.002 136.67);
+  --scrollbar: oklch(70.5% 0.002 136.67);
+  --segment: oklch(39.64% 0.002 136.67);
+  --segment-foreground: oklch(99.11% 0.002 136.67);
+  --separator: oklch(25% 0.002 136.67);
+  --success: oklch(73.29% 0.1943 136.75);
+  --success-foreground: oklch(21.03% 0.0059 136.75);
+  --surface: oklch(21.03% 0.004 136.67);
+  --surface-foreground: oklch(99.11% 0.002 136.67);
+  --surface-secondary: oklch(25.7% 0.003 136.67);
+  --surface-secondary-foreground: oklch(99.11% 0.002 136.67);
+  --surface-tertiary: oklch(27.21% 0.003 136.67);
+  --surface-tertiary-foreground: oklch(99.11% 0.002 136.67);
+  --warning: oklch(82.03% 0.1394 62.28);
+  --warning-foreground: oklch(21.03% 0.0059 62.28);
+}
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+* {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  color: var(--foreground);
+  background-color: var(--background);
+  background-image:
+    radial-gradient(
+      1200px 600px at 10% -20%,
+      color-mix(in srgb, var(--accent) 25%, transparent 75%),
+      transparent 70%
+    ),
+    radial-gradient(
+      900px 550px at 95% 0%,
+      color-mix(in srgb, var(--accent) 18%, transparent 82%),
+      transparent 70%
+    ),
+    linear-gradient(
+      160deg,
+      var(--background) 0%,
+      color-mix(in srgb, var(--background) 90%, var(--surface) 10%) 45%,
+      var(--surface) 100%
+    );
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+html {
+  scroll-padding-top: 3.5rem;
+}
+
+#root {
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.site-shell {
+  position: relative;
+  overflow: clip;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 3rem 1.2rem 5rem;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.theme-toggle {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 10;
+  border-radius: 9999px;
+  padding: 0.4rem 0.65rem;
+  background: color-mix(in oklch, var(--surface) 80%, var(--background) 20%);
+  box-shadow: 0 12px 18px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.theme-toggle__label {
+  font-weight: 600;
+  opacity: 0.8;
+  min-width: 4.5rem;
+  text-align: right;
+}
+
+.theme-toggle .switch__thumb {
+  font-size: 0.9rem;
+}
+
+.theme-toggle .theme-switch__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  line-height: 1;
+  color: var(--foreground);
+}
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background: color-mix(in oklch, var(--surface) 90%, var(--background) 10%);
+  color: var(--foreground);
+  transition: transform 0.18s var(--ease-out);
+}
+
+.icon-button:hover {
+  transform: translateY(-1px);
+  border-color: var(--accent);
+}
+
+.icon-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.bg-orb {
+  position: fixed;
+  width: 34rem;
+  height: 34rem;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(16px);
+}
+
+.orb-left {
+  top: -10rem;
+  left: -14rem;
+  background: radial-gradient(
+    circle at 40% 40%,
+    rgba(14, 165, 233, 0.28),
+    rgba(14, 165, 233, 0.04)
+  );
+}
+
+.orb-right {
+  top: 32vh;
+  right: -14rem;
+  background: radial-gradient(
+    circle at 60% 60%,
+    rgba(34, 197, 94, 0.2),
+    rgba(34, 197, 94, 0.04)
+  );
+}
+
+.hero-section,
+.content-section {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-section {
+  padding: 3rem 0 2rem;
+}
+
+.hero-chip {
+  margin-bottom: 1rem;
+}
+
+.hero-title {
+  margin: 0;
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.hero-subtitle {
+  margin-top: 1rem;
+  max-width: 70ch;
+  font-size: 1.07rem;
+  line-height: 1.7;
+}
+
+.hero-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.content-section {
+  margin-top: 2.6rem;
+  padding: 0.6rem 0;
+}
+
+.feature-card {
+  backdrop-filter: blur(8px);
+  background: color-mix(in oklch, var(--surface) 84%, white 16%);
+}
+
+.card-header-text {
+  font-weight: 700;
+}
+
+.chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.section-title {
+  margin: 0 0 0.9rem;
+  font-size: clamp(1.45rem, 3vw, 2.1rem);
+}
+
+.points-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.5rem;
+  line-height: 1.6;
+}
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 0.95rem;
+}
+
+.education-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.95rem;
+}
+
+.edu-card {
+  min-height: 12.8rem;
+}
+
+.footer-section {
+  margin-top: 2.4rem;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.footer-links__left {
+  flex: 1 1 auto;
+}
+
+.footer-links__right {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+@media (max-width: 640px) {
+  .footer-links {
+    justify-content: center;
   }
-  a:hover {
-    color: #747bff;
+
+  .footer-links__left {
+    text-align: center;
+    width: 100%;
   }
-  button {
-    background-color: #f9f9f9;
+
+  .footer-links__right {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .site-shell {
+    padding-top: 1.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .bg-orb {
+    width: 24rem;
+    height: 24rem;
+    filter: blur(14px);
+  }
+
+  .orb-left {
+    left: -10rem;
+  }
+
+  .orb-right {
+    right: -10rem;
   }
 }
