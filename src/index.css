@@ -516,11 +516,14 @@ main:focus {
 .lightbox {
   width: min(92vw, 76rem);
   max-width: none;
+  max-height: 92dvh;
+  margin: auto;
   padding: 0;
   border: 1px solid var(--border);
   border-radius: 2px;
   background: var(--surface);
   color: var(--foreground);
+  overflow: hidden;
 }
 
 .lightbox::backdrop {
