@@ -6,6 +6,7 @@ import {
 } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { shots } from "../content";
+import { PlateImage } from "./PlateImage";
 
 export function Shots() {
   const [missing, setMissing] = useState<string[]>([]);
@@ -67,13 +68,11 @@ export function Shots() {
                 }}
                 aria-label={`Open ${shot.caption} at full size`}
               >
-                <img
+                <PlateImage
                   src={shot.src}
                   alt={shot.alt}
                   width={shot.width}
                   height={shot.height}
-                  loading="lazy"
-                  decoding="async"
                   onError={() =>
                     setMissing((current) =>
                       current.includes(shot.src)

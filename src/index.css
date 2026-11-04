@@ -1,45 +1,55 @@
 @import "tailwindcss";
 
 /*
- * Theme tokens. Light is warm paper and ink, dark is the same ink inverted.
- * Only three colours are in play: paper, ink, and one muted green accent.
+ * Theme tokens, sampled from the portrait in /public/portrait.jpg.
+ *
+ * The photo is warm brown (the fence, the hair, the jacket), a eucalyptus
+ * green (the tree behind), and a cool grey-blue sky. So: warm paper, warm
+ * brown ink, and one eucalyptus accent. The sky tone is kept in reserve for
+ * selection only, which is the one place a second colour earns its keep.
+ *
+ *   fence    oklch(22.5% 0.037 47)   ink
+ *   jacket   oklch(51.0% 0.030 46)   the warm mid-tone the paper leans toward
+ *   foliage  oklch(43.9% 0.040 106)  accent
+ *   sky      oklch(81.7% 0.042 267)  selection
  */
 :root,
 .light,
 .default,
 [data-theme="light"],
 [data-theme="default"] {
-  /* Paper and ink, one muted green accent */
-  --accent: oklch(43% 0.072 152);
-  --accent-foreground: oklch(98.5% 0.006 95);
-  --background: oklch(97.4% 0.008 92);
-  --border: oklch(87% 0.012 85);
-  --danger: oklch(52% 0.17 27);
-  --danger-foreground: oklch(98.5% 0.004 95);
-  --default: oklch(93% 0.01 88);
-  --default-foreground: oklch(24% 0.012 70);
-  --field-background: oklch(99.4% 0.004 95);
-  --field-foreground: oklch(22% 0.012 70);
-  --field-placeholder: oklch(52% 0.012 75);
-  --focus: oklch(43% 0.072 152);
-  --foreground: oklch(22% 0.012 70);
-  --muted: oklch(42% 0.012 75);
-  --overlay: oklch(99.4% 0.004 95);
-  --overlay-foreground: oklch(22% 0.012 70);
-  --scrollbar: oklch(84% 0.012 85);
-  --segment: oklch(99.4% 0.004 95);
-  --segment-foreground: oklch(22% 0.012 70);
-  --separator: oklch(88% 0.01 85);
-  --success: oklch(46% 0.09 152);
-  --success-foreground: oklch(98.5% 0.006 95);
-  --surface: oklch(99.2% 0.005 95);
-  --surface-foreground: oklch(22% 0.012 70);
-  --surface-secondary: oklch(95% 0.008 90);
-  --surface-secondary-foreground: oklch(22% 0.012 70);
-  --surface-tertiary: oklch(93% 0.008 88);
-  --surface-tertiary-foreground: oklch(22% 0.012 70);
-  --warning: oklch(70% 0.14 62);
-  --warning-foreground: oklch(22% 0.01 62);
+  /* Warm paper, brown ink, one eucalyptus accent */
+  --accent: oklch(45.5% 0.055 124);
+  --accent-foreground: oklch(98.5% 0.008 90);
+  --background: oklch(96.9% 0.012 76);
+  --border: oklch(86.5% 0.015 70);
+  --danger: oklch(52% 0.16 30);
+  --danger-foreground: oklch(98.5% 0.006 85);
+  --default: oklch(92.5% 0.014 72);
+  --default-foreground: oklch(24% 0.019 46);
+  --field-background: oklch(99.2% 0.006 80);
+  --field-foreground: oklch(22.5% 0.02 46);
+  --field-placeholder: oklch(53% 0.017 55);
+  --focus: oklch(45.5% 0.055 124);
+  --foreground: oklch(22.5% 0.02 46);
+  --muted: oklch(42.5% 0.018 50);
+  --overlay: oklch(99.2% 0.006 80);
+  --overlay-foreground: oklch(22.5% 0.02 46);
+  --scrollbar: oklch(83% 0.015 70);
+  --segment: oklch(99.2% 0.006 80);
+  --segment-foreground: oklch(22.5% 0.02 46);
+  --separator: oklch(88% 0.013 70);
+  --sky: oklch(72% 0.048 262);
+  --success: oklch(47% 0.062 135);
+  --success-foreground: oklch(98.5% 0.008 90);
+  --surface: oklch(98.8% 0.008 78);
+  --surface-foreground: oklch(22.5% 0.02 46);
+  --surface-secondary: oklch(94.5% 0.012 74);
+  --surface-secondary-foreground: oklch(22.5% 0.02 46);
+  --surface-tertiary: oklch(92.5% 0.012 72);
+  --surface-tertiary-foreground: oklch(22.5% 0.02 46);
+  --warning: oklch(72% 0.115 68);
+  --warning-foreground: oklch(22% 0.014 60);
 
   /* Border Radius */
   --radius: 0.125rem;
@@ -49,39 +59,44 @@
   --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
 }
 
+/*
+ * Dark is the same photograph after sundown: the fence colour becomes the
+ * page, and the accent lifts to the lighter end of the foliage.
+ */
 .dark,
 [data-theme="dark"] {
   color-scheme: dark;
-  --accent: oklch(78% 0.09 152);
-  --accent-foreground: oklch(18% 0.02 152);
-  --background: oklch(17.5% 0.008 80);
-  --border: oklch(31% 0.008 80);
-  --danger: oklch(64% 0.16 27);
-  --danger-foreground: oklch(18% 0.01 27);
-  --default: oklch(27% 0.008 80);
-  --default-foreground: oklch(94% 0.008 90);
-  --field-background: oklch(21% 0.008 80);
-  --field-foreground: oklch(94% 0.008 90);
-  --field-placeholder: oklch(66% 0.01 85);
-  --focus: oklch(78% 0.09 152);
-  --foreground: oklch(94% 0.008 90);
-  --muted: oklch(70% 0.01 85);
-  --overlay: oklch(21% 0.008 80);
-  --overlay-foreground: oklch(94% 0.008 90);
-  --scrollbar: oklch(70% 0.01 85);
-  --segment: oklch(27% 0.008 80);
-  --segment-foreground: oklch(94% 0.008 90);
-  --separator: oklch(29% 0.008 80);
-  --success: oklch(78% 0.09 152);
-  --success-foreground: oklch(18% 0.02 152);
-  --surface: oklch(21% 0.008 80);
-  --surface-foreground: oklch(94% 0.008 90);
-  --surface-secondary: oklch(24% 0.008 80);
-  --surface-secondary-foreground: oklch(94% 0.008 90);
-  --surface-tertiary: oklch(26% 0.008 80);
-  --surface-tertiary-foreground: oklch(94% 0.008 90);
-  --warning: oklch(80% 0.12 70);
-  --warning-foreground: oklch(20% 0.01 70);
+  --accent: oklch(78% 0.055 126);
+  --accent-foreground: oklch(18% 0.02 126);
+  --background: oklch(17.8% 0.012 52);
+  --border: oklch(30.5% 0.013 52);
+  --danger: oklch(64% 0.15 30);
+  --danger-foreground: oklch(18% 0.012 30);
+  --default: oklch(27% 0.013 54);
+  --default-foreground: oklch(93.5% 0.01 76);
+  --field-background: oklch(21% 0.012 54);
+  --field-foreground: oklch(93.5% 0.01 76);
+  --field-placeholder: oklch(66% 0.013 60);
+  --focus: oklch(78% 0.055 126);
+  --foreground: oklch(93.5% 0.01 76);
+  --muted: oklch(70% 0.014 60);
+  --overlay: oklch(21% 0.012 54);
+  --overlay-foreground: oklch(93.5% 0.01 76);
+  --scrollbar: oklch(70% 0.014 60);
+  --segment: oklch(27% 0.013 54);
+  --segment-foreground: oklch(93.5% 0.01 76);
+  --separator: oklch(28.5% 0.013 52);
+  --sky: oklch(78% 0.04 260);
+  --success: oklch(78% 0.055 126);
+  --success-foreground: oklch(18% 0.02 126);
+  --surface: oklch(21% 0.012 54);
+  --surface-foreground: oklch(93.5% 0.01 76);
+  --surface-secondary: oklch(24% 0.012 54);
+  --surface-secondary-foreground: oklch(93.5% 0.01 76);
+  --surface-tertiary: oklch(25.5% 0.012 54);
+  --surface-tertiary-foreground: oklch(93.5% 0.01 76);
+  --warning: oklch(80% 0.1 72);
+  --warning-foreground: oklch(20% 0.014 65);
 }
 
 :root {
@@ -118,6 +133,35 @@ body {
 
 #root {
   min-height: 100vh;
+}
+
+/*
+ * Paper tooth. One static grain layer over the whole page, so the cream reads
+ * as stock rather than a flat fill. Fixed, so it never repaints on scroll, and
+ * blended rather than drawn on top: multiply bites into the paper in light,
+ * screen lifts the ink in dark.
+ */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.28;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.5'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+.dark body::after,
+[data-theme="dark"] body::after {
+  mix-blend-mode: screen;
+  opacity: 0.1;
+}
+
+::selection {
+  background: color-mix(in oklch, var(--sky) 42%, var(--background));
+  color: var(--foreground);
 }
 
 :where(a, button, input, summary, [tabindex]):focus-visible {
@@ -325,30 +369,56 @@ main:focus {
 }
 
 .intro__name {
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 0.32em;
   margin: 0;
   font-family: var(--font-serif);
-  font-size: clamp(2.9rem, 8vw, 5.2rem);
+  font-size: clamp(2.3rem, 5.6vw, 3.6rem);
   font-weight: 600;
-  line-height: 0.94;
-  letter-spacing: -0.035em;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
 }
 
-.intro__word {
+.intro__rule {
   display: block;
-  overflow: hidden;
+  height: 1px;
+  margin-top: 1.6rem;
+  background: var(--border);
 }
 
-.intro__word > span {
+.intro__details {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  gap: 2.2rem;
+  margin-top: 2.1rem;
+}
+
+.intro__details--solo {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.portrait {
+  margin: 0;
+}
+
+.portrait img {
   display: block;
-  padding-bottom: 0.18em;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: 50% 24%;
+  border: 1px solid var(--border);
+}
+
+.portrait figcaption {
+  margin-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  line-height: 1.4;
+  color: var(--muted);
 }
 
 .intro__text {
   max-width: 31rem;
-  margin: 2.6rem 0 0 auto;
 }
 
 .intro__lede {
@@ -718,6 +788,24 @@ main:focus {
   background: #0c0e09;
 }
 
+.plate {
+  position: relative;
+  display: block;
+}
+
+.plate__image {
+  display: block;
+}
+
+.plate__edge {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--foreground);
+  opacity: 0.4;
+}
+
 .shot__caption {
   margin: 0.4rem 0 0;
   font-family: var(--font-mono);
@@ -961,8 +1049,13 @@ main:focus {
     margin-bottom: 0.35rem;
   }
 
-  .intro__text {
-    margin-top: 2rem;
+  .intro__details {
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+  }
+
+  .portrait {
+    max-width: 9.5rem;
   }
 
   .study__row {

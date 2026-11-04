@@ -1,10 +1,7 @@
-import { motion, useReducedMotion } from "framer-motion";
 import { Shots } from "../components/Shots";
 import { otherProjects, projects } from "../content";
-import { easing } from "../motion";
 
 export function Work() {
-  const reduceMotion = useReducedMotion();
   const featured = projects[0];
 
   return (
@@ -35,14 +32,7 @@ export function Work() {
           <article className="entry" key={project.title}>
             <p className="entry__when">{project.when}</p>
             <div className="entry__body">
-              <motion.span
-                className="entry__rule"
-                aria-hidden="true"
-                initial={reduceMotion ? false : { scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true, margin: "-15% 0px" }}
-                transition={{ duration: 0.9, ease: easing }}
-              />
+              <span className="entry__rule" aria-hidden="true" />
               <h3 className="entry__title">{project.title}</h3>
               <p className="entry__role">{project.role}</p>
               <p className="entry__text">{project.summary}</p>
