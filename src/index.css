@@ -789,21 +789,8 @@ main:focus {
 }
 
 .plate {
-  position: relative;
   display: block;
-}
-
-.plate__image {
-  display: block;
-}
-
-.plate__edge {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: var(--foreground);
-  opacity: 0.4;
+  overflow: hidden;
 }
 
 .shot__caption {

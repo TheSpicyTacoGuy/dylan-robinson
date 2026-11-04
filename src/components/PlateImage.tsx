@@ -1,10 +1,4 @@
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
-import { useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
 type PlateImageProps = {
   src: string;
@@ -15,10 +9,11 @@ type PlateImageProps = {
 };
 
 /**
- * Reveals a screenshot the way a plate would feed through a press: a hard
- * edge travels across the frame with a hairline in front of it. Same motion
- * grammar as the rules that draw in the work list, so it reads as part of the
- * page rather than an effect bolted on.
+ * A screenshot settling into its frame. This was a scroll-scrubbed wipe, which
+ * was wrong for one plain reason: the image stayed partly hidden for as long as
+ * you happened to stop scrolling. A reveal has to finish on its own, so this
+ * one runs once, on a clock, and has landed before the frame reaches the middle
+ * of the screen.
  */
 export function PlateImage({
   src,
@@ -27,46 +22,25 @@ export function PlateImage({
   height,
   onError,
 }: PlateImageProps) {
-  const frameRef = useRef<HTMLSpanElement>(null);
   const reduceMotion = useReducedMotion();
 
-  const { scrollYProgress } = useScroll({
-    target: frameRef,
-    offset: ["start 90%", "start 55%"],
-  });
-
-  const clip = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["inset(0 100% 0 0)", "inset(0 0% 0 0)"],
-  );
-  const edgePosition = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-  const edgeOpacity = useTransform(scrollYProgress, [0, 0.9, 1], [1, 1, 0]);
-
   return (
-    <span className="plate" ref={frameRef}>
-      <motion.span
-        className="plate__image"
-        style={reduceMotion ? undefined : { clipPath: clip }}
-      >
-        <img
-          src={src}
-          alt={alt}
-          width={width}
-          height={height}
-          loading="lazy"
-          decoding="async"
-          onError={onError}
-        />
-      </motion.span>
-
-      {!reduceMotion && (
-        <motion.span
-          className="plate__edge"
-          style={{ left: edgePosition, opacity: edgeOpacity }}
-          aria-hidden="true"
-        />
-      )}
-    </span>
+    <motion.span
+      className="plate"
+      initial={reduceMotion ? false : { opacity: 0, y: 18, scale: 1.015 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-8% 0px" }}
+      transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <img
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        loading="lazy"
+        decoding="async"
+        onError={onError}
+      />
+    </motion.span>
   );
 }
