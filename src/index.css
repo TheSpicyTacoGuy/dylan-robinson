@@ -212,6 +212,40 @@ main:focus {
   border-right: 1px solid var(--separator);
 }
 
+/*
+ * Growth rings in the margin, like the end of a sawn log. The pith sits left
+ * of centre and the layer is wider than the rail, so the rings cross the rule
+ * and dissolve in the gutter rather than being guillotined by it. The radial
+ * mask does the fading in every direction at once, which is why it also keeps
+ * clear of the nav above and the contact links below.
+ */
+.rail__grain {
+  position: absolute;
+  top: 18%;
+  left: -18rem;
+  width: 52rem;
+  height: 42rem;
+  z-index: -1;
+  color: var(--foreground);
+  opacity: 0.09;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(
+    ellipse 60% 38% at 38% 56%,
+    #000 16%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 60% 38% at 38% 56%,
+    #000 16%,
+    transparent 100%
+  );
+}
+
+.dark .rail__grain,
+[data-theme="dark"] .rail__grain {
+  opacity: 0.085;
+}
+
 .rail__top {
   display: flex;
   flex-direction: column;
@@ -293,42 +327,6 @@ main:focus {
 
 .rail__mail:hover {
   border-bottom-color: var(--foreground);
-}
-
-.theme-switch {
-  display: inline-flex;
-  align-items: center;
-  width: 2.5rem;
-  height: 1.4rem;
-  padding: 2px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: color-mix(in oklch, var(--foreground) 10%, transparent);
-  cursor: pointer;
-  transition:
-    background 0.18s ease,
-    border-color 0.18s ease;
-}
-
-.theme-switch[aria-checked="true"] {
-  background: color-mix(in oklch, var(--foreground) 26%, transparent);
-}
-
-.theme-switch__thumb {
-  display: grid;
-  place-items: center;
-  width: calc(1.4rem - 6px);
-  height: calc(1.4rem - 6px);
-  border-radius: 999px;
-  background: var(--background);
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.25);
-  font-size: 0.6rem;
-  line-height: 1;
-  transition: transform 0.18s ease;
-}
-
-.theme-switch[aria-checked="true"] .theme-switch__thumb {
-  transform: translateX(calc(2.5rem - 1.4rem));
 }
 
 .rail__progress {
@@ -910,6 +908,32 @@ main:focus {
   margin: 0;
 }
 
+/*
+ * The theme control, set as type rather than as a switch. A pill with a sliding
+ * knob was the only widget on the page, and it sat next to the two links that
+ * matter. It reads better as a line of the colophon.
+ */
+.colophon__theme {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: var(--muted);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.28em;
+  transition:
+    color 0.15s ease,
+    text-decoration-color 0.15s ease;
+}
+
+.colophon__theme:hover {
+  color: var(--foreground);
+  text-decoration-color: var(--accent);
+}
+
 .colophon kbd {
   font-family: var(--font-mono);
   font-size: 0.7rem;
@@ -919,9 +943,21 @@ main:focus {
   padding: 0 0.3rem;
 }
 
+/* No keyboard, no keyboard shortcut. */
+@media (hover: none) and (pointer: coarse) {
+  .colophon__hint {
+    display: none;
+  }
+}
+
 @media (max-width: 900px) {
   html {
     scroll-padding-top: 4.5rem;
+  }
+
+  /* No keyboard on a phone, so the shortcut hint would just be noise. */
+  .colophon__hint {
+    display: none;
   }
 
   .frame {
@@ -956,7 +992,13 @@ main:focus {
     display: block;
     font-family: var(--font-mono);
     font-size: 0.72rem;
-    letter-spacing: 0.06em;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    line-height: 1.2;
+  }
+
+  .rail__grain {
+    display: none;
   }
 
   .rail__role {

@@ -67,7 +67,7 @@ export const otherProjects: Project[] = [
     when: "2023 to 2025",
     role: "Powelltown Sawmills",
     summary:
-      "The sawmill tracked jobs and stock in a Microsoft Access database and a data entry portal. I rebuilt parts of both, added site-to-site stock transfer support, and kept the old system running while I did it.",
+      "The sawmill tracked jobs and stock in a Microsoft Access database and a data entry portal. I rebuilt parts of both for Smokemaster, added tracking for timber moving between the mill and storage, and kept the old system running while I did it.",
     tech: "Microsoft Access, SQL",
   },
 ];
@@ -92,6 +92,7 @@ export const roles: Role[] = [
     title: "Sawmill stacker",
     place: "Powelltown",
     when: "2023 to 2025",
+    note: "then their Access and inventory systems",
   },
   {
     company: "Technology2You IT Services",

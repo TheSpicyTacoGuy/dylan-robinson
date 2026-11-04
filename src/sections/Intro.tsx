@@ -65,8 +65,11 @@ export function Intro() {
           <p className="intro__body">
             Before the app I worked part-time for eight years in a computer
             repair shop in the Yarra Valley, fixing PCs and building WordPress
-            sites for local businesses. I finished a computer science degree at
-            Swinburne in May 2026.
+            sites for local businesses. At Powelltown Sawmills I stacked timber,
+            then fixed their Access databases, built a new inventory system for
+            Smokemaster, and added tracking for timber moving between the mill
+            and storage. I finished a computer science degree at Swinburne in
+            May 2026.
           </p>
 
           <p className="intro__body">

@@ -1,6 +1,29 @@
+import { useEffect } from "react";
 import { GITHUB_URL, LINKEDIN_URL } from "../content";
+import { useTheme } from "../theme";
 
 export function Colophon() {
+  const { resolved, setTheme, cycleTheme } = useTheme();
+  const isDark = resolved === "dark";
+
+  useEffect(() => {
+    const handler = (event: KeyboardEvent) => {
+      if (event.key.toLowerCase() !== "s") return;
+      const target = event.target as HTMLElement | null;
+      if (
+        target?.isContentEditable ||
+        (target instanceof HTMLInputElement && target.type !== "checkbox") ||
+        target instanceof HTMLTextAreaElement
+      )
+        return;
+      event.preventDefault();
+      cycleTheme();
+    };
+
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [cycleTheme]);
+
   return (
     <footer className="colophon">
       <div className="colophon__links">
@@ -42,8 +65,17 @@ export function Colophon() {
       </div>
 
       <div className="colophon__meta">
-        <p>
-          Press <kbd>S</kbd> to change the theme
+        <button
+          type="button"
+          className="colophon__theme"
+          aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
+          onClick={() => setTheme(isDark ? "light" : "dark")}
+        >
+          {isDark ? "Light mode" : "Dark mode"}
+        </button>
+
+        <p className="colophon__hint">
+          Press <kbd>S</kbd> to switch
         </p>
       </div>
     </footer>

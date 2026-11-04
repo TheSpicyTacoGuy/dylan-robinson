@@ -1,16 +1,13 @@
 import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
-import { useEffect } from "react";
 import { CV_URL, EMAIL, sections } from "../content";
 import { useActiveSection } from "../hooks";
-import { useTheme } from "../theme";
+import { GrowthRings } from "./GrowthRings";
 
 type RailProps = {
   hasCv: boolean;
 };
 
 export function Rail({ hasCv }: RailProps) {
-  const { theme, resolved, setTheme, cycleTheme } = useTheme();
-  const isDark = resolved === "dark";
   const active = useActiveSection();
   const reduceMotion = useReducedMotion();
 
@@ -21,28 +18,10 @@ export function Rail({ hasCv }: RailProps) {
     restDelta: 0.001,
   });
 
-  const themeLabel = theme === "system" ? `system (${resolved})` : theme;
-
-  useEffect(() => {
-    const handler = (event: KeyboardEvent) => {
-      if (event.key.toLowerCase() !== "s") return;
-      const target = event.target as HTMLElement | null;
-      if (
-        target?.isContentEditable ||
-        (target instanceof HTMLInputElement && target.type !== "checkbox") ||
-        target instanceof HTMLTextAreaElement
-      )
-        return;
-      event.preventDefault();
-      cycleTheme();
-    };
-
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [cycleTheme]);
-
   return (
     <aside className="rail">
+      <GrowthRings />
+
       <div className="rail__top">
         <a className="rail__name" href="#intro">
           <span className="rail__full">Dylan Robinson</span>
@@ -83,19 +62,6 @@ export function Rail({ hasCv }: RailProps) {
             CV (PDF)
           </a>
         )}
-        <div className="rail__switch">
-          <button
-            type="button"
-            role="switch"
-            aria-checked={isDark}
-            aria-label="Dark mode"
-            className="theme-switch"
-            title={`Theme: ${themeLabel}. Press S to switch.`}
-            onClick={() => setTheme(isDark ? "light" : "dark")}
-          >
-            <span className="theme-switch__thumb">{isDark ? "☾" : "☀"}</span>
-          </button>
-        </div>
       </div>
 
       <motion.div
