@@ -17,18 +17,18 @@
   --separator: oklch(80% 0.028 66);
   --border: oklch(75% 0.03 66);
   --surface: oklch(93.5% 0.02 70);
-  --accent: oklch(44.5% 0.078 148);
+  --accent: oklch(43.5% 0.066 138);
   --accent-foreground: oklch(96% 0.014 80);
   --sky: oklch(72% 0.045 245);
   --danger: oklch(50% 0.16 30);
   --warning: oklch(70% 0.115 68);
-  --success: oklch(44.5% 0.078 148);
+  --success: oklch(43.5% 0.066 138);
 
   --bark-band: oklch(19% 0.03 46);
   --bark-fg: oklch(94% 0.014 78);
   --bark-muted: oklch(77% 0.02 70);
   --bark-line: oklch(32% 0.024 50);
-  --bark-accent: oklch(83% 0.085 145);
+  --bark-accent: oklch(83% 0.062 138);
 
   --contact-bg: oklch(70% 0.06 40);
   --contact-fg: oklch(17% 0.028 45);
@@ -49,18 +49,18 @@
   --separator: oklch(29% 0.02 50);
   --border: oklch(33% 0.022 50);
   --surface: oklch(21% 0.022 48);
-  --accent: oklch(81.5% 0.085 145);
-  --accent-foreground: oklch(18% 0.02 148);
+  --accent: oklch(72% 0.068 137);
+  --accent-foreground: oklch(18% 0.02 138);
   --sky: oklch(78% 0.04 250);
   --danger: oklch(64% 0.15 30);
   --warning: oklch(80% 0.1 72);
-  --success: oklch(81.5% 0.085 145);
+  --success: oklch(81% 0.062 138);
 
   --bark-band: oklch(13.5% 0.024 46);
   --bark-fg: oklch(94% 0.014 78);
   --bark-muted: oklch(75% 0.02 68);
   --bark-line: oklch(30% 0.02 50);
-  --bark-accent: oklch(84% 0.085 145);
+  --bark-accent: oklch(84% 0.062 138);
 
   --contact-bg: oklch(30% 0.05 40);
   --contact-fg: oklch(93% 0.014 78);
@@ -71,19 +71,40 @@
 }
 
 :root {
-  --font-display: "Archivo", "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Martian Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-body: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-mono: "Martian Mono", ui-monospace, SFMono-Regular, monospace;
 
-  --step-display: clamp(2.9rem, 6.4vw, 6rem);
-  --step-h2: clamp(2rem, 4.2vw, 3.3rem);
-  --step-h3: clamp(1.4rem, 2.1vw, 1.85rem);
-  --step-body: clamp(1rem, 0.22vw + 0.95rem, 1.08rem);
+  /* Mono is wide, so the scale is smaller in rem than a proportional face
+     would need at the same optical size. */
+  --step-display: clamp(2.2rem, 5vw, 4.6rem);
+  --step-h2: clamp(1.6rem, 3.1vw, 2.4rem);
+  --step-h3: clamp(1.15rem, 1.6vw, 1.4rem);
+  --step-body: clamp(0.94rem, 0.2vw + 0.9rem, 1.02rem);
 
   --spine: 5.5rem;
-  --gutter: clamp(1.25rem, 4vw, 3.5rem);
-  --content: 82rem;
+  --gutter: clamp(1rem, 3.4vw, 3rem);
+  --content: 80rem;
   --radius: 2px;
+
+  /* The log's own timber, kept out of the paper palette because it belongs to
+     the object and not to the page. */
+  --log-bark: #4a2e1b;
+  --log-bark-dark: #2b1a0f;
+  --log-shadow: #4c2f16;
+  --log-bark-light: #b0834f;
+  --log-face: #d9bd94;
+  --log-face-dark: #b0946f;
+  --log-ring: #8d6a44;
+  --log-pith: #432a17;
+}
+
+.dark,
+[data-theme="dark"] {
+  --log-shadow: #573519;
+  --log-bark-light: #8f6a44;
+  --log-face: #cfb28a;
+  --log-ring: #86633f;
 }
 
 *,
@@ -271,9 +292,8 @@ main {
   font-family: var(--font-display);
   font-size: var(--step-h2);
   font-weight: 700;
-  font-stretch: 92%;
   line-height: 0.95;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
 }
 
 .band__note {
@@ -398,6 +418,28 @@ main {
   background: var(--accent);
 }
 
+/* The CV is the one thing a recruiter may want before anything else, so it is
+   a solid button rather than another quiet text link. */
+.spine__cv {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  min-height: 2.75rem;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: var(--accent-foreground);
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: filter 150ms ease;
+}
+
+.spine__cv:hover {
+  filter: brightness(1.12);
+}
+
 .spine__progress {
   position: absolute;
   top: 0;
@@ -422,36 +464,40 @@ main {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
-  gap: 2rem var(--gutter);
-  align-items: end;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: center;
+  min-height: min(82vh, 46rem);
+  padding-top: clamp(2rem, 5vw, 3.5rem);
   padding-bottom: clamp(2.5rem, 5vw, 4rem);
 }
 
 .hero__copy {
-  max-width: 46rem;
+  max-width: 34ch;
+}
+
+.hero__where {
+  margin-bottom: 1.2rem;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  color: var(--band-accent);
 }
 
 .hero__name {
   font-family: var(--font-display);
   font-size: var(--step-display);
   font-weight: 700;
-  font-stretch: 88%;
-  line-height: 0.9;
-  letter-spacing: -0.03em;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 .hero__lede {
-  max-width: 30ch;
-  margin-top: 1.7rem;
-  font-size: clamp(1.15rem, 1.7vw, 1.45rem);
-  line-height: 1.4;
-  letter-spacing: -0.01em;
-}
-
-.hero__body {
-  max-width: 58ch;
-  margin-top: 1rem;
+  max-width: 34ch;
+  margin-top: 1.5rem;
+  font-size: clamp(0.98rem, 1.15vw, 1.1rem);
+  line-height: 1.65;
   color: var(--fg-muted);
 }
 
@@ -459,73 +505,120 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
-  margin-top: 2rem;
+  margin-top: 1.9rem;
 }
 
-.hero__meta {
+.hero__log {
+  position: relative;
   display: grid;
-  gap: 1rem;
-  padding-bottom: 0.25rem;
+  justify-items: center;
+  gap: 0.4rem;
 }
 
-.hero__meta div {
+.log {
+  display: block;
+  width: 100%;
+  max-width: 34rem;
+  aspect-ratio: 1;
+  cursor: grab;
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.log.is-dragging {
+  cursor: grabbing;
+}
+
+.log--fallback {
   display: grid;
-  gap: 0.2rem;
-  padding-top: 0.65rem;
+  place-items: center;
+  width: 100%;
+  max-width: 34rem;
+  aspect-ratio: 1;
+  color: var(--band-accent);
+}
+
+.log--fallback .ring-field__svg {
+  width: 82%;
+  height: 82%;
+}
+
+.hero__log-note {
+  font-size: 0.7rem;
+  color: var(--fg-muted);
+}
+
+/* Facts */
+
+.facts__head {
+  display: grid;
+  gap: 0.55rem;
+  margin-bottom: clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.facts__title {
+  max-width: 24ch;
+  font-family: var(--font-display);
+  font-size: var(--step-h2);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+.facts__list {
+  display: grid;
+  gap: 0;
+}
+
+.facts__row {
+  display: grid;
+  grid-template-columns: 10rem minmax(0, 1fr);
+  gap: 0.3rem 1.5rem;
+  padding: 0.95rem 0;
   border-top: 1px solid var(--line);
 }
 
-.hero__meta dt {
-  font-family: var(--font-body);
-  font-size: 0.74rem;
-  font-weight: 500;
+.facts__row:last-of-type {
+  border-bottom: 1px solid var(--line);
+}
+
+.facts__row dt {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
   color: var(--fg-muted);
 }
 
-.hero__meta dd {
+.facts__row dd {
   margin: 0;
-  font-size: 0.92rem;
-  line-height: 1.5;
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
-.hero__portrait {
-  position: relative;
-  z-index: 1;
-  margin-top: clamp(2.5rem, 5vw, 4rem);
-}
-
-.hero__portrait-frame {
-  overflow: hidden;
-}
-
-.plate {
-  transform: translate3d(0, var(--par, 0px), 0);
-}
-
-.hero__portrait img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 2.2 / 1;
-  object-fit: cover;
-  object-position: 50% 28%;
-  transform: translate3d(0, var(--par, 0px), 0) scale(1.1);
-  will-change: transform;
-}
-
-.hero__caption {
+.facts__actions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 0.4rem 1.5rem;
-  padding: 0.6rem var(--gutter) 0;
-  font-family: var(--font-body);
-  font-size: 0.64rem;
-  color: var(--fg-muted);
+  gap: 0.6rem;
+  margin-top: 1.6rem;
 }
 
-/* Ring field behind the hero. The wrapper carries the parallax so the SVG
-   itself stays a plain drawing. */
+.facts__resume {
+  margin-left: auto;
+}
+
+@media (max-width: 760px) {
+  .facts__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.25rem;
+  }
+
+  .facts__resume {
+    margin-left: 0;
+  }
+}
+
+/* Ring field, the fallback when canvas is unavailable. */
 
 .ring-field {
   position: absolute;
@@ -538,7 +631,11 @@ main {
   opacity: 0.15;
   pointer-events: none;
   transform: translate3d(0, var(--par, 0px), 0);
-  -webkit-mask-image: radial-gradient(circle at 45% 50%, #000 8%, transparent 62%);
+  -webkit-mask-image: radial-gradient(
+    circle at 45% 50%,
+    #000 8%,
+    transparent 62%
+  );
   mask-image: radial-gradient(circle at 45% 50%, #000 8%, transparent 62%);
 }
 
@@ -611,8 +708,6 @@ main {
   border-top: 1px solid var(--line);
 }
 
-
-
 .case__spec dl {
   display: grid;
   gap: 0.8rem;
@@ -640,9 +735,8 @@ main {
   font-family: var(--font-display);
   font-size: var(--step-h3);
   font-weight: 700;
-  font-stretch: 94%;
   line-height: 1.05;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.015em;
 }
 
 .case__text {
@@ -702,6 +796,8 @@ main {
 
 .plate {
   grid-column: span 5;
+  /* Each plate drifts at its own depth on scroll. */
+  transform: translate3d(0, var(--par, 0px), 0);
 }
 
 .plate:nth-child(1) {
@@ -762,8 +858,7 @@ main {
   font-family: var(--font-display);
   font-size: 1.45rem;
   font-weight: 700;
-  font-stretch: 94%;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
 }
 
 .index__intro {
@@ -981,7 +1076,7 @@ main {
   font-size: clamp(1.05rem, 1.7vw, 1.5rem);
   font-weight: 600;
   line-height: 1.1;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
 }
 
 .rings__readout-role {
@@ -1160,7 +1255,6 @@ main {
   font-family: var(--font-display);
   font-size: 1.12rem;
   font-weight: 700;
-  font-stretch: 94%;
   line-height: 1.25;
   letter-spacing: -0.015em;
 }
@@ -1209,10 +1303,38 @@ main {
   max-width: 52ch;
   margin-top: clamp(2.5rem, 5vw, 4rem);
   font-family: var(--font-display);
-  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-size: clamp(0.95rem, 1.3vw, 1.15rem);
   font-weight: 400;
-  line-height: 1.35;
-  letter-spacing: -0.02em;
+  line-height: 1.7;
+  letter-spacing: 0;
+}
+
+/* The portrait keeps a human on the page once the hero is past. */
+.about-portrait {
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.about-portrait__frame {
+  overflow: hidden;
+  max-width: 34rem;
+}
+
+.about-portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: 50% 30%;
+  transform: translate3d(0, var(--par, 0px), 0) scale(1.08);
+  will-change: transform;
+}
+
+.about-portrait figcaption {
+  margin-top: 0.6rem;
+  max-width: 34rem;
+  font-size: 0.76rem;
+  color: var(--fg-muted);
 }
 
 /* Contact */
@@ -1230,9 +1352,8 @@ main {
   font-family: var(--font-display);
   font-size: clamp(1.7rem, 6vw, 4.2rem);
   font-weight: 700;
-  font-stretch: 88%;
   line-height: 1;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
   color: var(--fg);
   text-decoration: none;
   overflow-wrap: anywhere;
@@ -1403,13 +1524,9 @@ main {
 
 @media (max-width: 1100px) {
   .hero__inner {
-    grid-template-columns: minmax(0, 1fr);
-    align-items: start;
-  }
-
-  .hero__meta {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.8rem 1.5rem;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: center;
+    min-height: 0;
   }
 
   .case {
@@ -1547,16 +1664,20 @@ main {
   .band__inner {
     padding: clamp(3.5rem, 8vw, 6rem) var(--gutter);
   }
-
-  .hero__portrait img {
-    aspect-ratio: 4 / 5;
-    object-position: 50% 24%;
-  }
 }
 
 @media (max-width: 760px) {
-  .hero__meta {
-    grid-template-columns: 1fr;
+  .hero__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .hero__copy {
+    max-width: none;
+  }
+
+  .log {
+    max-width: 22rem;
   }
 
   .plates {
@@ -1612,6 +1733,10 @@ main {
 }
 
 @media (max-width: 560px) {
+  .log {
+    max-width: 16rem;
+  }
+
   .hero__actions {
     gap: 0.5rem;
   }
@@ -1622,7 +1747,7 @@ main {
 
   .contact__mail {
     font-size: clamp(1.35rem, 7.4vw, 1.9rem);
-    letter-spacing: -0.03em;
+    letter-spacing: 0;
   }
 
   .lightbox__stage {
@@ -1634,10 +1759,6 @@ main {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  .hero__portrait img {
-    transform: none;
   }
 
   [data-parallax] {
@@ -1686,10 +1807,6 @@ main {
   .band__inner {
     max-width: none;
     padding: 1.2rem 0;
-  }
-
-  .hero__portrait img {
-    aspect-ratio: auto;
   }
 
   .rings__readout {

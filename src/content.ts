@@ -7,6 +7,35 @@ export const CV_URL = "/cv/dylan-robinson-resume.pdf";
 export const POSITIONING =
   "Open to full time software development and related roles, in Melbourne or remote.";
 
+export const LOCATION = "Yarra Valley, Victoria";
+
+export type Fact = {
+  label: string;
+  value: string;
+};
+
+/** The scannable version of the CV, for a recruiter with ten seconds. */
+export const facts: Fact[] = [
+  { label: "Availability", value: POSITIONING },
+  {
+    label: "Now",
+    value: "Lead developer and director at CTRL Accounting since 2023",
+  },
+  { label: "Location", value: `${LOCATION}. Melbourne commute, or remote.` },
+  {
+    label: "Stack",
+    value: "TypeScript, Vue 3, React, PHP 8, MySQL, PostgreSQL, Node.js",
+  },
+  {
+    label: "Before",
+    value: "Eight years in a computer repair shop, then the sawmill at Powelltown",
+  },
+  {
+    label: "Education",
+    value: "Bachelor of Computer Science, Swinburne, 2024 to 2026",
+  },
+];
+
 export type Section = {
   id: string;
   label: string;
@@ -14,6 +43,7 @@ export type Section = {
 
 export const sections: Section[] = [
   { id: "intro", label: "Intro" },
+  { id: "facts", label: "Facts" },
   { id: "work", label: "Work" },
   { id: "history", label: "History" },
   { id: "background", label: "About" },

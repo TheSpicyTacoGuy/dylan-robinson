@@ -38,7 +38,7 @@ as a surface with colour rather than a default page.
 | `--foreground` | `oklch(23.5% 0.028 52)` | bark, text |
 | `--muted` | `oklch(41.5% 0.03 56)` | secondary text |
 | `--separator` | `oklch(80% 0.028 66)` | rules and dividers |
-| `--accent` | `oklch(44.5% 0.078 148)` | eucalyptus, links and active marks |
+| `--accent` | `oklch(43.5% 0.066 138)` | eucalyptus gum green, links and active marks |
 | `--bark-band` | `oklch(19% 0.03 46)` | the dark bands |
 | `--contact-bg` | `oklch(70% 0.06 40)` | the closing band, a warm clay |
 
@@ -59,13 +59,14 @@ secondary pair 4.54, most between 6 and 15.
 
 ## Type
 
-- Display: Archivo, variable weight and width, self-hosted. Set at weight 700 and
-  `font-stretch: 88%` to `94%`, so headings are slightly condensed and technical
-  rather than soft or rounded.
-- Body: IBM Plex Sans, variable weight, self-hosted.
-- Data: IBM Plex Mono, used only where the content is genuinely a measurement: the
-  months and year readout in the ring diagram. Everything else that used to be mono
-  is body text at 0.75rem to 0.8rem with tabular numerals.
+- Display: Martian Mono, weight 700, self hosted. A wide, squared technical mono, so
+  the headings read like something drawn on a plotter rather than set in a brochure.
+  10KB per weight, latin subset only.
+- Body: JetBrains Mono, weights 400 and 600, self hosted. A tall x-height mono that
+  stays readable at 1rem and gives every number in the case studies the same width.
+- There is no third face. The two monos differ in width and weight rather than in
+  genre, which is what keeps the page from reading as a font salad. All five files
+  total 72KB.
 
 Scale: display `clamp(2.9rem, 6.4vw, 6rem)`, section title
 `clamp(2rem, 4.2vw, 3.3rem)`, case title `clamp(1.4rem, 2.1vw, 1.85rem)`, body
@@ -137,13 +138,52 @@ the ring diagram keeps the legend below it. At 760px the hero portrait switches 
 The rings draw once when the band enters view, 1s, ease out. The spine progress line
 follows scroll. Hover transitions are 150ms.
 
+## The log
+
+The hero carries one object: a log, drawn on a canvas with about 150 lines of
+projection code and no 3D library.
+
+- **Geometry.** A real cylinder. Two end rings of 56 points, a bark panel joining each
+  pair, all of it rotated on a pitch axis and a yaw axis and projected with a mild
+  lens (camera 9 units, so the near end is roughly 20% larger than the far one).
+- **Bark roughness.** The radius of each ring point is nudged by three layered sine
+  frequencies, fixed per segment, so the outline is rugged the way stringybark is
+  rather than a machined circle.
+- **Depth.** Every end and every bark panel goes into a single queue with its depth,
+  the queue is sorted, and then it is painted. That is what makes it solid: the wall
+  hides the far end, the near end hides the inside of the wall. Panels facing away are
+  culled in screen space with a cross product, so the inside of the far wall is never
+  drawn.
+- **Opaque first.** The convex hull of the two rings is filled in bark before anything
+  else is laid on it, and stroked with a 6px fringe. A row that grazes a nearly flat
+  part of the outline therefore still comes out solid. Measured over 216 angles, the
+  count of pixels inside the log that are less than 78% opaque is zero.
+- **Bark.** Each panel is cut into four lengthwise strips with a fixed per-strip tone
+  offset, plus a deeper fibre down some panels. The offsets are hashed from the panel
+  index, so the texture rides round with the log and never crawls as it turns.
+- **The ends.** The one facing the reader is filled pale and carries the traced growth
+  rings, the radial checks and the pith, clipped to its own outline. It also gets a
+  bark collar, which separates the sawn face from the wall.
+- **Shadow.** A soft ellipse at the lowest point of the silhouette, drawn before the
+  log, so it stays on the ground under it however the log turns.
+- **Motion.** Scroll yaws it through a full turn across the first viewport and tips it
+  by about 11 degrees. Dragging adds a spin that persists, so it can be rolled all the
+  way round by hand, plus a tilt that settles back. Reduced motion paints one frame and
+  attaches no scroll listener.
+- **Cost.** One canvas, capped at 2x device pixel ratio, redrawn only while the target
+  is moving and paused entirely when the hero leaves the viewport.
+
+The ring timeline in History is the same data told again in two dimensions, and it is
+the accessible version: the canvas is decorative and `aria-hidden` through its label.
+
 One parallax scene runs the whole page: a single scroll listener and one
 requestAnimationFrame loop walks every element carrying `data-parallax`, skips
 anything outside the viewport, and writes a custom property. Layers travel at
 different depths, so the hero ring field drifts slowest, the portrait counter-moves,
 and the plates breathe at alternating rates. Transform only, never layout.
 
-`prefers-reduced-motion` turns the draw, the parallax and the smooth scroll off.
+`prefers-reduced-motion` turns the draw, the parallax, the smoothing in the log and
+the smooth scroll off, and the log paints once at a fixed angle.
 
 ## Security
 

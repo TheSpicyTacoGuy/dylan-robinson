@@ -107,16 +107,9 @@ export function Spine({ hasCv }: SpineProps) {
           <span aria-hidden="true">{isDark ? "Light" : "Dark"}</span>
         </button>
 
-        <a
-          className="spine__control spine__control--link"
-          href={`mailto:${EMAIL}`}
-        >
-          Email
-        </a>
-
         {hasCv && (
           <a
-            className="spine__control spine__control--link"
+            className="spine__cv"
             href={CV_URL}
             target="_blank"
             rel="noopener noreferrer"
@@ -124,6 +117,13 @@ export function Spine({ hasCv }: SpineProps) {
             CV
           </a>
         )}
+
+        <a
+          className="spine__control spine__control--link"
+          href={`mailto:${EMAIL}`}
+        >
+          Email
+        </a>
       </div>
 
       <span className="spine__progress" aria-hidden="true" />

@@ -14,7 +14,7 @@ const rings = Array.from({ length: 13 }, (_, index) => 54 + index * 16.4);
 const ringMarkup = rings
   .map(
     (radius, index) =>
-      `<circle cx="${centreX}" cy="${centreY}" r="${radius}" fill="none" stroke="${index === 12 ? "#9ed4a8" : "#3a2a1e"}" stroke-width="${index === 12 ? 2.4 : 1.2}" />`,
+      `<circle cx="${centreX}" cy="${centreY}" r="${radius}" fill="none" stroke="${index === 12 ? "#b7d5ae" : "#3a2a1e"}" stroke-width="${index === 12 ? 2.4 : 1.2}" />`,
   )
   .join("\n");
 
@@ -25,13 +25,13 @@ const svg = `
 
   <g>
     ${ringMarkup}
-    <path d="M ${centreX} ${centreY - 259} A 259 259 0 0 1 ${centreX + 259} ${centreY}" fill="none" stroke="#9ed4a8" stroke-width="3"/>
-    <path d="M ${centreX} ${centreY - 140} A 140 140 0 0 1 ${centreX - 140} ${centreY}" fill="none" stroke="#9ed4a8" stroke-width="2" opacity="0.7"/>
-    <circle cx="${centreX}" cy="${centreY}" r="4" fill="#9ed4a8"/>
+    <path d="M ${centreX} ${centreY - 259} A 259 259 0 0 1 ${centreX + 259} ${centreY}" fill="none" stroke="#b7d5ae" stroke-width="3"/>
+    <path d="M ${centreX} ${centreY - 140} A 140 140 0 0 1 ${centreX - 140} ${centreY}" fill="none" stroke="#b7d5ae" stroke-width="2" opacity="0.7"/>
+    <circle cx="${centreX}" cy="${centreY}" r="4" fill="#b7d5ae"/>
   </g>
 
   <g font-family="Segoe UI, Arial, sans-serif">
-    <text x="80" y="170" font-size="22" letter-spacing="0" fill="#9ed4a8" font-family="Consolas, monospace">Software developer, Yarra Valley</text>
+    <text x="80" y="170" font-size="22" letter-spacing="0" fill="#b7d5ae" font-family="Consolas, monospace">Software developer, Yarra Valley</text>
     <text x="78" y="330" font-size="86" font-weight="700" letter-spacing="-4" fill="#ecdfd1">Dylan Robinson</text>
   </g>
 
@@ -42,7 +42,7 @@ const svg = `
     <text x="80" y="478">Four Seasons Horse Rugs site and admin</text>
   </g>
 
-  <g font-family="Consolas, monospace" font-size="18" fill="#9ed4a8">
+  <g font-family="Consolas, monospace" font-size="18" fill="#b7d5ae">
     <text x="80" y="546">Open to software development roles</text>
     <text x="80" y="572">Melbourne, or remote</text>
   </g>

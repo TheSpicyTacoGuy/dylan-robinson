@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { resolve } from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig, type Plugin } from "vite";
@@ -17,15 +18,14 @@ function inlineCsp(): Plugin {
       order: "post",
       handler(html) {
         const inline = html.match(/<script>([\s\S]*?)<\/script>/);
-        if (!inline) return html;
 
-        const hash = createHash("sha256")
-          .update(inline[1], "utf8")
-          .digest("base64");
+        const scriptSrc = inline
+          ? `'self' 'sha256-${createHash("sha256").update(inline[1], "utf8").digest("base64")}'`
+          : "'self'";
 
         const policy = [
           "default-src 'self'",
-          `script-src 'self' 'sha256-${hash}'`,
+          `script-src ${scriptSrc}`,
           "style-src 'self' 'unsafe-inline'",
           "font-src 'self'",
           "img-src 'self' data:",
@@ -47,4 +47,14 @@ function inlineCsp(): Plugin {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss(), inlineCsp()],
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, "index.html"),
+        // A real URL for recruiters: linkable, printable, and tiny, because it
+        // renders plain DOM rather than the app.
+        resume: resolve(__dirname, "resume/index.html"),
+      },
+    },
+  },
 });
