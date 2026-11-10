@@ -4,33 +4,71 @@
     <meta charset="UTF-8" />
     <meta
       name="description"
-      content="Dylan Robinson is a developer in the Yarra Valley, Victoria. He builds the online tax return app at CTRL Accounting and finished a computer science degree at Swinburne in 2026."
+      content="Software developer in the Yarra Valley. I build the CTRL Accounting tax return app and the Four Seasons Horse Rugs site and admin. Open to roles in Melbourne or remote."
     />
+    <meta name="author" content="Dylan Robinson" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="light dark" />
     <!--
-      Kept in sync with the --background tokens in src/index.css. The inline
+      Kept in sync with the bark hero band in src/index.css. The inline
       script below and initTheme() update it when the theme changes.
     -->
-    <meta name="theme-color" content="#f6f2e8" />
+    <meta name="theme-color" content="#1f0f08" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_AU" />
     <meta property="og:title" content="Dylan Robinson, software developer" />
     <meta
       property="og:description"
-      content="Lead developer and director of the online tax return app at CTRL Accounting. Yarra Valley, Victoria."
+      content="Lead developer and director of the CTRL Accounting tax return app. Also the Four Seasons Horse Rugs site and admin. Yarra Valley, Victoria."
     />
     <meta property="og:image" content="/og/og-card.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;600&display=swap"
+      rel="preload"
+      href="/fonts/archivo-var.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/plex-sans.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
     <title>Dylan Robinson, software developer</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Dylan Robinson",
+        "jobTitle": "Software developer",
+        "email": "drskyrim1@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Yarra Valley",
+          "addressRegion": "VIC",
+          "addressCountry": "AU"
+        },
+        "sameAs": [
+          "https://github.com/TheSpicyTacoGuy",
+          "https://www.linkedin.com/in/dylan-robinson-415171184/"
+        ],
+        "knowsAbout": [
+          "TypeScript",
+          "Vue",
+          "React",
+          "PHP",
+          "MySQL",
+          "PostgreSQL",
+          "Node.js"
+        ]
+      }
+    </script>
     <script>
       // Apply saved theme (or system preference) as early as possible to prevent a flash of the wrong theme.
       (function () {
@@ -51,7 +89,7 @@
         html.dataset.theme = resolved;
         const themeColor = document.querySelector('meta[name="theme-color"]');
         if (themeColor)
-          themeColor.content = resolved === "dark" ? "#2b241d" : "#f6f2e8";
+          themeColor.content = resolved === "dark" ? "#0f0604" : "#1f0f08";
       })();
     </script>
   </head>

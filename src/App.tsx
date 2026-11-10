@@ -1,34 +1,31 @@
-import { Colophon } from "./components/Colophon";
-import { Rail } from "./components/Rail";
-import { useCvAvailable } from "./hooks";
+import { Spine } from "./components/Spine";
+import { useCvAvailable, useParallaxScene, useScrollProgressVar } from "./hooks";
+import { Background } from "./sections/Background";
 import { Contact } from "./sections/Contact";
+import { Hero } from "./sections/Hero";
 import { History } from "./sections/History";
-import { Intro } from "./sections/Intro";
-import { Study } from "./sections/Study";
 import { Work } from "./sections/Work";
 
 function App() {
   const hasCv = useCvAvailable();
+  useScrollProgressVar();
+  useParallaxScene();
 
   return (
-    <div className="frame">
+    <div className="site">
       <a className="skip" href="#main">
         Skip to content
       </a>
 
-      <Rail hasCv={hasCv} />
+      <Spine hasCv={hasCv} />
 
-      <div className="sheet">
-        <main id="main" tabIndex={-1}>
-          <Intro />
-          <Work />
-          <History />
-          <Study />
-          <Contact hasCv={hasCv} />
-        </main>
-
-        <Colophon />
-      </div>
+      <main id="main" tabIndex={-1}>
+        <Hero hasCv={hasCv} />
+        <Work />
+        <History />
+        <Background />
+        <Contact hasCv={hasCv} />
+      </main>
     </div>
   );
 }

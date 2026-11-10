@@ -1,52 +1,79 @@
-import { Shots } from "../components/Shots";
-import { otherProjects, projects } from "../content";
+import { Plates } from "../components/Plates";
+import { ProjectIndex } from "../components/ProjectIndex";
+import { caseStudies, otherProjects } from "../content";
 
 export function Work() {
-  const featured = projects[0];
-
   return (
-    <section className="section" id="work">
-      <h2 className="section__label">Work</h2>
+    <section className="band band--bone" id="work">
+      <div className="band__inner">
+        <header className="band__head">
+          <h2 className="band__title">Work</h2>
+          <p className="band__note">
+            Two builds I can talk through, then three more, including a capstone
+            under NDA.
+          </p>
+        </header>
 
-      <article className="case">
-        <p className="case__meta">{featured.when}</p>
-        <h3 className="case__title">{featured.title}</h3>
-        <p className="case__role">{featured.role}</p>
-        <p className="case__text">{featured.summary}</p>
-
-        {featured.facts && (
-          <ul className="case__facts">
-            {featured.facts.map((fact) => (
-              <li key={fact}>{fact}</li>
-            ))}
-          </ul>
-        )}
-
-        <Shots />
-      </article>
-
-      <h3 className="work__more">Other work</h3>
-
-      <div className="entries">
-        {otherProjects.map((project) => (
-          <article className="entry" key={project.title}>
-            <p className="entry__when">{project.when}</p>
-            <div className="entry__body">
-              <span className="entry__rule" aria-hidden="true" />
-              <h3 className="entry__title">{project.title}</h3>
-              <p className="entry__role">{project.role}</p>
-              <p className="entry__text">{project.summary}</p>
-              {project.tech && <p className="entry__tech">{project.tech}</p>}
+        {caseStudies.map((study) => (
+          <article className="case" key={study.id}>
+            <div className="case__spec">
+              <dl>
+                <div>
+                  <dt>Year</dt>
+                  <dd>{study.when}</dd>
+                </div>
+                <div>
+                  <dt>Role</dt>
+                  <dd>{study.role}</dd>
+                </div>
+                <div>
+                  <dt>Status</dt>
+                  <dd>{study.status}</dd>
+                </div>
+                {study.stack && (
+                  <div>
+                    <dt>Stack</dt>
+                    <dd>{study.stack.join(", ")}</dd>
+                  </div>
+                )}
+              </dl>
             </div>
+
+            <div className="case__body">
+              <h3 className="case__title">{study.title}</h3>
+              <p className="case__text">{study.summary}</p>
+
+              <ul className="case__facts">
+                {study.facts.map((fact) => (
+                  <li key={fact}>{fact}</li>
+                ))}
+              </ul>
+
+              {study.link && (
+                <a
+                  className="action case__link"
+                  href={study.link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {study.link.label}
+                </a>
+              )}
+
+              {study.id === "ctrl" && (
+                <p className="case__note">
+                  The repository is private. I can walk through the code in an
+                  interview.
+                </p>
+              )}
+            </div>
+
+            <Plates label={study.title} plates={study.plates} />
           </article>
         ))}
-      </div>
 
-      <p className="tools-line">
-        <strong>Tools</strong> TypeScript, Vue 3, React, Node.js, JavaScript,
-        PHP, Python, PostgreSQL, SQL, Docker, HTML and CSS, plus WordPress,
-        Microsoft Access and eight years of PC repair.
-      </p>
+        <ProjectIndex projects={otherProjects} />
+      </div>
     </section>
   );
 }

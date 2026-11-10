@@ -4,9 +4,9 @@ export type ThemeMode = "light" | "dark" | "system";
 
 const STORAGE_KEY = "theme-preference";
 
-// Must track the --background tokens in src/index.css so browser chrome
-// (address bar, scrollbars) matches the page instead of the wrong theme.
-const THEME_COLOR = { light: "#f6f2e8", dark: "#2b241d" } as const;
+// Must track the hero band (bark) in src/index.css so browser chrome
+// (address bar, scrollbars) matches the top of the page instead of the wrong theme.
+const THEME_COLOR = { light: "#1f0f08", dark: "#0f0604" } as const;
 
 const applyThemeColor = (mode: "light" | "dark") => {
   let meta = document.querySelector<HTMLMetaElement>(

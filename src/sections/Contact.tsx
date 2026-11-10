@@ -1,4 +1,11 @@
-import { CV_URL, EMAIL, LINKEDIN_URL } from "../content";
+import { Colophon } from "../components/Colophon";
+import {
+  CV_URL,
+  EMAIL,
+  GITHUB_URL,
+  LINKEDIN_URL,
+  POSITIONING,
+} from "../content";
 
 type ContactProps = {
   hasCv: boolean;
@@ -6,44 +13,56 @@ type ContactProps = {
 
 export function Contact({ hasCv }: ContactProps) {
   return (
-    <section className="section contact" id="contact">
-      <h2 className="section__label">Contact</h2>
+    <section className="band band--contact" id="contact">
+      <div className="band__inner">
+        <header className="band__head">
+          <h2 className="band__title">Contact</h2>
+        </header>
 
-      <p className="contact__text">
-        I am looking for a software development role. Email is the quickest way
-        to reach me.
-      </p>
+        <p className="contact__status">
+          {POSITIONING} Email is the quickest way to reach me.
+        </p>
 
-      <a className="contact__mail" href={`mailto:${EMAIL}`}>
-        {EMAIL}
-      </a>
-
-      <p className="contact__meta">
-        Or find me on{" "}
-        <a
-          className="contact__link"
-          href={LINKEDIN_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          LinkedIn
+        <a className="contact__mail" href={`mailto:${EMAIL}`}>
+          {EMAIL}
         </a>
-        {hasCv ? (
-          <>
-            {" "}
-            or download my{" "}
+
+        <div className="contact__links">
+          <a
+            className="action"
+            href={LINKEDIN_URL}
+            target="_blank"
+            rel="me noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+          <a
+            className="action"
+            href={GITHUB_URL}
+            target="_blank"
+            rel="me noopener noreferrer"
+          >
+            GitHub
+          </a>
+          {hasCv && (
             <a
-              className="contact__link"
+              className="action"
               href={CV_URL}
               target="_blank"
               rel="noopener noreferrer"
             >
               CV (PDF)
             </a>
-          </>
-        ) : null}
-        .
-      </p>
+          )}
+        </div>
+
+        <p className="contact__place">
+          Yarra Valley, Victoria. I am happy to walk through any of the work
+          above.
+        </p>
+
+        <Colophon />
+      </div>
     </section>
   );
 }

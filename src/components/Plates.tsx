@@ -1,28 +1,16 @@
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { shots } from "../content";
-import { PlateImage } from "./PlateImage";
+import type { Shot } from "../content";
 
-export function Shots() {
-  const [missing, setMissing] = useState<string[]>([]);
+type PlatesProps = {
+  label: string;
+  plates: Shot[];
+};
+
+export function Plates({ label, plates }: PlatesProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const hasOpened = useRef(false);
-  const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: gridRef,
-    offset: ["start end", "end start"],
-  });
-  const drift = useTransform(scrollYProgress, [0, 1], [18, -18]);
-
-  const visible = shots.filter((shot) => !missing.includes(shot.src));
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -52,63 +40,57 @@ export function Shots() {
     };
   }, [openIndex]);
 
-  if (visible.length === 0) return null;
-
-  const active = openIndex === null ? null : visible[openIndex];
+  const active = openIndex === null ? null : plates[openIndex];
 
   const step = (direction: number) => {
     setOpenIndex((current) => {
       if (current === null) return current;
-      return (current + direction + visible.length) % visible.length;
+      return (current + direction + plates.length) % plates.length;
     });
   };
 
   return (
     <>
-      <figure className="shots">
-        <div className="shots__grid" ref={gridRef}>
-          {visible.map((shot, index) => (
-            <motion.div
-              className={shot.wide ? "shot shot--wide" : "shot"}
-              key={shot.src}
-              style={reduceMotion || !shot.wide ? undefined : { y: drift }}
+      <div
+        className={plates.length === 1 ? "plates plates--single" : "plates"}
+      >
+        {plates.map((shot) => (
+          <figure
+            className="plate"
+            key={shot.src}
+            data-parallax={
+              plates.length > 1 ? String(28 - (plates.indexOf(shot) % 3) * 28) : "0"
+            }
+          >
+            <button
+              type="button"
+              className="plate__button"
+              onClick={(event) => {
+                triggerRef.current = event.currentTarget;
+                setOpenIndex(plates.indexOf(shot));
+              }}
+              aria-label={`Open ${shot.caption} at full size`}
             >
-              <button
-                type="button"
-                className="shot__button"
-                onClick={(event) => {
-                  triggerRef.current = event.currentTarget;
-                  setOpenIndex(index);
-                }}
-                aria-label={`Open ${shot.caption} at full size`}
-              >
-                <PlateImage
-                  src={shot.src}
-                  alt={shot.alt}
-                  width={shot.width}
-                  height={shot.height}
-                  onError={() =>
-                    setMissing((current) =>
-                      current.includes(shot.src)
-                        ? current
-                        : [...current, shot.src],
-                    )
-                  }
-                />
-              </button>
-              <p className="shot__caption">{shot.caption}</p>
-            </motion.div>
-          ))}
-        </div>
-        <figcaption className="shots__note">
-          CTRL tax return app, using test data. Open a screen for the full size.
-        </figcaption>
-      </figure>
+              <img
+                src={shot.src}
+                srcSet={shot.srcSet}
+                sizes={shot.sizes}
+                alt={shot.alt}
+                width={shot.width}
+                height={shot.height}
+                loading="lazy"
+                decoding="async"
+              />
+            </button>
+            <figcaption className="plate__caption">{shot.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
 
       <dialog
         ref={dialogRef}
         className="lightbox"
-        aria-label="Screenshot viewer"
+        aria-label={`${label}, screenshots`}
         onClose={() => setOpenIndex(null)}
         onKeyDown={(event) => {
           if (event.key === "Escape") {
@@ -139,7 +121,7 @@ export function Shots() {
                 {openIndex !== null && (
                   <span className="lightbox__count">
                     {" "}
-                    · {openIndex + 1} of {visible.length}
+                    {openIndex + 1} of {plates.length}
                   </span>
                 )}
               </p>

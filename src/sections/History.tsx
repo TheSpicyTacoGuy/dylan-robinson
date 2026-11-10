@@ -1,40 +1,15 @@
-import { motion, useReducedMotion, useScroll } from "framer-motion";
-import { useRef } from "react";
-import { roles } from "../content";
+import { RingTimeline } from "../components/RingTimeline";
 
 export function History() {
-  const reduceMotion = useReducedMotion();
-  const timelineRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: timelineRef,
-    offset: ["start 92%", "end 55%"],
-  });
-
   return (
-    <section className="section" id="history">
-      <h2 className="section__label">History</h2>
+    <section className="band band--bark" id="history">
+      <div className="band__inner">
+        <header className="band__head">
+          <h2 className="band__title">History</h2>
+          <p className="band__note">The work so far, one ring for each year.</p>
+        </header>
 
-      <div className="timeline" ref={timelineRef}>
-        <div className="timeline__rail" aria-hidden="true">
-          <motion.span
-            className="timeline__fill"
-            style={reduceMotion ? { scaleY: 1 } : { scaleY: scrollYProgress }}
-          />
-        </div>
-
-        {roles.map((role) => (
-          <article
-            className="timeline__row"
-            key={`${role.company}-${role.when}`}
-          >
-            <p className="timeline__when">{role.when}</p>
-            <h3 className="timeline__title">{role.company}</h3>
-            <p className="timeline__role">
-              {role.title}, {role.place}
-              {role.note ? ` (${role.note})` : ""}
-            </p>
-          </article>
-        ))}
+        <RingTimeline />
       </div>
     </section>
   );
