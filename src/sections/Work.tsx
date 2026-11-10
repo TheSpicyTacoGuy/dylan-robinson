@@ -25,7 +25,7 @@ export function Work() {
         <Shots />
       </article>
 
-      <p className="work__more">Other work</p>
+      <h3 className="work__more">Other work</h3>
 
       <div className="entries">
         {otherProjects.map((project) => (

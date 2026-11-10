@@ -9,6 +9,8 @@ export function Colophon() {
   useEffect(() => {
     const handler = (event: KeyboardEvent) => {
       if (event.key.toLowerCase() !== "s") return;
+      // Don't swallow browser shortcuts such as Ctrl+S (save page).
+      if (event.metaKey || event.ctrlKey || event.altKey) return;
       const target = event.target as HTMLElement | null;
       if (
         target?.isContentEditable ||

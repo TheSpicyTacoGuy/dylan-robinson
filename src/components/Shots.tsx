@@ -38,6 +38,20 @@ export function Shots() {
     if (!dialog.open) dialog.showModal();
   }, [openIndex]);
 
+  useEffect(() => {
+    if (openIndex === null) return;
+    const previous = {
+      root: document.documentElement.style.overflow,
+      body: document.body.style.overflow,
+    };
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.documentElement.style.overflow = previous.root;
+      document.body.style.overflow = previous.body;
+    };
+  }, [openIndex]);
+
   if (visible.length === 0) return null;
 
   const active = openIndex === null ? null : visible[openIndex];
@@ -111,14 +125,24 @@ export function Shots() {
       >
         {active && (
           <div className="lightbox__inner">
-            <img
-              src={active.src}
-              alt={active.alt}
-              width={active.width}
-              height={active.height}
-            />
+            <div className="lightbox__stage">
+              <img
+                src={active.src}
+                alt={active.alt}
+                width={active.width}
+                height={active.height}
+              />
+            </div>
             <div className="lightbox__bar">
-              <p className="lightbox__caption">{active.caption}</p>
+              <p className="lightbox__caption">
+                {active.caption}
+                {openIndex !== null && (
+                  <span className="lightbox__count">
+                    {" "}
+                    · {openIndex + 1} of {visible.length}
+                  </span>
+                )}
+              </p>
               <div className="lightbox__actions">
                 <button
                   type="button"

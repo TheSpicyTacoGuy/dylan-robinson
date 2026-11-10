@@ -64,7 +64,10 @@
  * page, and the accent lifts to the lighter end of the foliage.
  */
 .dark,
-[data-theme="dark"] {
+[data-theme="dark"],
+/* The screenshot viewer is an always-dark frame, so its subtree resolves
+   the after-sundown block even on a light page. */
+.lightbox {
   color-scheme: dark;
   --accent: oklch(78% 0.055 126);
   --accent-foreground: oklch(18% 0.02 126);
@@ -129,10 +132,19 @@ body {
   color: var(--foreground);
   background: var(--background);
   line-height: 1.6;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #root {
   min-height: 100vh;
+}
+
+/* Short editorial headings read better without a widow on the last line. */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
 }
 
 /*
@@ -207,7 +219,7 @@ main:focus {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  height: 100vh;
+  height: 100dvh;
   padding: 2.25rem 1.5rem 1.75rem;
   border-right: 1px solid var(--separator);
 }
@@ -567,6 +579,7 @@ main:focus {
   border-top: 1px solid var(--separator);
   font-family: var(--font-mono);
   font-size: 0.72rem;
+  font-weight: 500;
   color: var(--muted);
 }
 
@@ -589,36 +602,79 @@ main:focus {
   padding: 0;
   border: 1px solid var(--border);
   border-radius: 2px;
-  background: var(--surface);
+  /* Stage and bar share one background, so the caption and buttons read
+     against the letterbox instead of the page tone behind the dialog.
+     The colors are the dark token block pulled in by this selector. */
+  background: var(--background);
   color: var(--foreground);
   overflow: hidden;
 }
 
 .lightbox::backdrop {
-  background: rgb(0 0 0 / 0.75);
+  background: color-mix(in srgb, var(--overlay) 75%, transparent);
 }
 
 .lightbox__inner {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
+}
+
+/*
+ * A fixed frame for every shot. The three screenshots have slightly different
+ * ratios, and without this the dialog would resize on every "Next". Whichever
+ * shot is the odd one out gets letterboxed on the dark stage instead of
+ * jolting the dialog.
+ */
+.lightbox__stage {
   display: grid;
+  place-items: center;
+  /*
+   * A definite 1fr row, not an auto one: the img's max-height: 100%
+   * resolves against the grid area, and an auto row is content-sized,
+   * which let the image overflow the stage at full proportional scale.
+   */
+  grid-template-rows: minmax(0, 1fr);
+  aspect-ratio: 1600 / 812;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  /* Pin the frame's height so the img's max-height: 100% resolves against a
+     definite size, and so the stage never grows past the dialog's clip edge. */
+  height: min(100%, max(19.4375rem, calc((92dvh - 62px) * 1600 / 812)));
+  background: var(--background);
 }
 
 .lightbox img {
   display: block;
-  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
   height: auto;
-  max-height: 78vh;
   object-fit: contain;
-  background: #0c0e09;
+  background: var(--background);
 }
 
 .lightbox__bar {
   display: flex;
+  flex: none;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
   padding: 0.7rem 0.9rem;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--separator);
+}
+
+/* Very low viewports: the action row wraps to a two-line bar instead of
+   stretching past the dialog's clip edge and losing the Close button. */
+@media (max-height: 400px) {
+  .lightbox__bar {
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
 
 .lightbox__caption {
@@ -626,6 +682,10 @@ main:focus {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   color: var(--muted);
+}
+
+.lightbox__count {
+  opacity: 0.6;
 }
 
 .lightbox__actions {
@@ -784,6 +844,7 @@ main:focus {
   height: auto;
   border: 1px solid var(--border);
   background: #0c0e09;
+  transition: border-color 0.18s ease;
 }
 
 .plate {
@@ -796,6 +857,21 @@ main:focus {
   font-family: var(--font-mono);
   font-size: 0.7rem;
   color: var(--muted);
+  transition: color 0.18s ease;
+}
+
+/*
+ * The hover feedback lives on the caption and frame, not the image: the plate
+ * is framer-moted, and an inline transform would fight the reveal animation.
+ */
+.shot:hover .shot__caption,
+.shot:focus-within .shot__caption {
+  color: var(--foreground);
+}
+
+.shot:hover .shot img,
+.shot:focus-within .shot img {
+  border-color: var(--muted);
 }
 
 .shots__note {

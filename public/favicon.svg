@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Ink on paper, matching the site tokens: paper #f6f2e8, ink #251a13, eucalyptus #515c39. -->
+  <rect width="64" height="64" fill="#f6f2e8"/>
+  <text x="32" y="30" text-anchor="middle" dominant-baseline="central" font-family="Georgia, 'Times New Roman', serif" font-size="26" font-weight="600" letter-spacing="-1" fill="#251a13">DR</text>
+  <rect x="24" y="46" width="16" height="2" fill="#515c39"/>
+</svg>

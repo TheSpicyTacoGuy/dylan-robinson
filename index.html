@@ -7,7 +7,23 @@
       content="Dylan Robinson is a developer in the Yarra Valley, Victoria. He builds the online tax return app at CTRL Accounting and finished a computer science degree at Swinburne in 2026."
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f6f2ea" />
+    <meta name="color-scheme" content="light dark" />
+    <!--
+      Kept in sync with the --background tokens in src/index.css. The inline
+      script below and initTheme() update it when the theme changes.
+    -->
+    <meta name="theme-color" content="#f6f2e8" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Dylan Robinson, software developer" />
+    <meta
+      property="og:description"
+      content="Lead developer and director of the online tax return app at CTRL Accounting. Yarra Valley, Victoria."
+    />
+    <meta property="og:image" content="/og/og-card.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -33,6 +49,9 @@
         html.classList.toggle("dark", resolved === "dark");
         html.classList.toggle("light", resolved === "light");
         html.dataset.theme = resolved;
+        const themeColor = document.querySelector('meta[name="theme-color"]');
+        if (themeColor)
+          themeColor.content = resolved === "dark" ? "#2b241d" : "#f6f2e8";
       })();
     </script>
   </head>

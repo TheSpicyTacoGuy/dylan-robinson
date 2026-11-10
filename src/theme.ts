@@ -4,6 +4,22 @@ export type ThemeMode = "light" | "dark" | "system";
 
 const STORAGE_KEY = "theme-preference";
 
+// Must track the --background tokens in src/index.css so browser chrome
+// (address bar, scrollbars) matches the page instead of the wrong theme.
+const THEME_COLOR = { light: "#f6f2e8", dark: "#2b241d" } as const;
+
+const applyThemeColor = (mode: "light" | "dark") => {
+  let meta = document.querySelector<HTMLMetaElement>(
+    'meta[name="theme-color"]',
+  );
+  if (!meta) {
+    meta = document.createElement("meta");
+    meta.name = "theme-color";
+    document.head.appendChild(meta);
+  }
+  meta.content = THEME_COLOR[mode];
+};
+
 const getSystemTheme = () =>
   window.matchMedia?.("(prefers-color-scheme: dark)").matches
     ? "dark"
@@ -19,6 +35,8 @@ export const applyTheme = (mode: ThemeMode) => {
   html.classList.toggle("dark", resolved === "dark");
   html.classList.toggle("light", resolved === "light");
   html.dataset.theme = resolved;
+
+  applyThemeColor(resolved);
 
   return resolved;
 };

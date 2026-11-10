@@ -45,6 +45,7 @@ export function Intro() {
               width={800}
               height={1000}
               decoding="async"
+              fetchPriority="high"
               onError={() => {
                 if (portraitIndex < portraitSources.length - 1) {
                   setPortraitIndex(portraitIndex + 1);
