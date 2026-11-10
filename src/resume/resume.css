@@ -5,7 +5,7 @@
   --ink: oklch(23.5% 0.028 52);
   --muted: oklch(41.5% 0.03 56);
   --line: oklch(80% 0.028 66);
-  --accent: oklch(43.5% 0.066 138);
+  --accent: oklch(43.5% 0.082 120);
   --display: "Martian Mono", ui-monospace, monospace;
   --body: "JetBrains Mono", ui-monospace, monospace;
   color-scheme: light dark;
@@ -17,7 +17,7 @@
     --ink: oklch(93% 0.014 78);
     --muted: oklch(73% 0.02 68);
     --line: oklch(29% 0.02 50);
-    --accent: oklch(81% 0.062 138);
+    --accent: oklch(81% 0.08 120);
   }
 }
 
