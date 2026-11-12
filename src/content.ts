@@ -18,6 +18,8 @@ export const POSITIONING =
   "Open to full time software development and related roles, in Melbourne or remote.";
 
 export const LOCATION = "Yarra Valley, Victoria";
+export const SITE_URL = "https://dylan-robinson.dev";
+export const WORK_RIGHTS = "Unrestricted Australian work rights";
 
 export type Fact = {
   label: string;
@@ -26,7 +28,7 @@ export type Fact = {
 
 /** The scannable version of the CV, for a recruiter with ten seconds. */
 export const facts: Fact[] = [
-  { label: "Work rights", value: "Unrestricted Australian work rights" },
+  { label: "Work rights", value: WORK_RIGHTS },
   { label: "Availability", value: POSITIONING },
   {
     label: "Now",
