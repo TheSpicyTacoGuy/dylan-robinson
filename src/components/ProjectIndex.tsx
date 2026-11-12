@@ -61,6 +61,29 @@ export function ProjectIndex({ projects }: ProjectIndexProps) {
                   {project.tech && (
                     <p className="index__tech">{project.tech}</p>
                   )}
+                  {project.shots && (
+                    <ul className="index__shots">
+                      {project.shots.map((shot) => (
+                        <li className="index__shot" key={shot.src}>
+                          <img
+                            src={shot.src}
+                            srcSet={shot.srcSet}
+                            sizes={shot.sizes}
+                            alt={shot.alt}
+                            width={shot.width}
+                            height={shot.height}
+                            loading="lazy"
+                            decoding="async"
+                          />
+                          {shot.caption && (
+                            <span className="index__shot-caption">
+                              {shot.caption}
+                            </span>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                   {project.link && (
                     <a
                       className="index__project-link"

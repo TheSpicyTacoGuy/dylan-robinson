@@ -1002,6 +1002,43 @@ main {
   text-underline-offset: 0.25em;
 }
 
+/* Device screens sit under the prose, so the writing stays the lead. */
+.index__shots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+  margin: 0.3rem 0 0.6rem;
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 620px) {
+  .index__shots {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.index__shot:first-child {
+  grid-column: 1 / -1;
+}
+
+.index__shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+}
+
+.index__shot-caption {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .index__row.is-open .index__panel > div {
   padding-bottom: 1.3rem;
 }

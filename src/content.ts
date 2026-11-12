@@ -183,12 +183,23 @@ export const caseStudies: CaseStudy[] = [
   },
 ];
 
+export type ProjectShot = {
+  src: string;
+  srcSet?: string;
+  sizes?: string;
+  alt: string;
+  caption?: string;
+  width: number;
+  height: number;
+};
+
 export type Project = {
   title: string;
   when: string;
   role: string;
   summary: string;
   tech?: string;
+  shots?: ProjectShot[];
   link?: { label: string; href: string };
 };
 
@@ -206,8 +217,52 @@ export const otherProjects: Project[] = [
     when: "University project",
     role: "Group project, Vue interface by Dylan",
     summary:
-      "Our group built an Arduino greenhouse monitor with a light sensor and LEDs. It detects low light and switches on UV lights. I built a Vue site to monitor my device and change its settings remotely over MQTT; the group connected the devices to a ThingsBoard dashboard.",
+      "Our group built an Arduino greenhouse monitor with a light sensor and LEDs. It detects low light and switches the UV lights on. I built the Vue interface that shows each edge device and lets its settings change remotely over MQTT, covering climate, irrigation, lighting, and air quality with rain alerts. The group put the devices on a ThingsBoard dashboard.",
     tech: "Arduino, Vue, MQTT, ThingsBoard, LEDs, light sensor",
+    shots: [
+      {
+        src: "/shots/gh-irrigation-1400.webp",
+        srcSet:
+          "/shots/gh-irrigation-800.webp 800w, /shots/gh-irrigation-1400.webp 1400w",
+        sizes: "(min-width: 760px) 92vw, 100vw",
+        alt: "Irrigation screen with a soil moisture chart over time and buttons to start and stop watering.",
+        caption: "Irrigation device",
+        width: 1400,
+        height: 500,
+      },
+      {
+        src: "/shots/gh-climate-1400.webp",
+        srcSet:
+          "/shots/gh-climate-800.webp 800w, /shots/gh-climate-1400.webp 1400w",
+        sizes: "(min-width: 760px) 45vw, 100vw",
+        alt: "Climate screen showing temperature and humidity readings beside the controller setpoints.",
+        caption: "Climate device",
+        width: 1400,
+        height: 516,
+      },
+      {
+        src: "/shots/gh-lighting-1400.webp",
+        srcSet:
+          "/shots/gh-lighting-800.webp 800w, /shots/gh-lighting-1400.webp 1400w",
+        sizes: "(min-width: 760px) 45vw, 100vw",
+        alt: "Lighting screen with a light level chart, a UV schedule and manual relay controls.",
+        caption: "Lighting device",
+        width: 1400,
+        height: 549,
+      },
+    ],
+  },
+  {
+    title: "GrowSpace, greenhouse and plant app",
+    when: "2025",
+    role: "Swinburne coursework, COS30043",
+    summary:
+      "A Vue app for tracking greenhouses and the plants inside them. It has Firebase sign in, a tips forum, weather on the dashboard, plant reminders and account deletion, and it installs to a phone home screen and pulls to refresh.",
+    tech: "Vue 3, Vite, Firebase Auth, Firestore, Firebase Storage, Bootstrap 5, PWA",
+    link: {
+      label: "View on GitHub",
+      href: "https://github.com/TheSpicyTacoGuy/GrowSpace",
+    },
   },
   {
     title: "Android apps, COS30017",
@@ -238,8 +293,32 @@ export const otherProjects: Project[] = [
     when: "2014 to 2022",
     role: "Technology2You IT Services",
     summary:
-      "Built and maintained WordPress sites for more than five local clients, including an online store with dynamic inventory supplied by JSON data feeds.",
-    tech: "WordPress, JSON",
+      "Built and maintained WordPress sites for more than five local clients. The biggest was the Technology2You shop, which ran on WooCommerce with its product catalogue kept in step by a supplier data feed instead of being entered by hand.",
+    tech: "WordPress, WooCommerce, product data feed, JSON",
+    shots: [
+      {
+        src: "/shots/t2y-storefront-1400.webp",
+        srcSet:
+          "/shots/t2y-storefront-800.webp 800w, /shots/t2y-storefront-1400.webp 1400w",
+        sizes: "(min-width: 760px) 92vw, 100vw",
+        alt: "Technology2You storefront with a category sidebar, supplier banner adverts in the middle and a Christmas promotion down both page edges.",
+        caption: "Storefront, the previous site",
+        width: 1400,
+        height: 733,
+      },
+    ],
+  },
+  {
+    title: "Makofire website",
+    when: "Present",
+    role: "Built for a friend's wholesale business",
+    summary:
+      "A WordPress site for an emergency response equipment supplier. It runs on a custom child theme over Kadence, with WooCommerce covering the product range.",
+    tech: "WordPress, Kadence child theme, WooCommerce, Elementor",
+    link: {
+      label: "Visit makofire.com.au",
+      href: "https://www.makofire.com.au/",
+    },
   },
   {
     title: "Dressage scoring and results portal",
