@@ -31,17 +31,18 @@ export function Hero({ hasCv }: HeroProps) {
                 Download CV
               </a>
             )}
-            <a className="action" href={`mailto:${EMAIL}`}>
-              Email me
-            </a>
           </div>
+
+          <a className="hero__email" href={`mailto:${EMAIL}`}>
+            Email me
+          </a>
         </div>
 
         <figure className="hero__portrait">
           <img
             src="/portrait-tall-800.webp"
             srcSet="/portrait-tall-800.webp 800w, /portrait-tall-1200.webp 1200w"
-            sizes="(min-width: 760px) 25rem, 100vw"
+            sizes="(min-width: 760px) 28rem, 100vw"
             alt="Dylan Robinson in the Yarra Valley."
             width={800}
             height={1000}
