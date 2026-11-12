@@ -4,7 +4,9 @@ import {
   EMAIL,
   GITHUB_URL,
   LINKEDIN_URL,
+  MAILTO,
   POSITIONING,
+  STUDENT_GITHUB_URL,
 } from "../content";
 
 type ContactProps = {
@@ -23,7 +25,7 @@ export function Contact({ hasCv }: ContactProps) {
           {POSITIONING} Email is the quickest way to reach me.
         </p>
 
-        <a className="contact__mail" href={`mailto:${EMAIL}`}>
+        <a className="contact__mail" href={MAILTO}>
           {EMAIL}
         </a>
 
@@ -43,6 +45,14 @@ export function Contact({ hasCv }: ContactProps) {
             rel="me noopener noreferrer"
           >
             GitHub
+          </a>
+          <a
+            className="action"
+            href={STUDENT_GITHUB_URL}
+            target="_blank"
+            rel="me noopener noreferrer"
+          >
+            GitHub (studies)
           </a>
           {hasCv && (
             <a

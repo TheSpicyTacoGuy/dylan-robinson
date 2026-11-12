@@ -1,4 +1,4 @@
-import { CV_URL, EMAIL, LOCATION } from "../content";
+import { CV_URL, MAILTO, LOCATION } from "../content";
 
 type HeroProps = {
   hasCv: boolean;
@@ -33,7 +33,7 @@ export function Hero({ hasCv }: HeroProps) {
             )}
           </div>
 
-          <a className="hero__email" href={`mailto:${EMAIL}`}>
+          <a className="hero__email" href={MAILTO}>
             Email me
           </a>
         </div>

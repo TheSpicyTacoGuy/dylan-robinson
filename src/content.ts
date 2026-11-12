@@ -1,8 +1,18 @@
 export const LINKEDIN_URL =
   "https://www.linkedin.com/in/dylan-robinson-415171184/";
 export const GITHUB_URL = "https://github.com/TheSpicyTacoGuy";
+export const STUDENT_GITHUB_URL = "https://github.com/DylanRobinson-101634222";
 export const EMAIL = "hey@dylan-robinson.dev";
 export const CV_URL = "/cv/dylan-robinson-resume.pdf";
+
+/**
+ * A bare mailto lands as an unlabelled reply. The subject line says what the
+ * email is about before it is opened, which helps when it is sent from a
+ * recruiter's mailbox in a hurry.
+ */
+export const MAILTO = `mailto:${EMAIL}?subject=${encodeURIComponent(
+  "Software developer role enquiry",
+)}`;
 
 export const POSITIONING =
   "Open to full time software development and related roles, in Melbourne or remote.";
@@ -84,9 +94,6 @@ export const caseStudies: CaseStudy[] = [
       "139 automated tests across 23 files cover tax rules, TFN and ABN checks, encryption and Stripe webhooks.",
       "Keycloak sign-in with passkeys, or a password plus an authenticator code.",
       "Encryption keys are managed in AWS KMS, and Stripe webhooks are signature checked before any write.",
-      "Stripe Checkout for fees and Stripe Identity for ID checks.",
-      "Support requests, notifications, and an audit and diagnostics screen for staff.",
-      "I hold a 20% share as a director, so I have a say in where the product goes.",
     ],
     plates: [
       {
@@ -189,9 +196,9 @@ export const otherProjects: Project[] = [
   {
     title: "SmartCity Dashboard",
     when: "2025 to 2026",
-    role: "Swinburne capstone for an industry client, team of five",
+    role: "Swinburne capstone for an industry client, team of five, under NDA",
     summary:
-      "A dashboard that watches IoT devices and flags anything unusual. It takes data over MQTT, CoAP, Modbus, Zigbee and LoRaWAN, and an Isolation Forest model flagged about 4.8% of records on the public TON_IoT dataset.",
+      "A dashboard that watches IoT devices and flags anything unusual. It takes data over MQTT, CoAP, Modbus, Zigbee and LoRaWAN, and an Isolation Forest model flagged about 4.8% of records on the public TON_IoT dataset. The client, the data and the code stay private, so this one is described rather than shown.",
     tech: "Vue 3, Node.js, PostgreSQL, Python, Docker, Azure DevOps, AWS EC2",
   },
   {
@@ -211,7 +218,7 @@ export const otherProjects: Project[] = [
     tech: "Kotlin, Android",
     link: {
       label: "View on GitHub",
-      href: "https://github.com/DylanRobinson-101634222",
+      href: STUDENT_GITHUB_URL,
     },
   },
   {

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { CV_URL, EMAIL, sections } from "../content";
+import { CV_URL, MAILTO, sections } from "../content";
 import { useActiveSection } from "../hooks";
 import { useTheme } from "../theme";
 
@@ -118,10 +118,7 @@ export function Spine({ hasCv }: SpineProps) {
           </a>
         )}
 
-        <a
-          className="spine__control spine__control--link"
-          href={`mailto:${EMAIL}`}
-        >
+        <a className="spine__control spine__control--link" href={MAILTO}>
           Email
         </a>
       </div>

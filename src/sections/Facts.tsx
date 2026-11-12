@@ -1,4 +1,4 @@
-import { CV_URL, EMAIL, GITHUB_URL, LINKEDIN_URL, facts } from "../content";
+import { CV_URL, GITHUB_URL, LINKEDIN_URL, MAILTO, facts } from "../content";
 
 type FactsProps = {
   hasCv: boolean;
@@ -11,7 +11,11 @@ type FactsProps = {
  */
 export function Facts({ hasCv }: FactsProps) {
   return (
-    <section className="band band--bone facts" id="facts" aria-labelledby="facts-title">
+    <section
+      className="band band--bone facts"
+      id="facts"
+      aria-labelledby="facts-title"
+    >
       <div className="band__inner">
         <div className="facts__head">
           <h2 className="facts__title" id="facts-title">
@@ -41,7 +45,7 @@ export function Facts({ hasCv }: FactsProps) {
               Download CV
             </a>
           )}
-          <a className="action" href={`mailto:${EMAIL}`}>
+          <a className="action" href={MAILTO}>
             Email
           </a>
           <a
