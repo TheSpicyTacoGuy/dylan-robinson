@@ -41,8 +41,8 @@ export function Log({ className }: LogProps) {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     let palette = readPalette(canvas);
 
-    // The log only turns a few degrees as the hero scrolls away. Smoothing
-    // keeps that small response from snapping on a fast wheel movement.
+    // The log makes one bounded roll as the hero leaves. Smoothing keeps the
+    // object connected to the scroll without snapping on a fast wheel movement.
     let targetX = LOG_ROTATION.pitch;
     let targetY = LOG_ROTATION.yaw;
     let currentX = targetX;
@@ -101,15 +101,15 @@ export function Log({ className }: LogProps) {
 
     const onScroll = () => {
       if (reduced.matches) return;
-      const rect = canvas.getBoundingClientRect();
-      // Progress across the first viewport gives the illustration one small
-      // change of angle, then it rests for the rest of the page.
+      const hero = canvas.closest<HTMLElement>(".hero");
+      const rect = (hero ?? canvas).getBoundingClientRect();
+      // Map the whole hero passage to one modest turn, then leave the log still.
       const progress = Math.max(
         0,
-        Math.min(1, -rect.top / Math.max(1, window.innerHeight * 0.9)),
+        Math.min(1, -rect.top / Math.max(1, rect.height)),
       );
-      targetY = LOG_ROTATION.yaw + progress * 0.12;
-      targetX = LOG_ROTATION.pitch + progress * 0.04;
+      targetY = LOG_ROTATION.yaw + progress * 0.55;
+      targetX = LOG_ROTATION.pitch + progress * 0.12;
       schedule();
     };
 

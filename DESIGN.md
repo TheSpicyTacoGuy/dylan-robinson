@@ -166,9 +166,10 @@ projection code and no 3D library.
   bark collar, which separates the sawn face from the wall.
 - **Shadow.** A soft ellipse at the lowest point of the silhouette, drawn before the
   log, so it stays on the ground under it however the log turns.
-- **Motion.** As the hero scrolls away, the log turns by only a few degrees, then
-  rests. It is an illustration, not a second interactive feature; there is no drag
-  control. Reduced motion paints one frame and attaches no scroll listener.
+- **Motion.** As the hero scrolls away, the log rolls about 30 degrees, then rests.
+  The turn is tied to the hero's passage, not to the whole page. It is an illustration,
+  not a second interactive feature; there is no drag control or load animation.
+  Reduced motion paints one frame and attaches no scroll listener.
 - **Cost.** One canvas, capped at 2x device pixel ratio, redrawn only while the target
   is moving and paused entirely when the hero leaves the viewport.
 
