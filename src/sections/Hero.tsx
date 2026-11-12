@@ -1,5 +1,5 @@
 import { Log } from "../components/Log";
-import { CV_URL, EMAIL, GITHUB_URL, LINKEDIN_URL, LOCATION } from "../content";
+import { CV_URL, EMAIL, LOCATION } from "../content";
 
 type HeroProps = {
   hasCv: boolean;
@@ -20,9 +20,12 @@ export function Hero({ hasCv }: HeroProps) {
           </p>
 
           <div className="hero__actions">
+            <a className="action action--solid" href="#work">
+              See selected work
+            </a>
             {hasCv && (
               <a
-                className="action action--solid"
+                className="action"
                 href={CV_URL}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -33,30 +36,11 @@ export function Hero({ hasCv }: HeroProps) {
             <a className="action" href={`mailto:${EMAIL}`}>
               Email me
             </a>
-            <a
-              className="action"
-              href={LINKEDIN_URL}
-              target="_blank"
-              rel="me noopener noreferrer"
-            >
-              LinkedIn
-            </a>
-            <a
-              className="action"
-              href={GITHUB_URL}
-              target="_blank"
-              rel="me noopener noreferrer"
-            >
-              GitHub
-            </a>
           </div>
         </div>
 
         <div className="hero__log">
           <Log />
-          <p className="hero__log-note">
-            Drag to turn it. Yes, it is a log slice.
-          </p>
         </div>
       </div>
     </section>

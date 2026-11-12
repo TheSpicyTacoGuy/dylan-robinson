@@ -41,19 +41,12 @@ export function Log({ className }: LogProps) {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     let palette = readPalette(canvas);
 
-    // Two rotation values: `target` follows scroll, `current` eases toward it,
-    // so the log never snaps when the wheel jumps. `spin` is how far the reader
-    // has rolled it by hand and never decays, so it can be turned all the way
-    // round; `tilt` is the tip of its axis, which settles back.
+    // The log only turns a few degrees as the hero scrolls away. Smoothing
+    // keeps that small response from snapping on a fast wheel movement.
     let targetX = LOG_ROTATION.pitch;
     let targetY = LOG_ROTATION.yaw;
     let currentX = targetX;
     let currentY = targetY;
-    let dragging = false;
-    let dragX = 0;
-    let dragY = 0;
-    let spin = 0;
-    let tilt = 0;
     let visible = true;
     let frame = 0;
     let width = 0;
@@ -91,22 +84,13 @@ export function Log({ className }: LogProps) {
       currentX += (targetX - currentX) * 0.14;
       currentY += (targetY - currentY) * 0.14;
 
-      paint(currentX + tilt, currentY + spin);
+      paint(currentX, currentY);
 
       const settled =
         Math.abs(targetX - currentX) < 0.0008 &&
-        Math.abs(targetY - currentY) < 0.0008 &&
-        Math.abs(tilt) < 0.0008;
+        Math.abs(targetY - currentY) < 0.0008;
 
-      // The tilt settles back to the scroll-driven angle; the spin stays where
-      // the reader left it.
-      if (!dragging && Math.abs(tilt) > 0.0015) {
-        tilt *= 0.92;
-      } else if (!dragging) {
-        tilt = 0;
-      }
-
-      if (!settled || dragging || Math.abs(tilt) > 0.0015) {
+      if (!settled) {
         frame = requestAnimationFrame(render);
       }
     };
@@ -118,47 +102,14 @@ export function Log({ className }: LogProps) {
     const onScroll = () => {
       if (reduced.matches) return;
       const rect = canvas.getBoundingClientRect();
-      // Progress across the first viewport: at the top of the page the log
-      // sits at rest, and it has turned through its arc by the time the hero
-      // has scrolled past.
+      // Progress across the first viewport gives the illustration one small
+      // change of angle, then it rests for the rest of the page.
       const progress = Math.max(
         0,
         Math.min(1, -rect.top / Math.max(1, window.innerHeight * 0.9)),
       );
-      // A full turn across the first viewport. It is a rolling pin turning on
-      // the ground, so both sawn ends come round to the reader on the way.
-      targetY = LOG_ROTATION.yaw + progress * Math.PI * 2;
-      targetX = LOG_ROTATION.pitch + progress * 0.2;
-      schedule();
-    };
-
-    const onPointerDown = (event: PointerEvent) => {
-      if (event.pointerType === "mouse" && event.button !== 0) return;
-      dragging = true;
-      dragX = event.clientX;
-      dragY = event.clientY;
-      canvas.setPointerCapture(event.pointerId);
-      canvas.classList.add("is-dragging");
-    };
-
-    const onPointerMove = (event: PointerEvent) => {
-      if (!dragging) return;
-      const dx = event.clientX - dragX;
-      const dy = event.clientY - dragY;
-      dragX = event.clientX;
-      dragY = event.clientY;
-      spin += dx * 0.008;
-      tilt = Math.max(-0.5, Math.min(0.5, tilt + dy * 0.005));
-      schedule();
-    };
-
-    const endDrag = (event: PointerEvent) => {
-      if (!dragging) return;
-      dragging = false;
-      if (canvas.hasPointerCapture(event.pointerId)) {
-        canvas.releasePointerCapture(event.pointerId);
-      }
-      canvas.classList.remove("is-dragging");
+      targetY = LOG_ROTATION.yaw + progress * 0.12;
+      targetX = LOG_ROTATION.pitch + progress * 0.04;
       schedule();
     };
 
@@ -182,14 +133,10 @@ export function Log({ className }: LogProps) {
     visibility.observe(canvas);
 
     if (reduced.matches) {
-      // A single composed still: no scroll listener, no easing, no drag.
+      // A single composed still: no scroll listener or motion.
       size();
       paint(LOG_ROTATION.pitch, LOG_ROTATION.yaw);
     } else {
-      canvas.addEventListener("pointerdown", onPointerDown);
-      canvas.addEventListener("pointermove", onPointerMove);
-      canvas.addEventListener("pointerup", endDrag);
-      canvas.addEventListener("pointercancel", endDrag);
       window.addEventListener("scroll", onScroll, { passive: true });
       onScroll();
 
@@ -217,10 +164,6 @@ export function Log({ className }: LogProps) {
       visibility.disconnect();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
-      canvas.removeEventListener("pointerdown", onPointerDown);
-      canvas.removeEventListener("pointermove", onPointerMove);
-      canvas.removeEventListener("pointerup", endDrag);
-      canvas.removeEventListener("pointercancel", endDrag);
     };
   }, []);
 
@@ -237,8 +180,7 @@ export function Log({ className }: LogProps) {
     <canvas
       ref={canvasRef}
       className={className ? `log ${className}` : "log"}
-      role="img"
-      aria-label="A sawn log end, its growth rings turning slowly as the page scrolls."
+      aria-hidden="true"
     />
   );
 }

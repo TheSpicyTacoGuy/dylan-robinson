@@ -10,25 +10,25 @@
 [data-theme="light"] {
   color-scheme: light;
 
-  --background: oklch(91% 0.024 70);
-  --sunk: oklch(86.8% 0.03 68);
+  --background: oklch(92% 0.018 76);
+  --sunk: oklch(88% 0.022 72);
   --foreground: oklch(23.5% 0.028 52);
-  --muted: oklch(41.5% 0.03 56);
-  --separator: oklch(80% 0.028 66);
-  --border: oklch(75% 0.03 66);
-  --surface: oklch(93.5% 0.02 70);
-  --accent: oklch(43.5% 0.082 120);
+  --muted: oklch(42% 0.022 56);
+  --separator: oklch(81% 0.022 68);
+  --border: oklch(76% 0.023 68);
+  --surface: oklch(94% 0.018 74);
+  --accent: oklch(43.5% 0.052 145);
   --accent-foreground: oklch(96% 0.014 80);
   --sky: oklch(72% 0.045 245);
   --danger: oklch(50% 0.16 30);
   --warning: oklch(70% 0.115 68);
-  --success: oklch(43.5% 0.082 120);
+  --success: oklch(43.5% 0.052 145);
 
-  --bark-band: oklch(19% 0.03 46);
+  --bark-band: oklch(21% 0.026 48);
   --bark-fg: oklch(94% 0.014 78);
   --bark-muted: oklch(77% 0.02 70);
-  --bark-line: oklch(32% 0.024 50);
-  --bark-accent: oklch(83% 0.078 120);
+  --bark-line: oklch(34% 0.02 50);
+  --bark-accent: oklch(80% 0.055 145);
 
   --contact-bg: oklch(70% 0.06 40);
   --contact-fg: oklch(17% 0.028 45);
@@ -42,25 +42,25 @@
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --background: oklch(17.5% 0.02 48);
-  --sunk: oklch(20.5% 0.022 48);
+  --background: oklch(19% 0.018 48);
+  --sunk: oklch(21.5% 0.02 48);
   --foreground: oklch(93% 0.014 78);
   --muted: oklch(73% 0.02 68);
-  --separator: oklch(29% 0.02 50);
-  --border: oklch(33% 0.022 50);
-  --surface: oklch(21% 0.022 48);
-  --accent: oklch(72% 0.085 120);
-  --accent-foreground: oklch(18% 0.02 120);
+  --separator: oklch(30% 0.018 50);
+  --border: oklch(34% 0.018 50);
+  --surface: oklch(22% 0.018 48);
+  --accent: oklch(74% 0.06 145);
+  --accent-foreground: oklch(18% 0.02 145);
   --sky: oklch(78% 0.04 250);
   --danger: oklch(64% 0.15 30);
   --warning: oklch(80% 0.1 72);
-  --success: oklch(81% 0.08 120);
+  --success: oklch(79% 0.06 145);
 
-  --bark-band: oklch(13.5% 0.024 46);
+  --bark-band: oklch(16.5% 0.02 46);
   --bark-fg: oklch(94% 0.014 78);
   --bark-muted: oklch(75% 0.02 68);
-  --bark-line: oklch(30% 0.02 50);
-  --bark-accent: oklch(84% 0.08 120);
+  --bark-line: oklch(32% 0.018 50);
+  --bark-accent: oklch(80% 0.058 145);
 
   --contact-bg: oklch(30% 0.05 40);
   --contact-fg: oklch(93% 0.014 78);
@@ -72,15 +72,15 @@
 
 :root {
   --font-display: "Martian Mono", ui-monospace, SFMono-Regular, monospace;
-  --font-body: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-  --font-mono: "Martian Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
   /* Mono is wide, so the scale is smaller in rem than a proportional face
      would need at the same optical size. */
   --step-display: clamp(2.2rem, 5vw, 4.6rem);
   --step-h2: clamp(1.6rem, 3.1vw, 2.4rem);
   --step-h3: clamp(1.15rem, 1.6vw, 1.4rem);
-  --step-body: clamp(0.94rem, 0.2vw + 0.9rem, 1.02rem);
+  --step-body: 1rem;
 
   --spine: 5.5rem;
   --gutter: clamp(1rem, 3.4vw, 3rem);
@@ -496,7 +496,7 @@ main {
 .hero__lede {
   max-width: 34ch;
   margin-top: 1.5rem;
-  font-size: clamp(0.98rem, 1.15vw, 1.1rem);
+  font-size: 1.05rem;
   line-height: 1.65;
   color: var(--fg-muted);
 }
@@ -512,7 +512,6 @@ main {
   position: relative;
   display: grid;
   justify-items: center;
-  gap: 0.4rem;
 }
 
 .log {
@@ -520,14 +519,6 @@ main {
   width: 100%;
   max-width: 34rem;
   aspect-ratio: 1;
-  cursor: grab;
-  touch-action: pan-y;
-  -webkit-user-select: none;
-  user-select: none;
-}
-
-.log.is-dragging {
-  cursor: grabbing;
 }
 
 .log--fallback {
@@ -542,11 +533,6 @@ main {
 .log--fallback .ring-field__svg {
   width: 82%;
   height: 82%;
-}
-
-.hero__log-note {
-  font-size: 0.7rem;
-  color: var(--fg-muted);
 }
 
 /* Facts */

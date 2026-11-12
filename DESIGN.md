@@ -18,33 +18,33 @@ layout is a spine and full-bleed bands, and the accent closes the page as a surf
 
 ## Dials
 
-- ENERGY 2. Confident, not loud.
-- RHYTHM 3. Bands alternate, plates are staggered, the spine is constant.
-- MOTION 2. One draw-in for the rings, hover answers, nothing loops.
+- Display: Martian Mono, weights 400, 500 and 700, self hosted. The wide, squared
+  lettering gives the name and section headings a plotted, technical voice.
+- Body: IBM Plex Sans, weights 400 and 600, self hosted. Prose and controls use a
+  proportional face so a hiring manager can scan the story without reading a page
+  that looks like source code.
+- Data: JetBrains Mono, weight 400, self hosted. Dates, measurements and ring labels
+  stay monospaced where fixed-width numerals help.
 
-One memorable thing: the ring timeline in History. Everything else is disciplined.
-
-## Colour
-
-Brown leads. Warm sand is the page ground, bark is the ink, clay closes the page, and
-eucalyptus is the only cool note, saved for links and active marks. There is no cream
-and no off-white: the ground sits at 91% lightness with a real warm cast, so it reads
-as a surface with colour rather than a default page.
-
+The three families have separate jobs: display, reading and data. Only Latin subsets
+are shipped. Body is a steady 1rem with 1.65 line-height and a measure under 72ch.
+Display scales from `2.2rem` to `4.6rem`; section titles from `1.6rem` to `2.4rem`;
+case titles from `1.15rem` to `1.4rem`. Display tracking is -0.02em; nothing goes
+tighter.
 | Token | Light | Role |
 | --- | --- | --- |
-| `--background` | `oklch(91% 0.024 70)` | warm sand, the page ground |
-| `--sunk` | `oklch(86.8% 0.03 68)` | a deeper sand for the About band |
+| `--background` | `oklch(92% 0.018 76)` | soft warm sand, the page ground |
+| `--sunk` | `oklch(88% 0.022 72)` | a deeper sand for the About band |
 | `--foreground` | `oklch(23.5% 0.028 52)` | bark, text |
-| `--muted` | `oklch(41.5% 0.03 56)` | secondary text |
-| `--separator` | `oklch(80% 0.028 66)` | rules and dividers |
-| `--accent` | `oklch(43.5% 0.066 138)` | eucalyptus gum green, links and active marks |
-| `--bark-band` | `oklch(19% 0.03 46)` | the dark bands |
+| `--muted` | `oklch(42% 0.022 56)` | secondary text |
+| `--separator` | `oklch(81% 0.022 68)` | rules and dividers |
+| `--accent` | `oklch(43.5% 0.052 145)` | muted eucalyptus, links and active marks |
+| `--bark-band` | `oklch(21% 0.026 48)` | lifted walnut bark |
 | `--contact-bg` | `oklch(70% 0.06 40)` | the closing band, a warm clay |
 
-Dark is the same photograph at night: deep brown ground, sand text, eucalyptus lifted,
-and the contact band deepens to `oklch(30% 0.05 40)` so it stays clay rather than
-going bright.
+Dark is the same photograph at night: a lifted deep-brown ground, sand text, and a
+softer eucalyptus accent. The contact band deepens to `oklch(30% 0.05 40)` so it
+stays clay rather than going bright.
 
 The bark band stays dark in both themes, the way a cover does. The contact band is
 the one loud surface, and it is a full screen tall so it can also meet the top of the
@@ -166,15 +166,15 @@ projection code and no 3D library.
   bark collar, which separates the sawn face from the wall.
 - **Shadow.** A soft ellipse at the lowest point of the silhouette, drawn before the
   log, so it stays on the ground under it however the log turns.
-- **Motion.** Scroll yaws it through a full turn across the first viewport and tips it
-  by about 11 degrees. Dragging adds a spin that persists, so it can be rolled all the
-  way round by hand, plus a tilt that settles back. Reduced motion paints one frame and
-  attaches no scroll listener.
+- **Motion.** As the hero scrolls away, the log turns by only a few degrees, then
+  rests. It is an illustration, not a second interactive feature; there is no drag
+  control. Reduced motion paints one frame and attaches no scroll listener.
 - **Cost.** One canvas, capped at 2x device pixel ratio, redrawn only while the target
   is moving and paused entirely when the hero leaves the viewport.
 
 The ring timeline in History is the same data told again in two dimensions, and it is
-the accessible version: the canvas is decorative and `aria-hidden` through its label.
+the accessible version: the canvas is decorative and `aria-hidden`; the role legend
+and caption carry the information.
 
 One parallax scene runs the whole page: a single scroll listener and one
 requestAnimationFrame loop walks every element carrying `data-parallax`, skips
