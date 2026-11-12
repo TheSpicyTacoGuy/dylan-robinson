@@ -1018,7 +1018,10 @@ main {
   }
 }
 
-.index__shot:first-child {
+/* A lone shot, or a lead with two behind it, fills the row. An even pair
+   sits side by side so neither image is stretched. */
+.index__shot:first-child:nth-last-child(1),
+.index__shot:first-child:nth-last-child(3) {
   grid-column: 1 / -1;
 }
 

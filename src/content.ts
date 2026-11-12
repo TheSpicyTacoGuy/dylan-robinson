@@ -214,11 +214,10 @@ export const otherProjects: Project[] = [
   },
   {
     title: "Greenhouse monitoring system",
-    when: "University project",
-    role: "Group project, Vue interface by Dylan",
+    when: "2025",
+    role: "Group project, SWE30011 Assignment 4",
     summary:
-      "Our group built an Arduino greenhouse monitor with a light sensor and LEDs. It detects low light and switches the UV lights on. I built the Vue interface that shows each edge device and lets its settings change remotely over MQTT, covering climate, irrigation, lighting, and air quality with rain alerts. The group put the devices on a ThingsBoard dashboard.",
-    tech: "Arduino, Vue, MQTT, ThingsBoard, LEDs, light sensor",
+      "A dashboard for a greenhouse split into four edge devices: climate, irrigation, lighting, and air quality with rain alerts. Each one shows live telemetry and a history chart, and takes manual commands and schedules. The lighting view decides whether the UV lamp should be on from the current light level and the outdoor UV index.",
     shots: [
       {
         src: "/shots/gh-irrigation-1400.webp",
@@ -251,6 +250,39 @@ export const otherProjects: Project[] = [
         height: 549,
       },
     ],
+  },
+  {
+    title: "Light sensor monitor",
+    when: "2025",
+    role: "Swinburne coursework, SWE30011 Assignment 2",
+    summary:
+      "A light sensor and a temperature probe on an Arduino report as JSON over USB serial every 250 ms to a Raspberry Pi. The Pi calibrates the readings, stores each sample in MariaDB and evaluates threshold rules held in JSON, queueing commands back to the board so the dashboard never touches the serial port. The dashboard charts history in D3 and reports Active, Stale or Offline from the age of the last sample.",
+    tech: "Arduino, C++, Python, Flask, MariaDB, JavaScript, D3.js, JSON rules",
+    shots: [
+      {
+        src: "/shots/ls-flow-1000.webp",
+        srcSet: "/shots/ls-flow-800.webp 800w, /shots/ls-flow-1000.webp 1000w",
+        sizes: "(min-width: 760px) 45vw, 100vw",
+        alt: "Flow diagram from the Arduino sensors through the serial feed and database to the dashboard and the command queue.",
+        caption: "Data flow",
+        width: 1000,
+        height: 1335,
+      },
+      {
+        src: "/shots/ls-circuit-1200.webp",
+        srcSet:
+          "/shots/ls-circuit-800.webp 800w, /shots/ls-circuit-1200.webp 1200w",
+        sizes: "(min-width: 760px) 45vw, 100vw",
+        alt: "Breadboard wiring diagram with an Arduino Uno, the light sensor, resistors, a pushbutton and a buzzer.",
+        caption: "Circuit",
+        width: 1200,
+        height: 1354,
+      },
+    ],
+    link: {
+      label: "View on GitHub",
+      href: "https://github.com/TheSpicyTacoGuy/SWE30011-IoT-Programming-Assignment-2",
+    },
   },
   {
     title: "GrowSpace, greenhouse and plant app",
