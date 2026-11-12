@@ -75,14 +75,17 @@ export const caseStudies: CaseStudy[] = [
     when: "2023 to now",
     role: "CTRL Accounting, lead web developer and director",
     status: "Pre-launch, private repository",
+    stack: ["Vue 3", "Express 5", "MongoDB", "Keycloak", "Stripe", "AWS KMS"],
     summary:
       "Clients answer plain-English questions and pay for their return. A registered tax agent then reviews it in a separate workspace and lodges it with the ATO. It is being prepared for launch.",
     facts: [
       "Return contents are encrypted in the browser, so only the assigned tax agent can open them.",
+      "The Express 5 API runs on MongoDB, with Helmet headers and eight rate limiters covering auth, submissions, contact, support and both Stripe flows.",
+      "139 automated tests across 23 files cover tax rules, TFN and ABN checks, encryption and Stripe webhooks.",
       "Keycloak sign-in with passkeys, or a password plus an authenticator code.",
+      "Encryption keys are managed in AWS KMS, and Stripe webhooks are signature checked before any write.",
       "Stripe Checkout for fees and Stripe Identity for ID checks.",
       "Support requests, notifications, and an audit and diagnostics screen for staff.",
-      "Wrote 179 automated tests to support launch readiness.",
       "I hold a 20% share as a director, so I have a say in where the product goes.",
     ],
     plates: [
@@ -198,6 +201,18 @@ export const otherProjects: Project[] = [
     summary:
       "Our group built an Arduino greenhouse monitor with a light sensor and LEDs. It detects low light and switches on UV lights. I built a Vue site to monitor my device and change its settings remotely over MQTT; the group connected the devices to a ThingsBoard dashboard.",
     tech: "Arduino, Vue, MQTT, ThingsBoard, LEDs, light sensor",
+  },
+  {
+    title: "Android apps, COS30017",
+    when: "2026",
+    role: "Swinburne coursework, Kotlin",
+    summary:
+      "Three Android assignments published as public repositories on my university GitHub account, written in Kotlin.",
+    tech: "Kotlin, Android",
+    link: {
+      label: "View on GitHub",
+      href: "https://github.com/DylanRobinson-101634222",
+    },
   },
   {
     title: "Essentials Android app",
