@@ -525,11 +525,18 @@ main {
   object-position: 50% 30%;
 }
 
+.background__ending {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 17rem);
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
 .background__log {
   display: grid;
   justify-items: end;
-  width: min(100%, 24rem);
-  margin: clamp(2rem, 4vw, 3rem) 0 0 auto;
+  width: 100%;
 }
 
 .log {
@@ -577,18 +584,14 @@ main {
 .facts__list {
   display: grid;
   gap: 0;
+  border-top: 1px solid var(--line);
 }
 
 .facts__row {
   display: grid;
   grid-template-columns: 10rem minmax(0, 1fr);
   gap: 0.3rem 1.5rem;
-  padding: 0.95rem 0;
-  border-top: 1px solid var(--line);
-}
-
-.facts__row:last-of-type {
-  border-bottom: 1px solid var(--line);
+  padding: 1.05rem 0;
 }
 
 .facts__row dt {
@@ -883,6 +886,14 @@ main {
 }
 
 .index__row {
+  border-bottom: 0;
+}
+
+.index__row:first-child {
+  border-top: 1px solid var(--line);
+}
+
+.index__row:last-child {
   border-bottom: 1px solid var(--line);
 }
 
@@ -1029,20 +1040,13 @@ main {
 
 .study {
   display: grid;
-  gap: 1.3rem;
+  gap: 1.55rem;
 }
 
 .study__row {
   display: grid;
   grid-template-columns: 8rem minmax(0, 1fr);
   gap: 0.2rem 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--line);
-}
-
-.study__row:first-child {
-  padding-top: 0;
-  border-top: 0;
 }
 
 .study__when {
@@ -1073,7 +1077,7 @@ main {
 
 .tools {
   display: grid;
-  gap: 0.85rem;
+  gap: 1.05rem;
   align-content: start;
 }
 
@@ -1081,13 +1085,6 @@ main {
   display: grid;
   grid-template-columns: 8.5rem minmax(0, 1fr);
   gap: 0.2rem 1rem;
-  padding-top: 0.85rem;
-  border-top: 1px solid var(--line);
-}
-
-.tools__row:first-child {
-  padding-top: 0;
-  border-top: 0;
 }
 
 .tools__label {
@@ -1105,7 +1102,6 @@ main {
 
 .background__note {
   max-width: 52ch;
-  margin-top: clamp(2.5rem, 5vw, 4rem);
   font-size: var(--step-body);
   line-height: 1.65;
 }
@@ -1441,8 +1437,11 @@ main {
 
   .background__log {
     justify-items: center;
-    margin-right: auto;
-    margin-left: auto;
+  }
+
+  .background__ending {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.75rem;
   }
 
   .log {

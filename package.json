@@ -8,6 +8,9 @@
     "start": "npm run dev",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "lint:design": "node scripts/design-lint.mjs",
+    "lint:design:changed": "node scripts/design-lint.mjs --changed",
+    "brief": "node scripts/change-brief.mjs",
     "preview": "vite preview",
     "images": "python scripts/build-images.py",
     "og": "node scripts/make-og-card.mjs"

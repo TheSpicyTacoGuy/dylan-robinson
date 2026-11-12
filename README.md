@@ -24,6 +24,30 @@ npm run preview
 npm run lint
 ```
 
+## Design checks
+
+Two dependency-free scripts back the review agents. Both are deterministic and
+bounded, so they can be run instead of reading a diff.
+
+```shell
+npm run lint:design            # whole project
+npm run lint:design:changed    # files changed since HEAD
+npm run brief -- <paths>       # new selectors, changed declaration values
+```
+
+`lint:design` covers what a pattern can decide: em dashes, emoji, dead in-page
+anchors, glass, gradient text, hardcoded hex outside tokens, `vw` widths, radius
+off the token scale, a border and shadow on one surface, and `!important` outside
+the reduced-motion block. It exits `1` on findings.
+
+Prints and mask stops are allowed to use black and white, and the `theme-color`
+meta value is allowed to be a literal, because none of those can reference a
+token.
+
+`brief` compares the file at `HEAD` with the working copy and reports new and
+removed selectors plus every declaration whose value changed. It replaces reading
+a raw diff on a restyled file.
+
 ## Content
 
 All portfolio and printable-résumé content lives in [src/content.ts](src/content.ts).

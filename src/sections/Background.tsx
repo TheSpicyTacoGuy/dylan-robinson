@@ -36,16 +36,18 @@ export function Background() {
           </dl>
         </div>
 
-        <p className="background__note">
-          I work on whatever part of a system is causing trouble: the database,
-          the front end, or the person on the phone explaining what went wrong.
-          I use AI assistants, specialist agents and MCP tools to speed up
-          implementation and debugging, with automated tests and security checks
-          kept in the workflow.
-        </p>
+        <div className="background__ending">
+          <p className="background__note">
+            I work on whatever part of a system is causing trouble: the
+            database, the front end, or the person on the phone explaining what
+            went wrong. I use AI assistants, specialist agents and MCP tools to
+            speed up implementation and debugging, with automated tests and
+            security checks kept in the workflow.
+          </p>
 
-        <div className="background__log log-scene" aria-hidden="true">
-          <Log className="log--supporting" />
+          <div className="background__log log-scene" aria-hidden="true">
+            <Log className="log--supporting" />
+          </div>
         </div>
       </div>
     </section>
