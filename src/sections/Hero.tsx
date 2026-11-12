@@ -1,4 +1,3 @@
-import { Log } from "../components/Log";
 import { CV_URL, EMAIL, LOCATION } from "../content";
 
 type HeroProps = {
@@ -10,9 +9,8 @@ export function Hero({ hasCv }: HeroProps) {
     <section className="band band--bark hero" id="intro">
       <div className="band__inner hero__inner">
         <div className="hero__copy">
-          <p className="hero__where">{LOCATION}</p>
-
           <h1 className="hero__name">Dylan Robinson</h1>
+          <p className="hero__location">{LOCATION}</p>
 
           <p className="hero__lede">
             I build the online tax return app at CTRL Accounting, where I am
@@ -39,9 +37,19 @@ export function Hero({ hasCv }: HeroProps) {
           </div>
         </div>
 
-        <div className="hero__log">
-          <Log />
-        </div>
+        <figure className="hero__portrait">
+          <img
+            src="/portrait-tall-800.webp"
+            srcSet="/portrait-tall-800.webp 800w, /portrait-tall-1200.webp 1200w"
+            sizes="(min-width: 760px) 25rem, 100vw"
+            alt="Dylan Robinson in the Yarra Valley."
+            width={800}
+            height={1000}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+          />
+        </figure>
       </div>
     </section>
   );

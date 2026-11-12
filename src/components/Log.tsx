@@ -5,18 +5,17 @@ import { RingField } from "./RingField";
 /** Reads the log's colours from the theme tokens so it never hardcodes a hex. */
 const readPalette = (canvas: HTMLCanvasElement): Palette => {
   const styles = getComputedStyle(canvas);
-  const token = (name: string, fallback: string) =>
-    styles.getPropertyValue(name).trim() || fallback;
+  const token = (name: string) => styles.getPropertyValue(name).trim();
 
   return {
-    bark: token("--log-bark", "#4a2e1b"),
-    barkDark: token("--log-bark-dark", "#2b1a0f"),
-    barkShadow: token("--log-shadow", "#3b2413"),
-    barkLight: token("--log-bark-light", "#8f6842"),
-    face: token("--log-face", "#d9bd94"),
-    faceDark: token("--log-face-dark", "#b0946f"),
-    ring: token("--log-ring", "#8d6a44"),
-    pith: token("--log-pith", "#432a17"),
+    bark: token("--log-bark"),
+    barkDark: token("--log-bark-dark"),
+    barkShadow: token("--log-shadow"),
+    barkLight: token("--log-bark-light"),
+    face: token("--log-face"),
+    faceDark: token("--log-face-dark"),
+    ring: token("--log-ring"),
+    pith: token("--log-pith"),
   };
 };
 
@@ -41,13 +40,13 @@ export function Log({ className }: LogProps) {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     let palette = readPalette(canvas);
 
-    // The log makes one bounded roll as the hero leaves. Smoothing keeps the
+    // The log makes one bounded roll as its scene leaves. Smoothing keeps the
     // object connected to the scroll without snapping on a fast wheel movement.
     let targetX = LOG_ROTATION.pitch;
     let targetY = LOG_ROTATION.yaw;
     let currentX = targetX;
     let currentY = targetY;
-    let visible = true;
+    let visible = false;
     let frame = 0;
     let width = 0;
     let height = 0;
@@ -96,14 +95,14 @@ export function Log({ className }: LogProps) {
     };
 
     const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(render);
+      if (visible && !frame) frame = requestAnimationFrame(render);
     };
 
     const onScroll = () => {
-      if (reduced.matches) return;
-      const hero = canvas.closest<HTMLElement>(".hero");
-      const rect = (hero ?? canvas).getBoundingClientRect();
-      // Map the whole hero passage to one modest turn, then leave the log still.
+      if (reduced.matches || !visible) return;
+      const scene = canvas.closest<HTMLElement>(".log-scene") ?? canvas;
+      const rect = scene.getBoundingClientRect();
+      // Map this scene's passage to one modest turn, then leave the log still.
       const progress = Math.max(
         0,
         Math.min(1, -rect.top / Math.max(1, rect.height)),
@@ -126,9 +125,12 @@ export function Log({ className }: LogProps) {
     const visibility = new IntersectionObserver(
       (entries) => {
         visible = entries.some((entry) => entry.isIntersecting);
-        if (visible) schedule();
+        if (visible && !reduced.matches) {
+          onScroll();
+          schedule();
+        }
       },
-      { rootMargin: "120px" },
+      { rootMargin: "0px" },
     );
     visibility.observe(canvas);
 
@@ -138,13 +140,6 @@ export function Log({ className }: LogProps) {
       paint(LOG_ROTATION.pitch, LOG_ROTATION.yaw);
     } else {
       window.addEventListener("scroll", onScroll, { passive: true });
-      onScroll();
-
-      // Paint once now rather than waiting for a frame. requestAnimationFrame
-      // is paused in a background tab, so a hero that only painted on a frame
-      // could arrive blank.
-      if (size()) paint(currentX, currentY);
-      schedule();
     }
 
     const onResize = () => {
@@ -153,8 +148,8 @@ export function Log({ className }: LogProps) {
         paint(LOG_ROTATION.pitch, LOG_ROTATION.yaw);
         return;
       }
+      if (!visible) return;
       onScroll();
-      schedule();
     };
     window.addEventListener("resize", onResize);
 

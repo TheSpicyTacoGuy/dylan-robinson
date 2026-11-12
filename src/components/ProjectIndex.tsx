@@ -20,8 +20,8 @@ export function ProjectIndex({ projects }: ProjectIndexProps) {
         Also built
       </h3>
       <p className="index__intro">
-        Client and capstone work, some of it under NDA, so the detail here is
-        the outline.
+        Additional client, university and open-source work, with NDA-bound
+        projects kept high-level.
       </p>
 
       <ul className="index__list">
@@ -60,6 +60,16 @@ export function ProjectIndex({ projects }: ProjectIndexProps) {
                   <p>{project.summary}</p>
                   {project.tech && (
                     <p className="index__tech">{project.tech}</p>
+                  )}
+                  {project.link && (
+                    <a
+                      className="index__project-link"
+                      href={project.link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {project.link.label}
+                    </a>
                   )}
                 </div>
               </div>

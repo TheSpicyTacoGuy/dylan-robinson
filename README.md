@@ -5,16 +5,13 @@ React 19, TypeScript, Vite and hand written CSS. No UI kit.
 
 ## What is on the page
 
-- **Intro.** The name, an availability statement and a draggable log, drawn on a
-  canvas from scratch.
-- **Facts.** The recruiter panel: role, location, notice, the two builds worth talking
-  through, and the ways to reach him, including the printed CV at `/resume/`.
-- **Work.** Two case studies, the CTRL Accounting tax return app and the Four
-  Seasons Horse Rugs site, then an index of three smaller builds. Every screenshot
-  opens at full size.
-- **History.** An interactive ring timeline. One ring per year from 2014, filed as one
-  continuous section with month divisions. Point at a ring or pick a role to light it.
-- **Background.** Study and the tools, grouped, and the portrait.
+- **Intro.** Name, portrait, introduction and a direct link to selected work.
+- **Work.** Two detailed case studies followed by selected client, university and
+  open-source projects. Every project screenshot opens at full size.
+- **Facts.** Availability, work rights, recruiter details and contact links.
+- **Experience.** A chronological, keyboard- and screen-reader-readable list of roles.
+- **Background.** Study, exact GPAs, grouped tools, working style and the supporting
+  log illustration.
 - **Contact.** Email, LinkedIn, GitHub and the CV.
 
 ## Run it
@@ -29,9 +26,9 @@ npm run lint
 
 ## Content
 
-All copy lives in [src/content.ts](src/content.ts). A role needs `start` and `end`
-year numbers (use `null` for the current role), and the ring timeline picks it up
-without any other change.
+All portfolio and printable-résumé content lives in [src/content.ts](src/content.ts).
+Roles need `start` and `end` year numbers (use `null` for the current role); the
+Experience list displays them newest first. Selected projects live in `otherProjects`.
 
 Case studies take `plates`, which are the screenshots and their captions. Keep the
 `width` and `height` values matched to the generated files.
@@ -58,11 +55,10 @@ It writes `public/og/og-card.png` at 1200 by 630.
 
 ## Fonts
 
-Martian Mono and JetBrains Mono are self hosted from `public/fonts`. They are under
-the SIL Open Font License, with the licence files next to them. The site makes no
-third party requests. Martian Mono carries every heading, the name and the email;
-JetBrains Mono carries body, labels and numbers. Five files, latin subsets, 72KB in
-total.
+Martian Mono, IBM Plex Sans and JetBrains Mono are self hosted from `public/fonts`.
+They are under the SIL Open Font License, with the licence files next to them. The
+site makes no third-party font requests. Martian Mono is display, IBM Plex Sans is
+body copy, and JetBrains Mono is reserved for data and dates.
 
 ## Design
 
@@ -71,10 +67,10 @@ changing colour, type or layout.
 
 ## Animation and security
 
-There is no animation library. The ring draw is a CSS dash offset triggered by an
-IntersectionObserver, and the spine progress is a CSS variable written on scroll, so
-scrolling does not re-render React. Keep it that way: the bundle is 233KB, and a motion
-library was most of the 130KB that came out of it.
+There is no animation library. The experience list is static; the background log has
+one bounded scroll response, pauses offscreen, and paints a still under reduced
+motion. The spine progress is a CSS variable written on scroll, so scrolling does not
+re-render React.
 
 The hero log is the one piece of real geometry: [src/lib/log3d.ts](src/lib/log3d.ts)
 builds two 56 point rings, projects them through a pitch and a yaw rotation with a mild

@@ -33,12 +33,7 @@ const escape = (value: string) =>
 
 const stack = toolGroups.flatMap((group) => group.items).join(", ");
 
-const entry = (
-  when: string,
-  title: string,
-  where: string,
-  extra = "",
-) => `
+const entry = (when: string, title: string, where: string, extra = "") => `
   <article class="entry">
     <p class="when">${escape(when)}</p>
     <div>
@@ -71,9 +66,7 @@ const html = `
         entry(
           role.when,
           role.title,
-          `${role.company}, ${role.place}${
-            role.note ? ` (${role.note})` : ""
-          }`,
+          `${role.company}, ${role.place}${role.note ? ` (${role.note})` : ""}`,
         ),
       )
       .join("")}
@@ -104,7 +97,8 @@ const html = `
           project.title,
           project.role,
           `<p class="body">${escape(project.summary)}</p>
-           ${project.tech ? `<p class="tech">${escape(project.tech)}</p>` : ""}`,
+            ${project.tech ? `<p class="tech">${escape(project.tech)}</p>` : ""}
+            ${project.link ? `<p class="tech"><a href="${escape(project.link.href)}" target="_blank" rel="noopener noreferrer">${escape(project.link.label)}</a></p>` : ""}`,
         ),
       )
       .join("")}

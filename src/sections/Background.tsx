@@ -1,4 +1,5 @@
 import { study, toolGroups } from "../content";
+import { Log } from "../components/Log";
 
 export function Background() {
   return (
@@ -38,30 +39,14 @@ export function Background() {
         <p className="background__note">
           I work on whatever part of a system is causing trouble: the database,
           the front end, or the person on the phone explaining what went wrong.
+          I use AI assistants, specialist agents and MCP tools to speed up
+          implementation and debugging, with automated tests and security checks
+          kept in the workflow.
         </p>
 
-        <figure className="about-portrait" data-parallax="-24">
-          <div className="about-portrait__frame">
-            <picture>
-              <source
-                media="(max-width: 700px)"
-                srcSet="/portrait-tall-800.webp 800w, /portrait-tall-1200.webp 1200w"
-                sizes="100vw"
-              />
-              <img
-                src="/portrait-wide-1200.webp"
-                srcSet="/portrait-wide-1200.webp 1200w, /portrait-wide-2000.webp 2000w"
-                sizes="(min-width: 700px) 34rem, 100vw"
-                alt="Dylan Robinson in the Yarra Valley."
-                width={1200}
-                height={545}
-                loading="lazy"
-                decoding="async"
-              />
-            </picture>
-          </div>
-          <figcaption>Yarra Valley, Victoria.</figcaption>
-        </figure>
+        <div className="background__log log-scene" aria-hidden="true">
+          <Log className="log--supporting" />
+        </div>
       </div>
     </section>
   );

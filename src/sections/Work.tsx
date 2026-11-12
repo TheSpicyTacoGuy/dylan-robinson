@@ -9,8 +9,8 @@ export function Work() {
         <header className="band__head">
           <h2 className="band__title">Work</h2>
           <p className="band__note">
-            Two builds I can talk through, then three more, including a capstone
-            under NDA.
+            Two detailed case studies, plus selected client, university and
+            open-source work.
           </p>
         </header>
 

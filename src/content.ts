@@ -1,7 +1,7 @@
 export const LINKEDIN_URL =
   "https://www.linkedin.com/in/dylan-robinson-415171184/";
 export const GITHUB_URL = "https://github.com/TheSpicyTacoGuy";
-export const EMAIL = "drskyrim1@gmail.com";
+export const EMAIL = "hey@dylan-robinson.dev";
 export const CV_URL = "/cv/dylan-robinson-resume.pdf";
 
 export const POSITIONING =
@@ -16,6 +16,7 @@ export type Fact = {
 
 /** The scannable version of the CV, for a recruiter with ten seconds. */
 export const facts: Fact[] = [
+  { label: "Work rights", value: "Unrestricted Australian work rights" },
   { label: "Availability", value: POSITIONING },
   {
     label: "Now",
@@ -24,11 +25,13 @@ export const facts: Fact[] = [
   { label: "Location", value: `${LOCATION}. Melbourne commute, or remote.` },
   {
     label: "Stack",
-    value: "TypeScript, Vue 3, React, PHP 8, MySQL, PostgreSQL, Node.js",
+    value:
+      "TypeScript, Vue 3, React, Node.js, Express, PHP, MySQL, PostgreSQL, MongoDB",
   },
   {
     label: "Before",
-    value: "Eight years in a computer repair shop, then the sawmill at Powelltown",
+    value:
+      "Eight years in a computer repair shop, then the sawmill at Powelltown",
   },
   {
     label: "Education",
@@ -43,9 +46,9 @@ export type Section = {
 
 export const sections: Section[] = [
   { id: "intro", label: "Intro" },
-  { id: "facts", label: "Facts" },
   { id: "work", label: "Work" },
-  { id: "history", label: "History" },
+  { id: "facts", label: "Facts" },
+  { id: "history", label: "Experience" },
   { id: "background", label: "About" },
   { id: "contact", label: "Contact" },
 ];
@@ -79,6 +82,7 @@ export const caseStudies: CaseStudy[] = [
       "Keycloak sign-in with passkeys, or a password plus an authenticator code.",
       "Stripe Checkout for fees and Stripe Identity for ID checks.",
       "Support requests, notifications, and an audit and diagnostics screen for staff.",
+      "Wrote 179 automated tests to support launch readiness.",
       "I hold a 20% share as a director, so I have a say in where the product goes.",
     ],
     plates: [
@@ -94,7 +98,8 @@ export const caseStudies: CaseStudy[] = [
       },
       {
         src: "/shots/dashboard-1600.webp",
-        srcSet: "/shots/dashboard-800.webp 800w, /shots/dashboard-1600.webp 1600w",
+        srcSet:
+          "/shots/dashboard-800.webp 800w, /shots/dashboard-1600.webp 1600w",
         sizes: "(min-width: 900px) 40vw, 100vw",
         alt: "Client dashboard listing refunds, returns lodged and returns in progress.",
         caption: "Client dashboard",
@@ -135,7 +140,8 @@ export const caseStudies: CaseStudy[] = [
     plates: [
       {
         src: "/four-seasons-prices-1440.webp",
-        srcSet: "/four-seasons-prices-800.webp 800w, /four-seasons-prices-1440.webp 1440w",
+        srcSet:
+          "/four-seasons-prices-800.webp 800w, /four-seasons-prices-1440.webp 1440w",
         sizes: "(min-width: 900px) 76vw, 100vw",
         alt: "Four Seasons price builder, headed Every rug, hood, neck rug and quarter sheet, priced.",
         caption: "Price builder",
@@ -145,7 +151,8 @@ export const caseStudies: CaseStudy[] = [
       },
       {
         src: "/four-seasons-home-1440.webp",
-        srcSet: "/four-seasons-home-800.webp 800w, /four-seasons-home-1440.webp 1440w",
+        srcSet:
+          "/four-seasons-home-800.webp 800w, /four-seasons-home-1440.webp 1440w",
         sizes: "(min-width: 900px) 40vw, 100vw",
         alt: "Four Seasons Horse Rugs home page, headed Horse rugs, made and repaired in Yarra Junction.",
         caption: "Home page",
@@ -172,6 +179,7 @@ export type Project = {
   role: string;
   summary: string;
   tech?: string;
+  link?: { label: string; href: string };
 };
 
 export const otherProjects: Project[] = [
@@ -184,6 +192,34 @@ export const otherProjects: Project[] = [
     tech: "Vue 3, Node.js, PostgreSQL, Python, Docker, Azure DevOps, AWS EC2",
   },
   {
+    title: "Greenhouse monitoring system",
+    when: "University project",
+    role: "Group project, Vue interface by Dylan",
+    summary:
+      "Our group built an Arduino greenhouse monitor with a light sensor and LEDs. It detects low light and switches on UV lights. I built a Vue site to monitor my device and change its settings remotely over MQTT; the group connected the devices to a ThingsBoard dashboard.",
+    tech: "Arduino, Vue, MQTT, ThingsBoard, LEDs, light sensor",
+  },
+  {
+    title: "Essentials Android app",
+    when: "Present",
+    role: "Open source contributor",
+    summary:
+      "Fixed issues and raised pull requests for an open-source Android app, using Kotlin and Git.",
+    tech: "Kotlin, Git",
+    link: {
+      label: "View on GitHub",
+      href: "https://github.com/sameerasw/essentials",
+    },
+  },
+  {
+    title: "WordPress sites and online store",
+    when: "2014 to 2022",
+    role: "Technology2You IT Services",
+    summary:
+      "Built and maintained WordPress sites for more than five local clients, including an online store with dynamic inventory supplied by JSON data feeds.",
+    tech: "WordPress, JSON",
+  },
+  {
     title: "Dressage scoring and results portal",
     when: "2018 to 2019",
     role: "EquiScore Dressage Scoring, lead developer (not a paid role)",
@@ -194,9 +230,9 @@ export const otherProjects: Project[] = [
   {
     title: "Access database rebuild",
     when: "2023 to 2025",
-    role: "Powelltown Sawmills",
+    role: "Powelltown Sawmills, now Timbermaster",
     summary:
-      "The sawmill tracked jobs and stock in a Microsoft Access database and a data entry portal. I rebuilt parts of both for Smokemaster, added tracking for timber moving between the mill and storage, and kept the old system running while I did it.",
+      "I fixed and extended the Access database and data-entry portal for Smokemaster, including a new inventory system and tracking for timber moving between the mill and storage. I also stacked timber and helped with equipment maintenance.",
     tech: "Microsoft Access, SQL",
   },
 ];
@@ -275,13 +311,13 @@ export const study: Study[] = [
     title: "Bachelor of Computer Science (Software Development)",
     place: "Swinburne University of Technology, Hawthorn",
     when: "2024 to 2026",
-    note: "GPA above 3.5/4.0",
+    note: "GPA 3.556/4.0",
   },
   {
     title: "Diploma of Information Technology",
     place: "Swinburne University (UniLink)",
     when: "2017",
-    note: "5 HDs and 4 Ds, GPA above 3.6/4.0",
+    note: "5 HDs and 4 Ds, GPA 3.625/4.0",
   },
   {
     title: "VCE, Year 12",
@@ -309,7 +345,7 @@ export type ToolGroup = {
 export const toolGroups: ToolGroup[] = [
   {
     label: "Languages",
-    items: ["TypeScript", "JavaScript", "PHP", "Python", "SQL"],
+    items: ["TypeScript", "JavaScript", "Kotlin", "PHP", "Python", "SQL"],
   },
   {
     label: "Front end",
@@ -317,11 +353,34 @@ export const toolGroups: ToolGroup[] = [
   },
   {
     label: "Back end and data",
-    items: ["Node.js", "MySQL", "PostgreSQL"],
+    items: ["Node.js", "Express", "MySQL", "PostgreSQL", "MongoDB", "JSON"],
   },
   {
-    label: "Tools and hosting",
-    items: ["Docker", "cPanel", "Azure DevOps", "AWS EC2"],
+    label: "Devices and protocols",
+    items: [
+      "Arduino",
+      "ThingsBoard",
+      "MQTT",
+      "CoAP",
+      "Modbus",
+      "Zigbee",
+      "LoRaWAN",
+    ],
+  },
+  {
+    label: "Security and delivery",
+    items: [
+      "Keycloak",
+      "Passkeys",
+      "2FA",
+      "Stripe",
+      "Automated testing",
+      "CI/CD",
+      "Docker",
+      "Azure DevOps",
+      "AWS EC2",
+      "cPanel",
+    ],
   },
   {
     label: "Also",

@@ -1,5 +1,9 @@
 import { Spine } from "./components/Spine";
-import { useCvAvailable, useParallaxScene, useScrollProgressVar } from "./hooks";
+import {
+  useCvAvailable,
+  useParallaxScene,
+  useScrollProgressVar,
+} from "./hooks";
 import { Background } from "./sections/Background";
 import { Contact } from "./sections/Contact";
 import { Facts } from "./sections/Facts";
@@ -22,8 +26,8 @@ function App() {
 
       <main id="main" tabIndex={-1}>
         <Hero hasCv={hasCv} />
-        <Facts hasCv={hasCv} />
         <Work />
+        <Facts hasCv={hasCv} />
         <History />
         <Background />
         <Contact hasCv={hasCv} />
