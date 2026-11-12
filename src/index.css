@@ -712,8 +712,8 @@ main {
  */
 .case__spec {
   align-self: start;
-  padding-top: 0.85rem;
-  border-top: 1px solid var(--line);
+  padding: 0.25rem 0 0 1rem;
+  border-left: 1px solid var(--band-accent);
 }
 
 .case__spec dl {
@@ -1307,8 +1307,7 @@ main {
   }
 
   .case__spec {
-    padding: 0.9rem 0 0;
-    border-top: 1px solid var(--line);
+    padding: 0.9rem 0 0 0.9rem;
   }
 
   .case__spec dl {

@@ -102,10 +102,14 @@ export function Log({ className }: LogProps) {
       if (reduced.matches || !visible) return;
       const scene = canvas.closest<HTMLElement>(".log-scene") ?? canvas;
       const rect = scene.getBoundingClientRect();
-      // Map this scene's passage to one modest turn, then leave the log still.
+      // Start when the scene enters the viewport and finish as it leaves.
+      const viewport = window.innerHeight;
       const progress = Math.max(
         0,
-        Math.min(1, -rect.top / Math.max(1, rect.height)),
+        Math.min(
+          1,
+          (viewport - rect.top) / Math.max(1, viewport + rect.height),
+        ),
       );
       targetY = LOG_ROTATION.yaw + progress * 0.55;
       targetX = LOG_ROTATION.pitch + progress * 0.12;
