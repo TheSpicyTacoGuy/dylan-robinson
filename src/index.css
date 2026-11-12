@@ -876,6 +876,29 @@ main {
   color: var(--fg-muted);
 }
 
+/* The walkthrough sits in the same inset column as the first plate. It is not
+   downloaded until the reader presses play. */
+.case__clip {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.case__clip figure {
+  grid-column: 2 / span 10;
+  margin: 0;
+}
+
+.case__video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bark-band);
+}
+
 /* Project index */
 
 .index {
@@ -1696,6 +1719,10 @@ main {
 
   .index__row.is-open .index__panel > div {
     padding-bottom: 1rem;
+  }
+
+  .case__clip {
+    display: none;
   }
 
   .case,

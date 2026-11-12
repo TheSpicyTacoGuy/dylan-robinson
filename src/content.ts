@@ -67,6 +67,16 @@ export const sections: Section[] = [
 
 export const sectionIds = sections.map((section) => section.id);
 
+/** A screen recording. It is downloaded only when the reader presses play. */
+export type Clip = {
+  src: string;
+  poster: string;
+  label: string;
+  caption: string;
+  width: number;
+  height: number;
+};
+
 export type CaseStudy = {
   id: string;
   title: string;
@@ -77,6 +87,7 @@ export type CaseStudy = {
   summary: string;
   facts: string[];
   link?: { label: string; href: string };
+  clip?: Clip;
   plates: Shot[];
 };
 
@@ -97,6 +108,14 @@ export const caseStudies: CaseStudy[] = [
       "Keycloak sign-in with passkeys, or a password plus an authenticator code.",
       "Encryption keys are managed in AWS KMS, and Stripe webhooks are signature checked before any write.",
     ],
+    clip: {
+      src: "/shots/ctrl-flow.mp4",
+      poster: "/shots/ctrl-flow-poster.webp",
+      label: "A 45 second walkthrough of the CTRL client dashboard and tax return form.",
+      caption: "Walkthrough, 45 seconds",
+      width: 1440,
+      height: 714,
+    },
     plates: [
       {
         src: "/shots/landing-1477.webp",
