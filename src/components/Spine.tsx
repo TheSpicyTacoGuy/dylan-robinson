@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { CV_URL, MAILTO, sections } from "../content";
 import { useActiveSection } from "../hooks";
+import { onSectionClick, pathFor } from "../lib/nav";
 import { useTheme } from "../theme";
 
 type SpineProps = {
@@ -73,8 +74,9 @@ export function Spine({ hasCv }: SpineProps) {
     <aside className="spine">
       <a
         className="spine__mark"
-        href="#intro"
+        href={pathFor("intro")}
         aria-label="Dylan Robinson, back to top"
+        onClick={(event) => onSectionClick(event, "intro")}
       >
         DR
       </a>
@@ -86,9 +88,10 @@ export function Spine({ hasCv }: SpineProps) {
           return (
             <a
               key={section.id}
-              href={`#${section.id}`}
+              href={pathFor(section.id)}
               className={isActive ? "spine__link is-active" : "spine__link"}
               aria-current={isActive ? "location" : undefined}
+              onClick={(event) => onSectionClick(event, section.id)}
             >
               <span className="spine__label">{section.label}</span>
             </a>

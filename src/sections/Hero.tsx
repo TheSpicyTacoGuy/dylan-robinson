@@ -1,4 +1,5 @@
 import { CV_URL, MAILTO, LOCATION } from "../content";
+import { onSectionClick, pathFor } from "../lib/nav";
 
 type HeroProps = {
   hasCv: boolean;
@@ -18,7 +19,11 @@ export function Hero({ hasCv }: HeroProps) {
           </p>
 
           <div className="hero__actions">
-            <a className="action action--solid" href="#work">
+            <a
+              className="action action--solid"
+              href={pathFor("work")}
+              onClick={(event) => onSectionClick(event, "work")}
+            >
               See selected work
             </a>
             {hasCv && (

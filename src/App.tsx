@@ -4,6 +4,7 @@ import {
   useParallaxScene,
   useScrollProgressVar,
 } from "./hooks";
+import { useSectionRouting } from "./lib/nav";
 import { Background } from "./sections/Background";
 import { Contact } from "./sections/Contact";
 import { Facts } from "./sections/Facts";
@@ -15,12 +16,17 @@ function App() {
   const hasCv = useCvAvailable();
   useScrollProgressVar();
   useParallaxScene();
+  useSectionRouting();
 
   return (
     <div className="site">
-      <a className="skip" href="#main">
+      <button
+        type="button"
+        className="skip"
+        onClick={() => document.getElementById("main")?.focus()}
+      >
         Skip to content
-      </a>
+      </button>
 
       <Spine hasCv={hasCv} />
 

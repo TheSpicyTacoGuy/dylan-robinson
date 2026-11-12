@@ -193,12 +193,14 @@ button {
   left: 0.75rem;
   z-index: 90;
   padding: 0.65rem 1rem;
+  border: 0;
   border-radius: var(--radius);
   background: var(--foreground);
   color: var(--background);
   font-family: var(--font-body);
   font-size: 0.72rem;
   text-decoration: none;
+  cursor: pointer;
   transform: translateY(-250%);
   transition: transform 150ms ease;
 }
