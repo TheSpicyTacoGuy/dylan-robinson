@@ -200,6 +200,8 @@ export type Project = {
   summary: string;
   tech?: string;
   shots?: ProjectShot[];
+  /** Three narrow screens sit as a set; two get more room each. */
+  shotColumns?: 2 | 3;
   link?: { label: string; href: string };
 };
 
@@ -291,6 +293,38 @@ export const otherProjects: Project[] = [
     summary:
       "A Vue app for tracking greenhouses and the plants inside them. It has Firebase sign in, a tips forum, weather on the dashboard, plant reminders and account deletion, and it installs to a phone home screen and pulls to refresh.",
     tech: "Vue 3, Vite, Firebase Auth, Firestore, Firebase Storage, Bootstrap 5, PWA",
+    shots: [
+      {
+        src: "/shots/gs-dashboard-1400.webp",
+        srcSet:
+          "/shots/gs-dashboard-800.webp 800w, /shots/gs-dashboard-1400.webp 1400w",
+        sizes: "(min-width: 900px) 30vw, (min-width: 760px) 45vw, 100vw",
+        alt: "Dashboard with the count of saved greenhouses and tracked plants, the current weather and a seven day forecast.",
+        caption: "Dashboard",
+        width: 1400,
+        height: 1229,
+      },
+      {
+        src: "/shots/gs-plants-1400.webp",
+        srcSet:
+          "/shots/gs-plants-800.webp 800w, /shots/gs-plants-1400.webp 1400w",
+        sizes: "(min-width: 900px) 30vw, (min-width: 760px) 45vw, 100vw",
+        alt: "Plants grid with search and a greenhouse filter, showing each plant's watering and feeding dates.",
+        caption: "Plants",
+        width: 1400,
+        height: 1484,
+      },
+      {
+        src: "/shots/gs-tips-1400.webp",
+        srcSet: "/shots/gs-tips-800.webp 800w, /shots/gs-tips-1400.webp 1400w",
+        sizes: "(min-width: 900px) 30vw, (min-width: 760px) 45vw, 100vw",
+        alt: "Tips forum with a share box, community posts and threaded replies.",
+        caption: "Tips",
+        width: 1400,
+        height: 1549,
+      },
+    ],
+    shotColumns: 3,
     link: {
       label: "View on GitHub",
       href: "https://github.com/TheSpicyTacoGuy/GrowSpace",

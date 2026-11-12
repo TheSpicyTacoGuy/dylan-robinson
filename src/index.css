@@ -1027,6 +1027,28 @@ main {
   grid-column: 1 / -1;
 }
 
+/* Three portrait screens read as a set. A wide lead would make one of them
+   taller than the viewport. */
+.index__shots--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.index__shots--three .index__shot:first-child:nth-last-child(3) {
+  grid-column: auto;
+}
+
+@media (max-width: 900px) {
+  .index__shots--three {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .index__shots--three {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 .index__shot img {
   display: block;
   width: 100%;

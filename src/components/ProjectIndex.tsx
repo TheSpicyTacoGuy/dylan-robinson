@@ -62,7 +62,13 @@ export function ProjectIndex({ projects }: ProjectIndexProps) {
                     <p className="index__tech">{project.tech}</p>
                   )}
                   {project.shots && (
-                    <ul className="index__shots">
+                    <ul
+                      className={
+                        project.shotColumns === 3
+                          ? "index__shots index__shots--three"
+                          : "index__shots"
+                      }
+                    >
                       {project.shots.map((shot) => (
                         <li className="index__shot" key={shot.src}>
                           <img
