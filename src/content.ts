@@ -111,7 +111,8 @@ export const caseStudies: CaseStudy[] = [
     clip: {
       src: "/shots/ctrl-flow.mp4",
       poster: "/shots/ctrl-flow-poster.webp",
-      label: "A 45 second walkthrough of the CTRL client dashboard and tax return form.",
+      label:
+        "A 45 second walkthrough of the CTRL client dashboard and tax return form.",
       caption: "Walkthrough, 45 seconds",
       width: 1440,
       height: 714,
