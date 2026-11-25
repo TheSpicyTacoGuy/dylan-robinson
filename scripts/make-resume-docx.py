@@ -206,7 +206,7 @@ def style_document(doc: Document):
     heading = doc.styles["Heading 1"]
     set_font(heading, SERIF, Pt(11), bold=True, color=FOREST)
     fmt = heading.paragraph_format
-    fmt.space_before = Pt(10)
+    fmt.space_before = Pt(8)
     fmt.space_after = Pt(4)
     fmt.keep_with_next = True
     fmt.line_spacing = Pt(14)
@@ -226,7 +226,7 @@ def banner(doc: Document, resume: dict, phone: str | None):
         shade(paragraph, "2E3518")
         return paragraph
 
-    band(leading=Pt(6))
+    band(leading=Pt(12))
 
     name = doc.add_paragraph(style="Title")
     name.paragraph_format.left_indent = Pt(8)
@@ -234,13 +234,13 @@ def banner(doc: Document, resume: dict, phone: str | None):
     shade(name, "2E3518")
     name.add_run(resume["name"])
 
-    band(leading=Pt(5))
+    band(leading=Pt(9))
 
     role = band(leading=Pt(13))
     run = role.add_run(resume["role"])
     set_font(run, SANS, Pt(10), color=WHITE)
 
-    band(leading=Pt(7))
+    band(leading=Pt(8))
 
     items = [item["label"] for item in resume["contact"]]
     if phone:
@@ -250,7 +250,7 @@ def banner(doc: Document, resume: dict, phone: str | None):
     run = contact.add_run(" · ".join(items))
     set_font(run, SANS, Pt(8), color=WHITE)
 
-    band(leading=Pt(8))
+    band(leading=Pt(12))
 
 
 def heading(doc: Document, text: str):
@@ -273,7 +273,12 @@ def entry(doc: Document, item: dict):
     """Date in the gutter, title beside it, then the body. Nothing but paragraphs."""
     title = doc.add_paragraph()
     fmt = title.paragraph_format
-    fmt.space_before = Pt(7)
+    fmt.space_before = Pt(6)
+    # A hanging indent keeps a wrapped title in its column: the date starts the
+    # line at the margin, the tab jumps to the gutter, and any second line of the
+    # title lines up under the first instead of falling back to the margin.
+    fmt.left_indent = GUTTER
+    fmt.first_line_indent = Pt(-100)
     fmt.tab_stops.add_tab_stop(GUTTER, WD_TAB_ALIGNMENT.LEFT)
     fmt.keep_with_next = True
     fmt.keep_together = True
@@ -317,33 +322,33 @@ def entry(doc: Document, item: dict):
         set_font(rest, SANS, Pt(8), color=MUTED)
         paragraphs.append(paragraph)
 
-    for paragraph in paragraphs[:-1]:
-        paragraph.paragraph_format.keep_with_next = True
-    if paragraphs:
-        paragraphs[-1].paragraph_format.keep_together = True
+    # The title never sits alone at the foot of a page, and the closing skills
+    # line never starts a page on its own. Other paragraphs may run over, which
+    # is what a reader expects from a resume.
+    if len(paragraphs) > 1:
+        paragraphs[-2].paragraph_format.keep_with_next = True
 
 
 def references(doc: Document, referees: list[dict]):
+    """One referee per block, in reading order. Two columns read as one run-on
+    sentence once a parser strips the tabs."""
     heading(doc, "References")
-    column = Cm(9.1)
-    for row in range(3):
-        paragraph = doc.add_paragraph()
-        fmt = paragraph.paragraph_format
-        fmt.tab_stops.add_tab_stop(column, WD_TAB_ALIGNMENT.LEFT)
-        fmt.space_before = Pt(8 if row == 0 else 0)
+    for index, person in enumerate(referees):
+        line = doc.add_paragraph()
+        fmt = line.paragraph_format
+        fmt.space_before = Pt(7 if index == 0 else 4)
+        fmt.keep_with_next = True
 
-        for index, person in enumerate(referees):
-            if index:
-                paragraph.add_run("\t")
-            if row == 0:
-                run = paragraph.add_run(person["name"])
-                set_font(run, SANS, BODY, bold=True, color=STRONG)
-            elif row == 1:
-                run = paragraph.add_run(person["role"])
-                set_font(run, SANS, BODY, color=MUTED)
-            else:
-                run = paragraph.add_run(person["phone"])
-                set_font(run, SANS, BODY, color=INK)
+        name = line.add_run(person["name"])
+        set_font(name, SANS, BODY, bold=True, color=STRONG)
+
+        role = line.add_run(f", {person['role']}")
+        set_font(role, SANS, BODY, color=MUTED)
+
+        phone = doc.add_paragraph()
+        phone.paragraph_format.space_before = Pt(0)
+        run = phone.add_run(person["phone"])
+        set_font(run, SANS, BODY, color=INK)
 
 
 def build(resume: dict, private: dict) -> Path:
