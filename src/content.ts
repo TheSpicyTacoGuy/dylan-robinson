@@ -620,56 +620,88 @@ export type Role = {
   start: number;
   end: number | null;
   note?: string;
+  /** The CV prints these under the role. */
+  points?: string[];
+  /** The one-line skills summary the CV prints after the points. */
+  skills?: string;
+  /** Volunteer or unpaid work, which the CV lists apart from paid roles. */
+  volunteer?: boolean;
 };
 
 export const roles: Role[] = [
   {
     id: "ctrl",
     company: "CTRL Accounting",
-    title: "Lead web developer and director",
+    title: "Sole developer and director (20%)",
     place: "Melbourne, remote",
     when: "2023 to now",
     start: 2023,
     end: null,
+    points: [
+      "Built CTRL Centre, an online tax return app. Clients fill in their return and pay in one place, and tax agents review it in a separate workspace.",
+      "Return contents are encrypted in the browser, so only the assigned tax agent can open them. The server stores them but cannot read them.",
+      "139 automated tests across 23 files cover tax rules, TFN and ABN checks, encryption and Stripe webhooks.",
+      "The Express 5 API runs on MongoDB, with Helmet headers and eight rate limiters. Encryption keys are managed in AWS KMS, and Stripe webhooks are signature checked before any write.",
+    ],
+    skills:
+      "Vue 3, Node.js, Express, MongoDB, AWS KMS, Keycloak, passkeys, 2FA, Stripe, automated testing",
   },
   {
     id: "powelltown",
     company: "Powelltown Sawmills",
-    title: "Sawmill stacker",
+    title: "Sawmill stacker (casual)",
     place: "Powelltown",
     when: "2023 to 2025",
     start: 2023,
     end: 2025,
     note: "then their Access and inventory systems",
+    points: [
+      "Stacked timber and helped with equipment maintenance.",
+      "Fixed up and extended the old Access database and data-entry portal for Smokemaster, including a new inventory system and site-to-site stock transition support.",
+    ],
+    skills: "Microsoft Access",
   },
   {
     id: "technology2you",
     company: "Technology2You IT Services",
-    title: "IT technician, shop manager, web developer",
+    title: "Computer technician, shop manager, web developer (part time)",
     place: "Woori Yallock",
     when: "2014 to 2022",
     start: 2014,
     end: 2022,
+    points: [
+      "Repaired PCs, laptops and mobile devices for walk-in customers: failed drives, overheating, RAM and power supply faults, virus removal, data recovery.",
+      "Ran the shop when needed, opening and closing, ordering parts and booking jobs, and explained faults and costs to customers who were not technical.",
+      "Built and looked after WordPress sites for more than five local clients, including the CEO's online store with dynamic inventory through JSON data feeds.",
+    ],
+    skills: "JSON, PC and laptop repair, fault diagnosis, WordPress",
   },
   {
     id: "equiscore",
     company: "EquiScore Dressage Scoring",
-    title: "Lead developer",
+    title: "Lead developer (unpaid project)",
     place: "Woori Yallock",
-    when: "2018 to 2019",
-    start: 2018,
+    when: "2017 to 2019",
+    start: 2017,
     end: 2019,
-    note: "not officially employed",
+    volunteer: true,
+    points: [
+      "Built an online scoring and results portal in PHP, JavaScript and Ajax, with a small amount of Angular on the front end. Scorers entered results and the portal published them while the competition was still running.",
+    ],
+    skills: "JavaScript, PHP",
   },
   {
     id: "polktronics",
     company: "Polktronics",
-    title: "Auto electrical assistant",
+    title: "Auto electrical assistant (volunteer)",
     place: "Woori Yallock",
     when: "2018 to 2019",
     start: 2018,
     end: 2019,
-    note: "not officially employed",
+    volunteer: true,
+    points: [
+      "Assisted with upgrades to SES vehicle equipment, fitting new CB radio equipment.",
+    ],
   },
 ];
 
@@ -760,4 +792,69 @@ export const toolGroups: ToolGroup[] = [
     label: "Also",
     items: ["WordPress", "Microsoft Access", "PC repair"],
   },
+];
+
+/** The paragraph the CV opens with, for a reader giving it a first pass. */
+export const PROFILE =
+  "Software development graduate who spent eight years repairing PCs and mobile devices while helping run a local computer shop. I build web apps and IoT systems, and I am now the lead developer and a director at CTRL Accounting, building their online tax return app. I work on whatever part of a system is causing trouble: the database, the front end, or the person on the phone explaining what went wrong.";
+
+/**
+ * One flat line at the end of the CV. It is longer than `toolGroups` on purpose:
+ * a resume is read by a keyword match before it is read by a person.
+ */
+export const skillList: string[] = [
+  "TypeScript",
+  "JavaScript",
+  "Vue 3",
+  "React",
+  "Nuxt UI",
+  "Vite",
+  "Node.js",
+  "Express",
+  "PHP",
+  "Python",
+  "Kotlin",
+  "C/C++",
+  "SQL",
+  "HTML and CSS",
+  "MongoDB",
+  "MySQL",
+  "PostgreSQL",
+  "JSON",
+  "PC and laptop repair",
+  "fault diagnosis",
+  "Arduino",
+  "ThingsBoard",
+  "MQTT",
+  "CoAP",
+  "Modbus",
+  "Zigbee",
+  "LoRaWAN",
+  "3D printing",
+  "Fusion 360",
+  "Git",
+  "Azure DevOps",
+  "Jira",
+  "Confluence",
+  "Docker",
+  "AWS EC2",
+  "AWS KMS",
+  "Keycloak",
+  "passkeys",
+  "2FA",
+  "Stripe",
+  "Figma",
+  "Firebase",
+  "cPanel",
+  "WordPress",
+  "WooCommerce",
+  "Microsoft Access",
+  "automated testing",
+  "CI/CD",
+  "full stack application development",
+  "API design and system integration",
+  "AI coding tools",
+  "authentication and authorisation",
+  "backend development",
+  "cloud infrastructure",
 ];

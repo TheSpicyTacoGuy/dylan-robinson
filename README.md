@@ -135,10 +135,14 @@ It writes `public/og/og-card.png` at 1200 by 630. resvg cannot read WOFF2, so
 `scripts/og-fonts/` holds TTF instances of the cuts the card draws. Regenerate those
 with fontTools if the fonts change.
 
-## Resume PDF
+## Resume PDF and DOCX
 
-The printable page and the PDF share one source, but the PDF is a build artifact:
-the browser does not regenerate it. With `npm run dev` running:
+The printable page, the PDF and the Word file share one source: [src/resume/model.ts](src/resume/model.ts)
+builds the document, the page draws it in the browser, and the DOCX build reads the
+same object. Edit a role, a year or a stack in `src/content.ts` and all three follow.
+
+The PDF is a build artifact, because the browser does not regenerate it. With
+`npm run dev` running:
 
 ```shell
 npm run resume:pdf
@@ -149,6 +153,24 @@ It prints `http://localhost:5173/resume/` with headless Chrome or Edge and write
 pass a URL to print another server. Regenerate the PDF whenever resume content in
 `src/content.ts` changes, then commit the result.
 
+The DOCX is the file to upload where a resume has to be a Word document (Workforce
+Australia and most job boards):
+
+```shell
+npm run resume:docx
+```
+
+It writes `dylan-robinson-resume.docx` in the repository root and prints nothing else.
+The file is git-ignored on purpose, and so is `scripts/resume-private.json`: that file
+holds the phone number and the referees, which the printed CV leaves off. With no
+`resume-private.json` the DOCX still builds, it just says "Phone on request" and has no
+References section.
+
+The Word file follows the printed layout with one deliberate difference: no tables, no
+text boxes, no images and no columns, because automated readers mangle all four. Dates
+sit in a tabbed gutter, sections use real heading styles, and the dark banner is
+paragraph shading, so the text extracts in the order a person reads it.
+
 ## Fonts
 
 Archivo and Source Serif 4 are self hosted from `public/fonts` under the SIL Open
@@ -158,6 +180,11 @@ requests.
 - Archivo is instanced twice: width 115 at weight 600 for display, width 100 at
   weight 500 for the interface.
 - Source Serif 4 is instanced at optical size 20, weight 400, for prose.
+
+The CV sets its own pairing, also self hosted and also OFL: Libre Caslon Text for the
+name and the section headings, IBM Plex Sans for everything else. Word cannot rely on
+those being installed, so the DOCX asks for Georgia and Arial instead and lets the PDF
+carry the exact faces.
 
 Only the two Archivo cuts are preloaded. See [DESIGN.md](DESIGN.md) for the full type
 system and the reason for each face.

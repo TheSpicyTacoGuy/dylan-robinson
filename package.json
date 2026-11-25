@@ -23,7 +23,8 @@
     "preview": "vite preview",
     "images": "python scripts/build-images.py",
     "og": "node scripts/make-og-card.mjs",
-    "resume:pdf": "node scripts/make-resume-pdf.mjs"
+    "resume:pdf": "node scripts/make-resume-pdf.mjs",
+    "resume:docx": "python scripts/make-resume-docx.py"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.1",
