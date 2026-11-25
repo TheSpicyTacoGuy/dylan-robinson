@@ -2,11 +2,39 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     { "source": "/intro", "destination": "/index.html" },
-    { "source": "/work", "destination": "/index.html" },
     { "source": "/facts", "destination": "/index.html" },
     { "source": "/history", "destination": "/index.html" },
     { "source": "/background", "destination": "/index.html" },
-    { "source": "/contact", "destination": "/index.html" }
+    { "source": "/about", "destination": "/index.html" },
+    { "source": "/contact", "destination": "/index.html" },
+    { "source": "/experience", "destination": "/index.html" },
+    { "source": "/work", "destination": "/index.html" },
+    { "source": "/work/packscanner", "destination": "/index.html" },
+    { "source": "/work/ctrl", "destination": "/index.html" },
+    { "source": "/work/four-seasons", "destination": "/index.html" },
+    { "source": "/work/school-lesson-planner", "destination": "/index.html" },
+    { "source": "/work/smartcity-dashboard", "destination": "/index.html" },
+    {
+      "source": "/work/greenhouse-monitoring-system",
+      "destination": "/index.html"
+    },
+    { "source": "/work/light-sensor-monitor", "destination": "/index.html" },
+    {
+      "source": "/work/growspace-greenhouse-and-plant-app",
+      "destination": "/index.html"
+    },
+    { "source": "/work/android-apps-cos30017", "destination": "/index.html" },
+    { "source": "/work/essentials-android-app", "destination": "/index.html" },
+    {
+      "source": "/work/wordpress-sites-and-online-store",
+      "destination": "/index.html"
+    },
+    { "source": "/work/makofire-website", "destination": "/index.html" },
+    {
+      "source": "/work/dressage-scoring-and-results-portal",
+      "destination": "/index.html"
+    },
+    { "source": "/work/access-database-rebuild", "destination": "/index.html" }
   ],
   "headers": [
     {

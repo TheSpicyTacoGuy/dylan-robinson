@@ -47,10 +47,25 @@ shots = {
     "landing": (800, 1477),
     "dashboard": (800, 1600),
     "return": (800, 1600),
+    "school-planner-plan": (800, 1217),
+    "school-planner-timeline": (800, 1147),
 }
 
 for name, widths in shots.items():
     image = Image.open(SRC / f"{name}.png").convert("RGB")
+    for width in widths:
+        if width <= image.width:
+            save(image, PUBLIC / "shots" / f"{name}-{width}.webp", width)
+
+# Phone captures never render wider than 16rem, so two widths cover them.
+phones = {
+    "packscanner-new-pack": (480, 672),
+    "packscanner-history": (480, 672),
+    "packscanner-settings": (480, 672),
+}
+
+for name, widths in phones.items():
+    image = Image.open(SRC / f"{name}.png").convert("RGBA")
     for width in widths:
         if width <= image.width:
             save(image, PUBLIC / "shots" / f"{name}-{width}.webp", width)

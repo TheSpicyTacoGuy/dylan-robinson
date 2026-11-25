@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import type { Shot } from "../content";
+import type { ProjectShot } from "../content";
 
 type PlatesProps = {
   label: string;
-  plates: Shot[];
+  plates: ProjectShot[];
+  layout?: "phones";
+  columns?: 2 | 3;
 };
 
-export function Plates({ label, plates }: PlatesProps) {
+export function Plates({ label, plates, layout, columns }: PlatesProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
@@ -49,27 +51,31 @@ export function Plates({ label, plates }: PlatesProps) {
     });
   };
 
+  const className = [
+    "plates",
+    plates.length === 1 ? "plates--single" : "",
+    layout === "phones" ? "plates--phones" : "",
+    columns === 3 ? "plates--three" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <>
-      <div
-        className={plates.length === 1 ? "plates plates--single" : "plates"}
-      >
-        {plates.map((shot) => (
+      <div className={className}>
+        {plates.map((shot, index) => (
           <figure
-            className="plate"
+            className={shot.wide ? "plate plate--wide" : "plate"}
             key={shot.src}
-            data-parallax={
-              plates.length > 1 ? String(28 - (plates.indexOf(shot) % 3) * 28) : "0"
-            }
           >
             <button
               type="button"
               className="plate__button"
               onClick={(event) => {
                 triggerRef.current = event.currentTarget;
-                setOpenIndex(plates.indexOf(shot));
+                setOpenIndex(index);
               }}
-              aria-label={`Open ${shot.caption} at full size`}
+              aria-label={`Open ${shot.caption ?? shot.alt} at full size`}
             >
               <img
                 src={shot.src}
@@ -82,7 +88,9 @@ export function Plates({ label, plates }: PlatesProps) {
                 decoding="async"
               />
             </button>
-            <figcaption className="plate__caption">{shot.caption}</figcaption>
+            {shot.caption && (
+              <figcaption className="plate__caption">{shot.caption}</figcaption>
+            )}
           </figure>
         ))}
       </div>
@@ -117,8 +125,8 @@ export function Plates({ label, plates }: PlatesProps) {
             </div>
             <div className="lightbox__bar">
               <p className="lightbox__caption">
-                {active.caption}
-                {openIndex !== null && (
+                {active.caption ?? active.alt}
+                {openIndex !== null && plates.length > 1 && (
                   <span className="lightbox__count">
                     {" "}
                     {openIndex + 1} of {plates.length}
@@ -126,20 +134,24 @@ export function Plates({ label, plates }: PlatesProps) {
                 )}
               </p>
               <div className="lightbox__actions">
-                <button
-                  type="button"
-                  className="lightbox__btn"
-                  onClick={() => step(-1)}
-                >
-                  Previous
-                </button>
-                <button
-                  type="button"
-                  className="lightbox__btn"
-                  onClick={() => step(1)}
-                >
-                  Next
-                </button>
+                {plates.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      className="lightbox__btn"
+                      onClick={() => step(-1)}
+                    >
+                      Previous
+                    </button>
+                    <button
+                      type="button"
+                      className="lightbox__btn"
+                      onClick={() => step(1)}
+                    >
+                      Next
+                    </button>
+                  </>
+                )}
                 <button
                   type="button"
                   className="lightbox__btn"

@@ -10,10 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="light dark" />
     <!--
-      Kept in sync with the bark hero band in src/index.css. The inline
+      Kept in sync with the paper ground in src/index.css. The inline
       script below and initTheme() update it when the theme changes.
     -->
-    <meta name="theme-color" content="#1f0f08" />
+    <meta name="theme-color" content="#f3ebdd" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="canonical" href="https://dylan-robinson.dev/" />
     <meta property="og:type" content="website" />
@@ -47,14 +47,14 @@
     />
     <link
       rel="preload"
-      href="/fonts/martian-mono-700.woff2"
+      href="/fonts/archivo-display.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="/fonts/ibm-plex-sans-400.woff2"
+      href="/fonts/archivo-ui.woff2"
       as="font"
       type="font/woff2"
       crossorigin
@@ -108,7 +108,7 @@
         html.dataset.theme = resolved;
         const themeColor = document.querySelector('meta[name="theme-color"]');
         if (themeColor)
-          themeColor.content = resolved === "dark" ? "#0f0604" : "#1f0f08";
+          themeColor.content = resolved === "dark" ? "#17130f" : "#f3ebdd";
       })();
     </script>
   </head>

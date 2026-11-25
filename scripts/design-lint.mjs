@@ -113,6 +113,7 @@ const ALLOWED_RADII = new Set([
   "50%",
   "999px",
   "var(--radius)",
+  "var(--radius-phone)",
 ]);
 
 for (const file of files) {

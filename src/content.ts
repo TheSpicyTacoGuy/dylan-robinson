@@ -15,7 +15,9 @@ export const MAILTO = `mailto:${EMAIL}?subject=${encodeURIComponent(
 )}`;
 
 export const POSITIONING =
-  "Open to full time software development and related roles, in Melbourne or remote.";
+  "Open to full-time software development and related roles, in Melbourne or remote.";
+
+export const AVAILABILITY = "Open to full-time roles, Melbourne or remote";
 
 export const LOCATION = "Yarra Valley, Victoria";
 export const SITE_URL = "https://dylan-robinson.dev";
@@ -51,22 +53,6 @@ export const facts: Fact[] = [
   },
 ];
 
-export type Section = {
-  id: string;
-  label: string;
-};
-
-export const sections: Section[] = [
-  { id: "intro", label: "Intro" },
-  { id: "work", label: "Work" },
-  { id: "facts", label: "Facts" },
-  { id: "history", label: "Experience" },
-  { id: "background", label: "About" },
-  { id: "contact", label: "Contact" },
-];
-
-export const sectionIds = sections.map((section) => section.id);
-
 /** A screen recording. It is downloaded only when the reader presses play. */
 export type Clip = {
   src: string;
@@ -85,13 +71,136 @@ export type CaseStudy = {
   status: string;
   stack?: string[];
   summary: string;
+  /** One line for the work list. The summary carries the detail page. */
+  blurb?: string;
   facts: string[];
   link?: { label: string; href: string };
+  note?: string;
   clip?: Clip;
+  /** Phone captures are taller than they are wide and need their own row. */
+  platesLayout?: "phones";
   plates: Shot[];
 };
 
 export const caseStudies: CaseStudy[] = [
+  {
+    id: "school-lesson-planner",
+    title: "School lesson planner",
+    when: "2026",
+    role: "Ongoing, private repository",
+    status: "Early build",
+    stack: [
+      "Vue 3",
+      "Fastify 5",
+      "PostgreSQL 16",
+      "Drizzle ORM",
+      "Tailwind CSS v4",
+      "Vite",
+      "Stripe",
+    ],
+    summary:
+      "WeekBook is a lesson planner for Australian P to 12 teachers, with a read-only portal so parents can see what their child is learning this week. Early: the first loop of API, database and web client is built and tested, and no school is using it yet.",
+    blurb:
+      "WeekBook, a lesson planner for P to 12 teachers with a parent portal for the week's learning.",
+    facts: [
+      "Publishing writes a snapshot, so editing a lesson afterwards never changes what a parent has already seen.",
+      "Private prep notes stay out of everything a parent can reach.",
+      "The planner sits beside the school's existing student information system rather than replacing it.",
+    ],
+    note: "The repository is private, so the screenshots carry this one.",
+    plates: [
+      {
+        src: "/shots/school-planner-plan-1217.webp",
+        srcSet:
+          "/shots/school-planner-plan-800.webp 800w, /shots/school-planner-plan-1217.webp 1217w",
+        sizes: "(min-width: 900px) 90vw, 100vw",
+        alt: "Week 8 in WeekBook: a Monday to Friday grid of lessons for a Year 3 and 4 class, each block marked as a draft.",
+        caption: "Planning a week",
+        width: 1217,
+        height: 768,
+      },
+      {
+        src: "/shots/school-planner-timeline-1147.webp",
+        srcSet:
+          "/shots/school-planner-timeline-800.webp 800w, /shots/school-planner-timeline-1147.webp 1147w",
+        sizes: "(min-width: 900px) 90vw, 100vw",
+        alt: "Parent portal showing a week of published lessons and a calendar subscription link.",
+        caption: "Parent portal",
+        width: 1147,
+        height: 768,
+      },
+    ],
+  },
+  {
+    id: "packscanner",
+    title: "PackScanner",
+    when: "2026",
+    role: "Solo developer, private repository",
+    status: "In development on Android",
+    stack: [
+      "Kotlin Multiplatform",
+      "Compose Multiplatform",
+      "CameraX",
+      "LiteRT",
+      "YOLO11n",
+      "ML Kit OCR",
+      "SQLDelight",
+    ],
+    summary:
+      "A pack scanner for an operator standing in the timber yard: enter the species, grade and trade size, photograph the pack end, and the app finds one box per visible board end and reads the stamped length on each. The operator corrects the review grid in place rather than retyping a count. Everything is saved locally, with the sync client still a stub behind its interface.",
+    blurb:
+      "An Android pack scanner for the timber yard: on-device board detection and OCR, with a review grid the operator corrects.",
+    facts: [
+      "Board detection is an object detector running on the phone through LiteRT, one box per visible board end. A YOLO11n or EfficientDet-Lite model swaps in without touching the UI.",
+      "A synthetic renderer turns a few reference photos into labelled training data: 480 images and about 51,000 boxes in roughly 30 seconds. A three-epoch YOLO11n run on those renders reached mAP50 0.795, which the training notes treat as proof of the labels rather than proof about a real yard.",
+      "Stamped lengths are read by on-device ML Kit OCR over the board region, then parsed and validated before they reach the review grid.",
+      "The review grid is the pack face as a tappable grid: correct one piece, remove a false detection with undo, and flagged reads stand out.",
+      "Gravity-based levelling guidance for framing, and the aid refuses to report the pack as aligned while a simulated detector is bound to synthetic boxes.",
+    ],
+    note: "The repository is private, so the video and screenshots carry this one. I can walk through the training data and the scan pipeline in an interview.",
+    clip: {
+      src: "/shots/packscanner-capture.mp4",
+      poster: "/shots/packscanner-capture-poster.webp",
+      label:
+        "A 14 second screen recording of the PackScanner capture flow, from framing the pack to reviewing the detected board lengths.",
+      caption: "Capture flow, 14 seconds",
+      width: 672,
+      height: 1494,
+    },
+    platesLayout: "phones",
+    plates: [
+      {
+        src: "/shots/packscanner-new-pack-672.webp",
+        srcSet:
+          "/shots/packscanner-new-pack-480.webp 480w, /shots/packscanner-new-pack-672.webp 672w",
+        sizes: "(min-width: 760px) 16rem, 90vw",
+        alt: "New pack form with species, grade, shorts pack, sourcing claim, trade size and pack ID fields, and a Continue to scan button.",
+        caption: "New pack",
+        width: 672,
+        height: 1496,
+      },
+      {
+        src: "/shots/packscanner-history-672.webp",
+        srcSet:
+          "/shots/packscanner-history-480.webp 480w, /shots/packscanner-history-672.webp 672w",
+        sizes: "(min-width: 760px) 16rem, 90vw",
+        alt: "Pack history with search and filters, an empty state saying no packs are saved yet, and a Set up a pack button.",
+        caption: "Pack history",
+        width: 672,
+        height: 1496,
+      },
+      {
+        src: "/shots/packscanner-settings-672.webp",
+        srcSet:
+          "/shots/packscanner-settings-480.webp 480w, /shots/packscanner-settings-672.webp 672w",
+        sizes: "(min-width: 760px) 16rem, 90vw",
+        alt: "Settings for haptics, motion, diagnostics, scanning and appearance, shown in the dark theme.",
+        caption: "Settings",
+        width: 672,
+        height: 1496,
+      },
+    ],
+  },
   {
     id: "ctrl",
     title: "Online tax return app",
@@ -101,6 +210,8 @@ export const caseStudies: CaseStudy[] = [
     stack: ["Vue 3", "Express 5", "MongoDB", "Keycloak", "Stripe", "AWS KMS"],
     summary:
       "Clients answer plain-English questions and pay for their return. A registered tax agent then reviews it in a separate workspace and lodges it with the ATO. It is being prepared for launch.",
+    blurb:
+      "Encrypted tax returns, agent review and ATO lodgement for CTRL Accounting.",
     facts: [
       "Return contents are encrypted in the browser, so only the assigned tax agent can open them.",
       "The Express 5 API runs on MongoDB, with Helmet headers and eight rate limiters covering auth, submissions, contact, support and both Stripe flows.",
@@ -108,6 +219,7 @@ export const caseStudies: CaseStudy[] = [
       "Keycloak sign-in with passkeys, or a password plus an authenticator code.",
       "Encryption keys are managed in AWS KMS, and Stripe webhooks are signature checked before any write.",
     ],
+    note: "The repository is private. I can walk through the code in an interview.",
     clip: {
       src: "/shots/ctrl-flow.mp4",
       poster: "/shots/ctrl-flow-poster.webp",
@@ -158,6 +270,8 @@ export const caseStudies: CaseStudy[] = [
     stack: ["Vue 3", "Vite", "Nuxt UI", "PHP 8", "MySQL", "cPanel"],
     summary:
       "A horse rug maker in Yarra Junction needed prices and repairs online, without a phone call for every quote. The site walks a customer through range, style, item type, size, lining and colour, then shows the price and the binding colours. The owner edits the catalogue, extras, sales, photos and announcement herself, with no developer involved.",
+    blurb:
+      "A price builder and admin for a horse rug maker, run without a developer.",
     facts: [
       "Prices live in MySQL in cents and are calculated on the server. A sale never rewrites the base price.",
       "Every write needs a signed-in session and a CSRF token. Sign in is throttled per address and per username.",
@@ -213,6 +327,7 @@ export type ProjectShot = {
   caption?: string;
   width: number;
   height: number;
+  wide?: boolean;
 };
 
 export type Project = {
@@ -425,6 +540,76 @@ export const otherProjects: Project[] = [
     tech: "Microsoft Access, SQL",
   },
 ];
+
+/**
+ * One shape for the work pages. The portfolio and the resume still read the
+ * original lists; this only joins them for routing and one detail template.
+ */
+export type WorkItem = {
+  slug: string;
+  title: string;
+  when: string;
+  role: string;
+  status?: string;
+  stack?: string[];
+  tech?: string;
+  summary: string;
+  blurb?: string;
+  facts: string[];
+  link?: { label: string; href: string };
+  note?: string;
+  clip?: Clip;
+  plates: ProjectShot[];
+  platesLayout?: "phones";
+  platesColumns?: 2 | 3;
+  featured: boolean;
+};
+
+const projectSlug = (title: string) =>
+  title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+export const workItems: WorkItem[] = [
+  ...caseStudies.map((study) => ({
+    slug: study.id,
+    title: study.title,
+    when: study.when,
+    role: study.role,
+    status: study.status,
+    stack: study.stack,
+    summary: study.summary,
+    blurb: study.blurb,
+    facts: study.facts,
+    link: study.link,
+    note: study.note,
+    clip: study.clip,
+    plates: study.plates,
+    platesLayout: study.platesLayout,
+    featured: true,
+  })),
+  ...otherProjects.map((project) => ({
+    slug: projectSlug(project.title),
+    title: project.title,
+    when: project.when,
+    role: project.role,
+    tech: project.tech,
+    summary: project.summary,
+    facts: [],
+    link: project.link,
+    plates: project.shots ?? [],
+    platesColumns: project.shotColumns,
+    featured: false,
+  })),
+];
+
+export const featuredWork = workItems.filter((item) => item.featured);
+export const otherWork = workItems.filter((item) => !item.featured);
+
+export const workBySlug = new Map(
+  workItems.map((item) => [item.slug, item]),
+);
 
 export type Role = {
   id: string;

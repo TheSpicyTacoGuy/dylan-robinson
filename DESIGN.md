@@ -2,174 +2,185 @@
 
 ## The subject
 
-Dylan Robinson, a software developer in the Yarra Valley. The audience is a hiring
+Dylan Robinson, a software developer in the Yarra Valley. The reader is a hiring
 manager or a peer with thirty seconds to decide whether he can build something that
 holds up. The page has one job: make the work legible, then make it memorable.
 
-## The idea: annual rings
+## The idea: a working record
 
-A cut section of a career. The log carries the annual-ring motif; the experience
-section keeps roles in a plain chronological list so dates and employers are easy to
-scan. The site should read as a record of time served, not as a template with a
-portfolio inside it.
+The site is a record sheet rather than a landing page: bone paper, ink linework,
+exact rules, and one applied mark. The home is a single title page. The name is set
+as a two-line masthead, the claim sits directly under it, the portrait is a square
+photograph with a documentary caption, and four facts run across the bottom as a
+record strip. Everything else has a page.
 
-The world is warm because the portrait is warm. It is not a newspaper: no hairline
-columns everywhere, no cream plus serif plus clay. The type is a modern grotesque, the
-layout is a spine and full-bleed bands, and the accent closes the page as a surface.
+The palette is the mill and the survey stake: warm paper, black ink, and the rust
+orange of log-marking paint. The accent is information, not decoration. It marks
+availability and links, and it is never a wash, gradient or glow.
 
-## Dials
+Two reference points set the level: Jarnket's portfolio, which Dylan named, for a
+name treated as a graphic and one committed colour; and Kishor Marasini's one-screen
+card, for the discipline of putting only the decision-making facts on the first
+screen. Neither site's composition, ground or wordmark is copied.
 
-- Display: Martian Mono 700 for the name and headings.
-- Body: IBM Plex Sans 400 and 600 for prose and controls.
-- Data: JetBrains Mono 400 for dates and measurements.
+## Dial
 
-Only Latin subsets are shipped. Body is 1rem with 1.65 line-height and a measure under
-72ch. Display scales from `2.2rem` to `4.6rem`; section titles from `1.6rem` to
-`2.4rem`; case titles from `1.15rem` to `1.4rem`. Display tracking is -0.02em.
-| `--background` | `oklch(92% 0.018 76)` | soft warm sand, the page ground |
-| `--sunk` | `oklch(88% 0.022 72)` | a deeper sand for the About band |
-| `--foreground` | `oklch(23.5% 0.028 52)` | bark, text |
-| `--muted` | `oklch(42% 0.022 56)` | secondary text |
-| `--separator` | `oklch(81% 0.022 68)` | rules and dividers |
-| `--accent` | `oklch(43.5% 0.052 145)` | muted eucalyptus, links and active marks |
-| `--bark-band` | `oklch(21% 0.026 48)` | lifted walnut bark |
-| `--contact-bg` | `oklch(70% 0.06 40)` | the closing band, a warm clay |
+**ENERGY 3 / RHYTHM 2 / MOTION 1.**
 
-Dark is the same photograph at night: a lifted deep-brown ground, sand text, and a
-softer eucalyptus accent. The contact band deepens to `oklch(30% 0.05 40)` so it
-stays clay rather than going bright.
+The masthead is the loud element. The rest is quiet and structured, with one authored
+entrance and no scroll choreography.
 
-The bark band stays dark in both themes, the way a cover does. The contact band is
-the one loud surface, and it is a full screen tall so it can also meet the top of the
-window when its nav link is used.
+## Colour
 
-Each band scopes its own `--fg`, `--fg-muted`, `--line` and `--band-accent`, so focus
-rings, underlines and hover states are correct on every surface without any
-`!important`, blend mode or per-section overrides.
+| Token | Light | Dark | Role |
+| --- | --- | --- | --- |
+| `--paper` | `#f3ebdd` | `#17130f` | bone paper, the ground |
+| `--paper-sunk` | `#ece1cf` | `#221c17` | hover fills, inset surfaces |
+| `--ink` | `#221c16` | `#efe6d8` | text and rules of emphasis |
+| `--ink-soft` | `#5c5348` | `#b0a391` | secondary text, labels, captions |
+| `--rule` | `#d9cdba` | `#322b24` | hairlines between sections and rows |
+| `--rule-strong` | `#c2b49d` | `#4a4137` | hairlines that need a little more weight |
+| `--mark` | `#b4471f` | `#f08a4b` | availability, links, focus |
+| `--mark-on` | `#fff8ee` | `#1a120c` | text on the mark |
 
-Every text pair was measured from these values: lowest body pair 5.47, lowest
-secondary pair 4.54, most between 6 and 15.
+The light ground is warm bone, not white and not green-grey. It is the colour of
+paper on a bench. The photograph is the only full-colour image and is left natural.
+The dark theme is the same record at night, not a separate palette. It starts from
+the system preference and is stored per browser.
+
+Measured WCAG contrast:
+
+| Pair | Light | Dark |
+| --- | --- | --- |
+| ink on paper | 14.24 | 14.94 |
+| soft on paper | 6.37 | 7.47 |
+| mark on paper | 4.59 | 7.43 |
+| ink on sunk paper | 13.26 | 13.62 |
+
+Control borders are ink, so an outlined button keeps a boundary above 3:1. The
+availability value is the one accent set at text size; it is not a status dot.
 
 ## Type
 
-- Display: Martian Mono 700 for the name and headings.
-- Body: IBM Plex Sans 400 and 600 for prose and controls.
-- Data: JetBrains Mono 400 for dates and measurements.
+| Role | Face | Cut | Where |
+| --- | --- | --- | --- |
+| Display | Archivo | width 115, weight 600 | the name, page and section titles |
+| Interface | Archivo | width 100, weight 500 | navigation, buttons, labels, facts |
+| Prose | Source Serif 4 | optical size 20, weight 400 | the claim, case study bodies, page intros |
 
-Only Latin subsets are shipped. Body is 1rem with 1.65 line-height and a measure under
-72ch. Display scales from `2.2rem` to `4.6rem`; section titles from `1.6rem` to
-`2.4rem`; case titles from `1.15rem` to `1.4rem`. Display tracking is -0.02em.
+Archivo's width axis is the signature: the name is set wide, the interface normal.
+The name breaks across two lines by design, so it reads as a masthead rather than a
+heading that happens to be large. The serif is the voice of the writing; the
+interface stays in the sans. Figures use Archivo with tabular numerals, not a third
+face.
 
-There is no kicker above any heading, no tracked-out label, no all-caps, no italic
-word inside a heading, and no section numbers. The heading carries its own weight.
+Fonts are self hosted, Latin subsets, instanced to static cuts with fontTools:
+`archivo-display` 14.5 kB, `archivo-ui` 14.5 kB, `source-serif-body` 19.2 kB. Only
+the two Archivo cuts are preloaded.
+
+Scale: the name is `clamp(3.2rem, 7vw, 6.2rem)` with 0.88 line-height and -0.035em
+tracking, two lines at every width. Page titles `clamp(2.1rem, 4.6vw, 3.6rem)`,
+section titles `clamp(1.55rem, 2.5vw, 2.15rem)`, the claim `clamp(1.1rem, 1.6vw,
+1.4rem)`, body `1.0625rem` at 1.62 line-height. Prose measures stay under 66ch.
+
+There is no kicker above any heading, no tracked-out all-caps label, no section
+number, and no italic word inside a heading.
 
 ## Layout
 
-A fixed 88px spine on the left holds the mark, the section index, the theme toggle and
-the links. It never sits over a dark band, so it needs no colour swap and no glass.
-The index is labels only, with a eucalyptus bar marking the active section. No
-numbers; the Experience section owns the chronology. At 900px and below the spine
-becomes a sticky top bar, and the scroll offset switches to its height so a section
-meets the bar exactly.
+A sticky 3.5rem header holds the name, three links, the CV and the theme control. It
+sits on the paper with one hairline below.
 
-Bands run from the spine to the right edge:
+The home page is one screen, built as a two-column title page with a record strip:
 
-1. Hero, bark, with the portrait beside the introduction.
-2. Work, sand, immediately after the introduction.
-3. Facts, sand, for availability and recruiter details.
-4. History, bark.
-5. Background, sunk sand. A second, deeper tone so the two light bands do not run
-   together. The log sits here as a supporting reference to the sawmill years.
-6. Contact, clay, with the colophon inside it. It is a full screen tall so it can also
-   meet the top of the window when its nav link is used.
+1. **Masthead.** The name on two lines at the left. The square portrait sits at the
+   right, top-aligned with the name, with the caption `Yarra Valley, 2026.` below it.
+2. **Claim and actions.** `I build the online tax return app at CTRL Accounting,
+   where I am lead developer and a director.` in the serif, then `See the work`,
+   `CV (PDF)` and `Email me`.
+3. **Record strip.** Four facts across the full measure, divided by hairlines:
+   Role, Location, Availability and Work rights. Availability is set in the mark.
+   This is the record strip of the page and the fastest read on the site.
 
-Inside a band, a 12 column grid with a maximum content width of 82rem. Plates break to
-the band's right edge and are staggered by column and offset. Nothing is a card. Radius
-is 2px, only on controls and the lightbox.
+At 680px the page stacks: name, portrait band, claim, actions, record strip in two
+columns (one column at 360px). The page fits one 390x844 screen apart from a few
+pixels; at 320px it scrolls a little.
 
-A case puts its spec beside the body on wide screens. The spec is a fixed panel with a
-eucalyptus left rule, never sticky: sticky let it float over the plates.
+The page is 76rem wide with a `clamp(1.25rem, 5vw, 3.5rem)` gutter. Sections on the
+inner pages are separated by a single hairline plus `clamp(3.5rem, 7vw, 6rem)` of
+air.
 
-At 900px the spine becomes a sticky top bar and the bands stack. The portrait uses its
-native 4:5 crop at all sizes, narrowing to 16rem on small phones without enlarging the
-face.
+`/work` lists the four case studies with their one-line summaries and stack, then
+the remaining work as compact rows. `/work/<slug>` uses one template for all
+fourteen items: back link, title, a meta line with hairline separators, the stack,
+the summary, a lead plate, the engineering notes, video, the remaining plates, the
+private-work note, and the next project. `/experience` carries the roles, study,
+tools and background. `/contact` carries the email at display size and the links.
+`/resume/` stays a separate static page.
 
-## Experience list
+## Controls
 
-Roles are presented newest first as semantic list items. Dates, employer, title and
-location remain visible together, including overlapping work. No hover, pointer
-target or animation is needed to reveal the career history.
+`action` is a 2.75rem minimum target with a one-pixel ink border and no shadow;
+`action--solid` inverts it to ink. The email address is the one display-size link,
+with a two-pixel rule under it. Inline links carry a one-pixel mark-coloured
+underline. Focus is a two-pixel mark outline with a three-pixel offset on every
+surface. Nothing relies on colour alone.
+
+Plates are screenshots in a hairline frame on the sunk paper. Clicking opens a modal
+dialog with previous, next and close, Escape to close, arrow keys to move, and focus
+returned to the trigger. Phone captures sit as a set of three at 16rem. The
+walkthrough uses native video controls and loads nothing until play. A portrait
+recording (the PackScanner capture flow) sits at 20rem with a 1.25rem frame radius,
+the only large radius on the site.
 
 ## Motion
 
-The log's small scroll-tied turn is the authored motion. The experience list stays
-still; the spine progress follows scroll.
+Three authored moments, each with a job:
 
-## The log
+- **Masthead.** Each name line rises out of its own mask over 520ms with an
+  exponential ease-out, the second line 70ms behind the first. The name assembles;
+  the rest of the page fades and rises 8px over 360ms with a 45ms stagger.
+- **Theme.** The new ground expands as a circle from the theme button over 450ms
+  through the View Transitions API, so the change has a visible origin. Unsupported
+  browsers and reduced motion switch instantly.
+- **Lightbox.** The dialog fades over 180ms, the backdrop over 200ms, and the stage
+  image settles from 98% over 260ms, connecting the thumbnail to the full size.
 
-The Background band carries one supporting object: a log, drawn on a canvas with about
-150 lines of projection code and no 3D library. It sits after the study and tools, away
-from the hero's introduction and the Work section.
+Route content fades in over 180ms. Hover and focus colour changes take 130ms, and an
+underline thickens. Nothing floats, parallaxes, reveals on scroll or loops.
+`prefers-reduced-motion` removes the duration and the delay. The page listens to
+scroll nowhere.
 
-- **Geometry.** A real cylinder. Two end rings of 56 points, a bark panel joining each
-  pair, all of it rotated on a pitch axis and a yaw axis and projected with a mild
-  lens (camera 9 units, so the near end is roughly 20% larger than the far one).
-- **Bark roughness.** The radius of each ring point is nudged by three layered sine
-  frequencies, fixed per segment, so the outline is rugged the way stringybark is
-  rather than a machined circle.
-- **Depth.** Every end and every bark panel goes into a single queue with its depth,
-  the queue is sorted, and then it is painted. That is what makes it solid: the wall
-  hides the far end, the near end hides the inside of the wall. Panels facing away are
-  culled in screen space with a cross product, so the inside of the far wall is never
-  drawn.
-- **Opaque first.** The convex hull of the two rings is filled in bark before anything
-  else is laid on it, and stroked with a 6px fringe. A row that grazes a nearly flat
-  part of the outline therefore still comes out solid. Measured over 216 angles, the
-  count of pixels inside the log that are less than 78% opaque is zero.
-- **Bark.** Each panel is cut into four lengthwise strips with a fixed per-strip tone
-  offset, plus a deeper fibre down some panels. The offsets are hashed from the panel
-  index, so the texture rides round with the log and never crawls as it turns.
-- **The ends.** The one facing the reader is filled pale and carries the traced growth
-  rings, the radial checks and the pith, clipped to its own outline. It also gets a
-  bark collar, which separates the sawn face from the wall.
-- **Shadow.** A soft ellipse at the lowest point of the silhouette, drawn before the
-  log, so it stays on the ground under it however the log turns.
-- **Motion.** As its scene scrolls away, the log rolls about 30 degrees, then rests.
-  The turn is tied to the scene's passage, not to the whole page. It is an illustration,
-  not a second interactive feature; there is no drag control or load animation.
-  Reduced motion paints one frame and attaches no scroll listener.
-- **Cost.** One canvas, capped at 2x device pixel ratio, redrawn only while the target
-  is moving and paused entirely when its scene leaves the viewport.
+## Bans
 
-The log canvas is decorative and `aria-hidden`. The experience history is semantic
-HTML, available without pointer interaction or animation.
+No gradients, no box shadows, no glass, no grain, no background grid or dot pattern,
+no parallax, no scroll-progress bar, no reveal-on-scroll, no cards, no numbered
+section labels, no all-caps eyebrows, no arrows on every control, no coloured left
+stripe, no em dashes, no emoji, no monospace headings. Radius is 2px on controls
+and 1.25rem only on phone capture frames. No circular status dots; availability is
+written out.
 
-One parallax scene runs the whole page: a single scroll listener and one
-requestAnimationFrame loop walks every element carrying `data-parallax`, skips
-anything outside the viewport, and writes a custom property. The portrait and project
-plates move slightly at different rates. Transform only, never layout.
+## Accessibility floor
 
-`prefers-reduced-motion` turns parallax, log smoothing and smooth scroll off. The log
-paints once at a fixed angle.
-
-## Security
-
-The built page carries a `Content-Security-Policy` meta tag. The only inline script is
-the theme bootstrap, so the Vite config hashes it at build time rather than keeping a
-hash by hand. `default-src 'self'` for everything else, no third-party origins.
-`vercel.json` adds `frame-ancestors 'none'` and standard response security headers,
-because framing policy is not enforced from a meta tag.
+- 4.5:1 body contrast and 3:1 large text, measured in both themes.
+- Control boundaries carry the ink colour, above 3:1.
+- 44px minimum targets; the footer links are 2.75rem tall.
+- Full keyboard path, visible focus, skip link, Escape closes the lightbox.
+- Landmarks, one h1 per route, no skipped heading levels.
+- No sideways scroll at 320px.
+- Print: white ground, black text, header, footer and portrait hidden, sections
+  unrolled.
 
 ## Voice
 
 Plain sentences, active voice, specific numbers only when they are real. Buttons name
-the action. No em dashes. No marketing filler. Private work is labelled private. There
-are no invented metrics, logos, quotes or client names.
+the action and the format (`CV (PDF)`, not `Download` when it opens a PDF). No
+marketing filler. Private work is labelled private. There are no invented metrics,
+logos, quotes or client names.
 
-## Accessibility floor
+## Security
 
-- 44px minimum targets at touch sizes.
-- 4.5:1 body contrast and 3:1 large text, measured in both themes on every band.
-- Full keyboard path, visible focus on every surface, Escape closes the lightbox.
-- No sideways scroll at 320px.
-- Print: white ground, black text, spine hidden, bands unrolled.
+The built page carries a `Content-Security-Policy` meta tag. The only inline script is
+the theme bootstrap, so the Vite config hashes it at build time. `default-src 'self'`
+for everything else, no third-party origins. `vercel.json` adds `frame-ancestors
+'none'` and standard response headers.

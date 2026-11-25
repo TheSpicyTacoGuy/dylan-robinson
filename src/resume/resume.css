@@ -1,23 +1,24 @@
 @import "../assets/fonts.css";
 
 :root {
-  --ground: oklch(91% 0.024 70);
-  --ink: oklch(23.5% 0.028 52);
-  --muted: oklch(41.5% 0.03 56);
-  --line: oklch(80% 0.028 66);
-  --accent: oklch(43.5% 0.082 120);
-  --display: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-  --body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --ground: #f3ebdd;
+  --ink: #221c16;
+  --muted: #5c5348;
+  --line: #d9cdba;
+  --accent: #b4471f;
+  --display: "Archivo Display", ui-sans-serif, system-ui, sans-serif;
+  --ui: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --body: "Source Serif 4", Georgia, serif;
   color-scheme: light dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --ground: oklch(17.5% 0.02 48);
-    --ink: oklch(93% 0.014 78);
-    --muted: oklch(73% 0.02 68);
-    --line: oklch(29% 0.02 50);
-    --accent: oklch(81% 0.08 120);
+    --ground: #17130f;
+    --ink: #efe6d8;
+    --muted: #b0a391;
+    --line: #322b24;
+    --accent: #f08a4b;
   }
 }
 
@@ -31,8 +32,8 @@ body {
   background: var(--ground);
   color: var(--ink);
   font-family: var(--body);
-  font-size: 0.92rem;
-  line-height: 1.65;
+  font-size: 1rem;
+  line-height: 1.62;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -61,16 +62,15 @@ h2 {
   margin: 2.2rem 0 0.9rem;
   padding-bottom: 0.45rem;
   border-bottom: 1px solid var(--line);
-  font-family: var(--display);
-  font-size: 0.78rem;
+  font-family: var(--ui);
+  font-size: 1.05rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted);
+  letter-spacing: -0.01em;
+  color: var(--ink);
 }
 
 h3 {
-  font-family: var(--display);
+  font-family: var(--ui);
   font-size: 0.95rem;
   font-weight: 600;
   line-height: 1.4;
@@ -97,9 +97,8 @@ a:hover {
 
 .role {
   margin-top: 0.4rem;
-  font-family: var(--display);
+  font-family: var(--ui);
   font-size: 0.74rem;
-  letter-spacing: 0.03em;
   color: var(--muted);
 }
 
@@ -131,7 +130,7 @@ a:hover {
 }
 
 .when {
-  font-family: var(--display);
+  font-family: var(--ui);
   font-size: 0.7rem;
   line-height: 1.8;
   color: var(--muted);

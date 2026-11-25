@@ -107,7 +107,7 @@ const html = `
           project.when,
           project.title,
           `${project.role}${
-            project.stack ? ` · ${project.stack.join(", ")}` : ""
+            project.stack ? `. ${project.stack.join(", ")}` : ""
           }`,
           `<p class="body">${escape(project.summary)}</p>
            <ul class="points">${project.facts
@@ -128,7 +128,7 @@ const html = `
       .join("")}
     <p class="body">
       <strong>Also:</strong>
-      ${restProjects.map((project) => escape(project.title)).join(" · ")}.
+      ${restProjects.map((project) => escape(project.title)).join(", ")}.
     </p>
   </section>
 
@@ -140,7 +140,7 @@ const html = `
         entry(
           item.when,
           item.title,
-          `${item.place}${item.note ? ` · ${item.note}` : ""}`,
+          `${item.place}${item.note ? `, ${item.note}` : ""}`,
         ),
       )
       .join("")}
