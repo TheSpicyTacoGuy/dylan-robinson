@@ -28,17 +28,24 @@ export function Home({ hasCv }: HomeProps) {
         </h1>
 
         <figure className="hero__portrait rise" style={rise(2)}>
-          <img
-            src="/portrait-tall-800.webp"
-            srcSet="/portrait-tall-800.webp 800w, /portrait-tall-1200.webp 1200w"
-            sizes="(min-width: 681px) 22rem, 100vw"
-            alt="Dylan Robinson in the Yarra Valley."
-            width={800}
-            height={1000}
-            loading="eager"
-            fetchPriority="high"
-            decoding="async"
-          />
+          <picture>
+            <source
+              media="(max-width: 680px)"
+              srcSet="/portrait-wide-1200.webp 1200w, /portrait-wide-2000.webp 2000w"
+              sizes="100vw"
+            />
+            <img
+              src="/portrait-tall-800.webp"
+              srcSet="/portrait-tall-800.webp 800w, /portrait-tall-1200.webp 1200w"
+              sizes="(min-width: 681px) 22rem, 100vw"
+              alt="Dylan Robinson in the Yarra Valley."
+              width={800}
+              height={1000}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+            />
+          </picture>
           <figcaption>Me, Yarra Valley, 2026.</figcaption>
         </figure>
 

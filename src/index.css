@@ -476,6 +476,11 @@ button {
   margin: 0;
 }
 
+.hero__portrait picture {
+  display: block;
+  height: 100%;
+}
+
 .hero__portrait img {
   display: block;
   width: 100%;
@@ -1203,13 +1208,19 @@ button {
     justify-self: stretch;
     width: 100%;
     max-width: none;
-    height: 10.5rem;
+    height: auto;
     aspect-ratio: auto;
     margin-top: 1.25rem;
   }
 
+  /* The band takes the wide crop, which frames the subject without the
+     letterbox the tall crop gave it at this height. */
+  .hero__portrait picture {
+    height: clamp(8.5rem, 40vw, 13rem);
+  }
+
   .hero__portrait img {
-    object-position: 50% 0%;
+    object-position: 50% 30%;
   }
 
   .hero__lede {
