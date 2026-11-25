@@ -12,6 +12,7 @@ export function Plates({ label, plates, layout, columns }: PlatesProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
+  const originRef = useRef<DOMRect | null>(null);
   const hasOpened = useRef(false);
 
   useEffect(() => {
@@ -24,8 +25,37 @@ export function Plates({ label, plates, layout, columns }: PlatesProps) {
       return;
     }
 
+    const firstOpen = !dialog.open;
     hasOpened.current = true;
-    if (!dialog.open) dialog.showModal();
+    if (firstOpen) dialog.showModal();
+
+    // The plate is the origin of the full size view: measure it, then settle
+    // the stage image from that box so the click has a visible source instead of
+    // the image simply appearing. Stepping between plates keeps no animation.
+    const origin = originRef.current;
+    const image = dialog.querySelector("img");
+    if (!firstOpen || !origin || !image) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const settle = image.getBoundingClientRect();
+    if (settle.width === 0 || settle.height === 0) return;
+
+    const scaleX = origin.width / settle.width;
+    const scaleY = origin.height / settle.height;
+    const offsetX =
+      origin.left + origin.width / 2 - (settle.left + settle.width / 2);
+    const offsetY =
+      origin.top + origin.height / 2 - (settle.top + settle.height / 2);
+
+    image.animate(
+      [
+        {
+          transform: `translate(${offsetX}px, ${offsetY}px) scale(${scaleX}, ${scaleY})`,
+        },
+        { transform: "none" },
+      ],
+      { duration: 260, easing: "cubic-bezier(0.16, 1, 0.3, 1)" },
+    );
   }, [openIndex]);
 
   useEffect(() => {
@@ -73,6 +103,7 @@ export function Plates({ label, plates, layout, columns }: PlatesProps) {
               className="plate__button"
               onClick={(event) => {
                 triggerRef.current = event.currentTarget;
+                originRef.current = event.currentTarget.getBoundingClientRect();
                 setOpenIndex(index);
               }}
               aria-label={`Open ${shot.caption ?? shot.alt} at full size`}

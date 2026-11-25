@@ -89,7 +89,8 @@ number, and no italic word inside a heading.
 ## Layout
 
 A sticky 3.5rem header holds the name, three links, the CV and the theme control. It
-sits on the paper with one hairline below.
+sits on the paper with one hairline below. The current section is marked by a short
+ink rule under its link; on the home page no section is current, so no rule shows.
 
 The home page is one screen, built as a two-column title page with a record strip:
 
@@ -140,21 +141,32 @@ the only large radius on the site.
 
 ## Motion
 
-Three authored moments, each with a job:
+Six authored moments, each with a job:
 
 - **Masthead.** Each name line rises out of its own mask over 520ms with an
   exponential ease-out, the second line 70ms behind the first. The name assembles;
   the rest of the page fades and rises 8px over 360ms with a 45ms stagger.
+- **Record strip.** The rule above the facts is drawn left to right over 420ms as the
+  strip arrives, so the band reads as freshly ruled rather than already printed.
+- **Marker.** One ink rule sits under the current section in the header and slides
+  between links over 320ms when the route changes, so a move reads as a single marker
+  travelling instead of two underlines swapping. It is measured from the live links,
+  so it holds through a resize or a late font load, and absent on the home page.
 - **Theme.** The new ground expands as a circle from the theme button over 450ms
   through the View Transitions API, so the change has a visible origin. Unsupported
   browsers and reduced motion switch instantly.
-- **Lightbox.** The dialog fades over 180ms, the backdrop over 200ms, and the stage
-  image settles from 98% over 260ms, connecting the thumbnail to the full size.
+- **Contribution plot.** When the calendar arrives, the squares are plotted from left
+  to right, a column every 6ms, over 240ms. It runs once for that arrival and never
+  repeats, so the year reads as newly filled in.
+- **Lightbox.** The dialog fades over 180ms and the backdrop over 200ms. The stage
+  image starts at the box of the plate that was clicked and settles over 260ms, so
+  the full size view grows out of the thumbnail. Stepping between plates in the open
+  dialog does not animate.
 
 Route content fades in over 180ms. Hover and focus colour changes take 130ms, and an
 underline thickens. Nothing floats, parallaxes, reveals on scroll or loops.
-`prefers-reduced-motion` removes the duration and the delay. The page listens to
-scroll nowhere.
+`prefers-reduced-motion` removes the duration and the delay, and the lightbox opens in
+place. The page listens to scroll nowhere.
 
 ## Bans
 

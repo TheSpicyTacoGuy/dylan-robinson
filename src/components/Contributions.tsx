@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import type { CSSProperties } from "react";
 
 type Day = {
   date: string;
@@ -79,7 +80,11 @@ export function Contributions() {
 
       <div className="hero__plot" role="img" aria-label={summary}>
         {weeks.map((week, column) => (
-          <div className="hero__week" key={week[0]?.date ?? column}>
+          <div
+            className="hero__week"
+            key={week[0]?.date ?? column}
+            style={{ "--col": column } as CSSProperties}
+          >
             {column === 0 &&
               Array.from({ length: lead }, (_, blank) => <span key={`blank-${blank}`} />)}
 

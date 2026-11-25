@@ -2,6 +2,7 @@ import { CV_URL } from "../content";
 import { handleLinkClick } from "../lib/router";
 import { applyTheme, useTheme } from "../theme";
 import { flushSync } from "react-dom";
+import { useLayoutEffect, useRef } from "react";
 import type { MouseEvent } from "react";
 
 type SiteHeaderProps = {
@@ -49,6 +50,38 @@ function SunIcon() {
 export function SiteHeader({ hasCv, current }: SiteHeaderProps) {
   const { resolved, setTheme } = useTheme();
   const isDark = resolved === "dark";
+  const navRef = useRef<HTMLElement>(null);
+  const markRef = useRef<HTMLSpanElement>(null);
+
+  // The rule under the current section slides between links, so a route change
+  // reads as the marker moving instead of one underline vanishing while another
+  // appears. Measured from the live links, so it holds through font and width
+  // changes without listening to scroll.
+  useLayoutEffect(() => {
+    const nav = navRef.current;
+    const mark = markRef.current;
+    if (!nav || !mark) return;
+
+    const place = () => {
+      const active = nav.querySelector<HTMLElement>('[aria-current="page"]');
+      if (!active) {
+        mark.setAttribute("data-idle", "");
+        return;
+      }
+      mark.removeAttribute("data-idle");
+      const origin = nav.getBoundingClientRect();
+      const box = active.getBoundingClientRect();
+      mark.style.setProperty("--nav-mark-x", `${box.left - origin.left}px`);
+      mark.style.setProperty("--nav-mark-w", `${box.width}px`);
+    };
+
+    place();
+    const resize = new ResizeObserver(place);
+    resize.observe(nav);
+    document.fonts?.ready.then(place).catch(() => undefined);
+
+    return () => resize.disconnect();
+  }, [current, hasCv]);
 
   const toggleTheme = (event: MouseEvent<HTMLButtonElement>) => {
     const next = isDark ? "light" : "dark";
@@ -113,7 +146,8 @@ export function SiteHeader({ hasCv, current }: SiteHeaderProps) {
           Dylan Robinson
         </a>
 
-        <nav className="site-nav" aria-label="Sections">
+        <nav className="site-nav" aria-label="Sections" ref={navRef}>
+          <span className="site-nav__mark" aria-hidden="true" ref={markRef} />
           <a
             className="site-nav__link"
             href="/work"
