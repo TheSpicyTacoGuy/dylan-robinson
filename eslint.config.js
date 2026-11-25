@@ -25,4 +25,14 @@ export default tseslint.config(
       ],
     },
   },
+  {
+    // The Vercel function: node globals, no browser or React rules.
+    extends: [js.configs.recommended],
+    files: ['api/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'module',
+      globals: globals.node,
+    },
+  },
 )

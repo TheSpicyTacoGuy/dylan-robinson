@@ -5,6 +5,7 @@ import {
   MAILTO,
   WORK_RIGHTS,
 } from "../content";
+import { Contributions } from "../components/Contributions";
 import { handleLinkClick } from "../lib/router";
 import type { CSSProperties } from "react";
 
@@ -96,6 +97,8 @@ export function Home({ hasCv }: HomeProps) {
             <dd>{WORK_RIGHTS}</dd>
           </div>
         </dl>
+
+        <Contributions />
       </div>
     </section>
   );

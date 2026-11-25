@@ -43,7 +43,9 @@ for the timber yard he came from.
 - Fourteen work items: four detailed case studies and ten additional client,
   university and open-source projects.
 - Media: webp screenshots at two widths, one mp4 walkthrough with a poster, one portrait.
-- No backend, no analytics, no third-party origins. Static hosting on Vercel.
+- One server function reads the GitHub contribution calendar at request time, behind an
+  hour of CDN caching. Everything else is static: no analytics, no database, no
+  third-party origins in the page.
 - React 19, Vite 5, Tailwind v4 utilities, hand-written CSS. No router, UI kit or
   animation library.
 - Content lives in `src/content.ts` and is shared with the resume page so the two cannot

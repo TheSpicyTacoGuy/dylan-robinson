@@ -11,7 +11,7 @@ Live at <https://dylan-robinson.dev>.
 
 | Route | What it is |
 | --- | --- |
-| `/` | One-screen title page: name, claim, portrait, four facts and contact links |
+| `/` | Title page: name, claim, portrait, four facts, the GitHub band and contact links |
 | `/work` | All work: the four case studies, then a compact list of the rest |
 | `/work/<slug>` | One detail template for every case study and project |
 | `/experience` | Roles, study, tools and background |
@@ -39,6 +39,29 @@ npm run lint:design
 Every push to `main` and every pull request runs the same three checks in
 `.github/workflows/ci.yml`: ESLint, the design rules, and a full build. The badge
 at the top of this file is that workflow.
+
+## The GitHub band
+
+The home page closes with a year of GitHub contributions, read live. The browser
+asks `/api/contributions`, a Vercel Node function in
+[api/contributions.js](api/contributions.js), which asks the GitHub GraphQL API
+with a token. The token never reaches the browser, and the response is cached for
+an hour at the CDN.
+
+Set the token in the deployment environment, and in `.env.local` for local work:
+
+```shell
+GITHUB_TOKEN=github_pat_...
+GITHUB_LOGIN=TheSpicyTacoGuy   # optional, this is the default
+```
+
+`npm run dev` runs the same handler through a small bridge in
+[vite.config.ts](vite.config.ts), so the band works locally without the Vercel
+CLI. Without a token the endpoint answers 503 and the band is left out; the rest
+of the page does not depend on it.
+
+The grid is ink density, not the mark colour, because the accent is reserved for
+availability and links.
 
 ## Design checks
 
@@ -166,7 +189,10 @@ as headers, which a meta tag cannot do.
 
 ## Deploy
 
-Hosted on Vercel, which builds `dist/` with `npm run build`.
+Hosted on Vercel, which builds `dist/` with `npm run build` and the Node function
+in `api/`. `api/contributions.js` needs `GITHUB_TOKEN` in the project's
+environment variables, with `GITHUB_LOGIN` if the account is ever not
+`TheSpicyTacoGuy`.
 
 `vercel.json` rewrites the app routes to `index.html`, one path at a time. It also
 sets the security headers: `Strict-Transport-Security`, `X-Content-Type-Options`,

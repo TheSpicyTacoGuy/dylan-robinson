@@ -103,8 +103,13 @@ The home page is one screen, built as a two-column title page with a record stri
    This is the record strip of the page and the fastest read on the site.
 
 At 680px the page stacks: name, portrait band, claim, actions, record strip in two
-columns (one column at 360px). The page fits one 390x844 screen apart from a few
-pixels; at 320px it scrolls a little.
+columns (one column at 360px). Without the GitHub band the page fits one 390x844
+screen apart from a few pixels; with it the band is the only thing below the fold.
+
+Under the record strip sits one more band: a year of GitHub contributions, a grid
+of squares in ink density with the date range and the total on one line above it.
+It is the only live data on the page. It takes the same hairline as the strip and
+no accent, because the mark belongs to availability.
 
 The page is 76rem wide with a `clamp(1.25rem, 5vw, 3.5rem)` gutter. Sections on the
 inner pages are separated by a single hairline plus `clamp(3.5rem, 7vw, 6rem)` of
@@ -184,3 +189,7 @@ The built page carries a `Content-Security-Policy` meta tag. The only inline scr
 the theme bootstrap, so the Vite config hashes it at build time. `default-src 'self'`
 for everything else, no third-party origins. `vercel.json` adds `frame-ancestors
 'none'` and standard response headers.
+
+The one server endpoint, `/api/contributions`, is same-origin and holds the GitHub
+token in the deployment environment. It returns the calendar and nothing else, and the
+token is never sent to the browser.

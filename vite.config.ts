@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { resolve } from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
-import { defineConfig, type Plugin } from "vite";
+import { defineConfig, loadEnv, type Plugin } from "vite";
 
 /**
  * Adds a Content-Security-Policy to the built page. The only inline script is
@@ -44,9 +44,51 @@ function inlineCsp(): Plugin {
   };
 }
 
+/**
+ * Serves the GitHub band in development. Vercel runs api/contributions.js as a
+ * function; locally the dev server calls the same handler with GITHUB_TOKEN
+ * taken from the shell or from .env.local.
+ */
+function devContributions(): Plugin {
+  return {
+    name: "dev-contributions",
+    apply: "serve",
+    configureServer(server) {
+      server.middlewares.use("/api/contributions", async (request, response) => {
+        const local = loadEnv(server.config.mode, process.cwd(), "");
+
+        // process.env coerces every assignment to a string, so only assign the
+        // values that are actually set.
+        if (!process.env.GITHUB_TOKEN && local.GITHUB_TOKEN) {
+          process.env.GITHUB_TOKEN = local.GITHUB_TOKEN;
+        }
+        if (!process.env.GITHUB_LOGIN && local.GITHUB_LOGIN) {
+          process.env.GITHUB_LOGIN = local.GITHUB_LOGIN;
+        }
+
+        const { default: handler } = await import("./api/contributions.js");
+
+        await handler(request, {
+          setHeader(name, value) {
+            response.setHeader(name, value);
+          },
+          status(code) {
+            response.statusCode = code;
+            return this;
+          },
+          json(body) {
+            response.setHeader("Content-Type", "application/json; charset=utf-8");
+            response.end(JSON.stringify(body));
+          },
+        });
+      });
+    },
+  };
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss(), inlineCsp()],
+  plugins: [react(), tailwindcss(), inlineCsp(), devContributions()],
   build: {
     rollupOptions: {
       input: {

@@ -409,8 +409,9 @@ button {
     "name portrait"
     "lede portrait"
     "actions portrait"
-    "facts facts";
-  grid-template-rows: auto auto auto auto;
+    "facts facts"
+    "activity activity";
+  grid-template-rows: auto auto auto auto auto;
   column-gap: clamp(2rem, 6vw, 5rem);
   row-gap: 1rem;
   align-items: start;
@@ -536,6 +537,70 @@ button {
 .hero__available {
   color: var(--mark);
   font-weight: 600;
+}
+
+/* The contribution plot is the one live feed on the site. It is drawn in ink
+   density rather than the mark, because the mark belongs to availability. */
+.hero__activity {
+  grid-area: activity;
+  max-width: 44rem;
+  margin-top: clamp(1.25rem, 3vh, 1.75rem);
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--rule);
+}
+
+.hero__activity-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0 1rem;
+  color: var(--ink-soft);
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+}
+
+.hero__activity-total {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.hero__plot {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 2px;
+  margin-top: 0.7rem;
+}
+
+.hero__week {
+  display: grid;
+  grid-template-rows: repeat(7, auto);
+  gap: 2px;
+}
+
+.hero__week > span {
+  aspect-ratio: 1;
+}
+
+.hero__day--0 {
+  background: color-mix(in srgb, var(--rule) 55%, var(--paper));
+}
+
+.hero__day--1 {
+  background: color-mix(in srgb, var(--ink) 25%, var(--paper));
+}
+
+.hero__day--2 {
+  background: color-mix(in srgb, var(--ink) 45%, var(--paper));
+}
+
+.hero__day--3 {
+  background: color-mix(in srgb, var(--ink) 70%, var(--paper));
+}
+
+.hero__day--4 {
+  background: var(--ink);
 }
 
 /* Entrances are short and eased once: a page settles, it does not perform. */
@@ -1192,7 +1257,8 @@ button {
       "portrait"
       "lede"
       "actions"
-      "facts";
+      "facts"
+      "activity";
     row-gap: 0;
   }
 
@@ -1238,6 +1304,15 @@ button {
   .hero__facts > div {
     padding: 0;
     border-left: 0;
+  }
+
+  .hero__activity {
+    margin-top: 1.5rem;
+  }
+
+  .hero__plot,
+  .hero__week {
+    gap: 1px;
   }
 
   .work-row {
