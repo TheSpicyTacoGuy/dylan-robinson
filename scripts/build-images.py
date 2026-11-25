@@ -73,7 +73,7 @@ for name, widths in phones.items():
 screens = {
     "four-seasons-prices": (800, 1440),
     "four-seasons-home": (800, 1440),
-    "four-seasons-admin": (800, 1291),
+    "four-seasons-admin": (800, 1440),
 }
 
 for name, widths in screens.items():
