@@ -22,7 +22,8 @@
     "brief": "node scripts/change-brief.mjs",
     "preview": "vite preview",
     "images": "python scripts/build-images.py",
-    "og": "node scripts/make-og-card.mjs"
+    "og": "node scripts/make-og-card.mjs",
+    "resume:pdf": "node scripts/make-resume-pdf.mjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.1",
