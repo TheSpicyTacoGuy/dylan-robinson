@@ -575,7 +575,7 @@ button {
 .hero__portrait {
   grid-area: portrait;
   justify-self: end;
-  width: min(20rem, 34vh);
+  width: min(24rem, 40vh);
   max-width: 100%;
   height: auto;
   aspect-ratio: 1;
@@ -602,19 +602,18 @@ button {
   font-size: 0.75rem;
 }
 
-/* The record strip carries the four facts a recruiter scans first. Availability
-   is the one place the mark appears at size. */
-.hero__facts {
+/* The record strip carries the facts a recruiter scans first, ruled like a
+   ledger. It is the home page's bottom band and the contact page's second
+   half. Availability is the one place the mark appears at size. */
+.record {
   position: relative;
-  grid-area: facts;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin: clamp(1.5rem, 4vh, 2.75rem) 0 0;
 }
 
 /* The rule is drawn under the arriving strip instead of being present already,
    so the band reads as freshly ruled rather than fading in with the page. */
-.hero__facts::before {
+.record::before {
   content: "";
   position: absolute;
   top: 0;
@@ -636,31 +635,36 @@ button {
   }
 }
 
-.hero__facts > div {
+.record > div {
   padding: 0.9rem 1.25rem 0;
   border-left: 1px solid var(--rule);
 }
 
-.hero__facts > div:first-child {
+.record > div:first-child {
   padding-left: 0;
   border-left: 0;
 }
 
-.hero__facts > div:last-child {
+.record > div:last-child {
   padding-right: 0;
 }
 
-.hero__facts dt {
+.record dt {
   color: var(--ink-soft);
   font-family: var(--font-ui);
   font-size: 0.78rem;
 }
 
-.hero__facts dd {
+.record dd {
   margin-top: 0.25rem;
   font-family: var(--font-ui);
   font-size: 0.95rem;
   line-height: 1.35;
+}
+
+.hero__facts {
+  grid-area: facts;
+  margin: clamp(1.5rem, 4vh, 2.75rem) 0 0;
 }
 
 .hero__available {
@@ -669,10 +673,11 @@ button {
 }
 
 /* The contribution plot is the one live feed on the site. It is drawn in ink
-   density rather than the mark, because the mark belongs to availability. */
+   density rather than the mark, because the mark belongs to availability. It
+   runs the full measure, so the year reads as a real calendar block and the
+   band ends on the same edge as the record strip above it. */
 .hero__activity {
   grid-area: activity;
-  max-width: 44rem;
   margin-top: clamp(1.25rem, 3vh, 1.75rem);
   padding-top: 0.9rem;
   border-top: 1px solid var(--rule);
@@ -739,7 +744,7 @@ button {
 }
 
 .hero__day--0 {
-  background: color-mix(in srgb, var(--rule) 55%, var(--paper));
+  background: color-mix(in srgb, var(--rule) 78%, var(--paper));
 }
 
 .hero__day--1 {
@@ -799,24 +804,12 @@ button {
 
 /* Sections */
 
+/* Sections are separated by air, and by a rule that belongs to the heading: it
+   runs from the end of the title to the right edge. One line per section, tied
+   to the structure, instead of a line drawn across the page between every
+   band. */
 .section {
-  position: relative;
   padding-block: var(--section);
-  border-top: 1px solid transparent;
-}
-
-/* The hairline between sections is drawn the way the record strip is drawn: it
-   arrives ruled rather than printed, once, as the page settles. */
-.section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  height: 1px;
-  background: var(--rule);
-  transform-origin: left center;
-  animation: rule-draw 420ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
 .section__head {
@@ -827,13 +820,28 @@ button {
   margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
 }
 
-.section__head h2 {
+.section__head h2,
+.section > .wrap > h2 {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.9rem, 2.5vw, 2rem);
   font-size: var(--step-h2);
 }
 
 .section > .wrap > h2 {
   margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
-  font-size: var(--step-h2);
+}
+
+/* The rule draws left to right as the page settles, so the section reads as
+   freshly ruled rather than already printed. */
+.section__head h2::after,
+.section > .wrap > h2::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--rule);
+  transform-origin: left center;
+  animation: rule-draw 520ms cubic-bezier(0.2, 0.7, 0.2, 1) 120ms both;
 }
 
 .section__note {
@@ -870,6 +878,23 @@ button {
 
 .work-list__item {
   border-bottom: 1px solid var(--rule);
+}
+
+/* The lead plate already rules itself, so the rows under it start without a
+   second line at the top. */
+.work-list--lead {
+  border-top: 0;
+}
+
+/* Everything outside the case studies is an index: one line per entry, three
+   columns across the measure, on a rule light enough to read as an appendix
+   rather than a second set of case studies. */
+.work-list--index {
+  border-top: 1px solid color-mix(in srgb, var(--rule) 60%, var(--paper));
+}
+
+.work-list--index > .work-list__item {
+  border-bottom-color: color-mix(in srgb, var(--rule) 60%, var(--paper));
 }
 
 .work-row {
@@ -927,6 +952,34 @@ button {
   text-underline-offset: 0.28em;
 }
 
+/* A role entry is one line of the index: year, name, what it was. The measure
+   is filled by columns instead of by a longer sentence. */
+.work-row--role {
+  grid-template-columns: 7rem minmax(0, 19rem) minmax(0, 1fr);
+  padding-block: 0.9rem;
+}
+
+.work-row--role.work-row--shot {
+  grid-template-columns: 7rem minmax(0, 18rem) minmax(0, 1fr) 9.5rem;
+}
+
+.work-row--role .work-row__year {
+  grid-row: 1;
+}
+
+.work-row--role .work-row__title {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 1.02rem;
+  letter-spacing: -0.01em;
+}
+
+.work-row--role .work-row__line {
+  grid-column: 3;
+  grid-row: 1;
+  max-width: none;
+}
+
 /* The case studies carry their lead plate, so the index shows the work rather
    than only naming it. The frame is the same hairline and sunk paper as a plate
    on a case page, and the shot is mounted whole instead of cropped. */
@@ -935,7 +988,7 @@ button {
 }
 
 .work-row__shot {
-  grid-column: 3;
+  grid-column: -2 / -1;
   grid-row: 1 / span 3;
   align-self: center;
   justify-self: end;
@@ -985,16 +1038,23 @@ button {
 }
 
 .ask__row {
-  position: relative;
   display: flex;
   align-items: center;
   gap: 0.75rem;
+}
+
+/* The ruled line belongs to the field, not to the row: the key hint and Clear
+   sit outside it, so the line ends where the answer is written. */
+.ask__field {
+  position: relative;
+  flex: 1;
+  min-width: 0;
   border-bottom: 1px solid var(--rule-strong);
 }
 
 /* The rule under the field draws left to right when the field is asked
    something, the same way a section rule arrives when its page does. */
-.ask__row::after {
+.ask__field::after {
   content: "";
   position: absolute;
   right: 0;
@@ -1007,18 +1067,17 @@ button {
   transition: transform 240ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-.ask__row:focus-within::after,
-.ask__row:has(.ask__input:not(:placeholder-shown))::after {
+.ask__field:focus-within::after,
+.ask__field:has(.ask__input:not(:placeholder-shown))::after {
   transform: none;
 }
 
-.ask__row:has(input:focus-visible) {
+.ask__field:has(input:focus-visible) {
   border-bottom-color: var(--ink);
 }
 
 .ask__input {
-  flex: 1;
-  min-width: 0;
+  width: 100%;
   min-height: 2.75rem;
   padding: 0.3rem 0;
   border: 0;
@@ -1188,12 +1247,24 @@ button {
   list-style: none;
 }
 
-.roles__item,
+/* A role is a line of the ledger: when, where, what. The columns reach the far
+   edge of the measure, so the record fills the page instead of trailing off
+   into an empty right side. */
+.roles__item {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 17rem) minmax(0, 1fr) minmax(0, 15rem);
+  gap: 0.3rem clamp(1rem, 2.5vw, 2rem);
+  align-items: baseline;
+  padding-block: 1.05rem;
+  border-bottom: 1px solid var(--rule);
+}
+
 .study__item {
   display: grid;
-  grid-template-columns: 9rem minmax(0, 1fr);
-  gap: 0.3rem 1.5rem;
-  padding-block: 1rem;
+  grid-template-columns: 8rem minmax(0, 1fr) minmax(0, 17rem);
+  gap: 0.3rem clamp(1rem, 2.5vw, 2rem);
+  align-items: baseline;
+  padding-block: 1.05rem;
   border-bottom: 1px solid var(--rule);
 }
 
@@ -1212,9 +1283,13 @@ button {
   letter-spacing: -0.015em;
 }
 
-.roles__detail,
+.roles__detail {
+  font-family: var(--font-ui);
+  font-size: var(--step-meta);
+}
+
+.roles__place,
 .study__place {
-  margin-top: 0.25rem;
   color: var(--ink-soft);
   font-family: var(--font-ui);
   font-size: var(--step-meta);
@@ -1236,7 +1311,7 @@ button {
   border-bottom: 2px solid var(--ink);
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 4.2vw, 2.8rem);
+  font-size: clamp(1.75rem, 5.4vw, 4rem);
   letter-spacing: -0.03em;
   text-decoration: none;
 }
@@ -1271,6 +1346,18 @@ button {
   flex-wrap: wrap;
   gap: 0.6rem 1rem;
   margin-top: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+/* The address and the links sit in the top half of the page; the record strip
+   rules off the bottom, so the page ends on the facts a hiring manager needs. */
+.contact__record {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.contact__available {
+  color: var(--mark);
+  font-weight: 600;
 }
 
 /* Page heads */
@@ -1308,44 +1395,82 @@ button {
   font-size: 1.1rem;
 }
 
-/* The work index opens with what the work looks like: the four lead plates at
-   a small size, framed the way every plate on the site is framed. */
-.page-head__cover {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.75rem;
-  margin-top: clamp(1.5rem, 3vw, 2rem);
+/* The lead case study on the work index: its plate at the full measure, then
+   its own ledger line. One artifact worth looking at, instead of four small
+   frames of equal weight. */
+.lead {
+  display: block;
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  color: inherit;
+  text-decoration: none;
 }
 
-.page-head__cover img {
+.lead__shot {
   display: block;
-  width: 100%;
-  aspect-ratio: 3 / 2;
-  object-fit: contain;
+  overflow: hidden;
   border: 1px solid var(--rule);
   background: var(--paper-sunk);
 }
 
-.page-head__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem 1rem;
-  margin-top: clamp(1.25rem, 3vw, 1.75rem);
+.lead__shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-/* The work index fills its first screen: the name, the question field, the
-   cover and the one action, with the list starting below the fold. */
-.page-head--fill {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: calc(100svh - var(--header-h) - 1px);
+.lead__body {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr) minmax(0, 17rem);
+  gap: 0.4rem clamp(1rem, 3vw, 2rem);
+  align-items: baseline;
+  padding-top: 1.2rem;
 }
 
-@media (max-width: 680px) {
-  .page-head__cover {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.lead__when {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  color: var(--ink-soft);
+  font-family: var(--font-ui);
+  font-size: var(--step-meta);
+  font-variant-numeric: tabular-nums;
+}
+
+.lead__title {
+  grid-column: 2;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+.lead__line {
+  grid-column: 2;
+  max-width: 56ch;
+  color: var(--ink-soft);
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+}
+
+.lead__tech {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  color: var(--ink-soft);
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  text-align: right;
+}
+
+.lead:hover .lead__shot img,
+.lead:focus-visible .lead__shot img {
+  transform: scale(1.015);
+}
+
+.lead:hover .lead__title {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.14em;
 }
 
 /* A wrong address still shows the work, so the page is a fork rather than a
@@ -1478,12 +1603,32 @@ button {
   margin-top: clamp(2.5rem, 5vw, 3.5rem);
 }
 
+/* The facts are a set rather than prose, so they run the full measure in two
+   columns and the page uses its width for evidence instead of leaving the right
+   half empty. */
+.case__section--wide {
+  max-width: none;
+}
+
 .case__section h2 {
-  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.9rem, 2.5vw, 2rem);
+  margin-bottom: 1.4rem;
   font-size: var(--step-h3);
 }
 
+.case__section h2::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--rule);
+}
+
 .case__facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem 3rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1491,13 +1636,9 @@ button {
 
 .case__facts li {
   position: relative;
+  max-width: 52ch;
   padding-left: 1.25rem;
-  margin-top: 0.9rem;
   font-size: 1.05rem;
-}
-
-.case__facts li:first-child {
-  margin-top: 0;
 }
 
 .case__facts li::before {
@@ -1777,6 +1918,62 @@ button {
 
 /* Narrow screens */
 
+/* Tablet and narrow desktop: the ledgers lose a column rather than squeezing
+   one of them down to a few characters. */
+@media (max-width: 1000px) {
+  .roles__item {
+    grid-template-columns: 7rem minmax(0, 1fr);
+  }
+
+  .roles__company,
+  .roles__detail,
+  .roles__place {
+    grid-column: 2;
+  }
+
+  .roles__place {
+    margin-top: 0.15rem;
+  }
+
+  .study__item {
+    grid-template-columns: 7rem minmax(0, 1fr);
+  }
+
+  .study__place {
+    grid-column: 2;
+    margin-top: 0.15rem;
+  }
+
+  .lead__body {
+    grid-template-columns: 5rem minmax(0, 1fr);
+  }
+
+  .lead__title,
+  .lead__line,
+  .lead__tech {
+    grid-column: 2;
+  }
+
+  .lead__tech {
+    grid-row: 3;
+    text-align: left;
+  }
+
+  .work-row--role,
+  .work-row--role.work-row--shot {
+    grid-template-columns: 6rem minmax(0, 14rem) minmax(0, 1fr);
+  }
+
+  .work-row--role.work-row--shot {
+    grid-template-columns: 6rem minmax(0, 14rem) minmax(0, 1fr) 9.5rem;
+  }
+
+  .case__facts {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.9rem;
+  }
+}
+
 @media (max-width: 680px) {
   :root {
     /* the brand and the nav stack here, so the header is two rows tall */
@@ -1867,16 +2064,19 @@ button {
     margin-top: 2rem;
   }
 
-  .hero__facts {
+  .record {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1rem 1.5rem;
-    margin-top: 1.5rem;
     padding-top: 1rem;
   }
 
-  .hero__facts > div {
+  .record > div {
     padding: 0;
     border-left: 0;
+  }
+
+  .hero__facts {
+    margin-top: 1.5rem;
   }
 
   .hero__activity {
@@ -1899,6 +2099,10 @@ button {
   }
 
   .work-row--shot {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .work-row--role {
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -1932,6 +2136,22 @@ button {
     grid-column: 1;
   }
 
+  /* The role rows carry column placements from the wide layout, so the phone
+     layout has to restate them at the same weight. */
+  .work-row--role .work-row__year,
+  .work-row--role .work-row__title,
+  .work-row--role .work-row__line {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .roles__company,
+  .roles__detail,
+  .roles__place,
+  .study__place {
+    grid-column: 1;
+  }
+
   .work-row__title,
   .work-row__line,
   .work-row__tech {
@@ -1954,6 +2174,31 @@ button {
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .roles__place,
+  .study__place {
+    margin-top: 0.15rem;
+  }
+
+  .lead__body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.3rem;
+    padding-top: 1rem;
+  }
+
+  .lead__when,
+  .lead__title,
+  .lead__line,
+  .lead__tech {
+    grid-column: 1;
+    grid-row: auto;
+    text-align: left;
+  }
+
+  .case__facts {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.9rem;
+  }
+
   .plates,
   .plates--phones,
   .plates--three {
@@ -1974,7 +2219,7 @@ button {
 }
 
 @media (max-width: 360px) {
-  .hero__facts {
+  .record {
     grid-template-columns: minmax(0, 1fr);
   }
 }
@@ -2048,7 +2293,9 @@ button {
     border-top: 1px solid #cccccc;
   }
 
-  .section::before {
+  .section__head h2::after,
+  .section > .wrap > h2::after,
+  .case__section h2::after {
     display: none;
   }
 

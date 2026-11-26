@@ -95,13 +95,16 @@ ink rule under its link; on the home page no section is current, so no rule show
 The home page is one screen, built as a two-column title page with a record strip:
 
 1. **Masthead.** The name on two lines at the left. The square portrait sits at the
-   right, top-aligned with the name, with the caption `Yarra Valley, 2026.` below it.
+   right, top-aligned with the name, at `min(24rem, 40vh)`, with the caption
+   `Yarra Valley, 2026.` below it. It is sized to hold the right column against the
+   weight of the name rather than sitting beside it as a passport photo.
 2. **Claim and actions.** `I build the online tax return app at CTRL Accounting,
    where I am lead developer and a director.` in the serif, then `See the work`,
    `CV (PDF)` and `Email me`.
 3. **Record strip.** Four facts across the full measure, divided by hairlines:
    Role, Location, Availability and Work rights. Availability is set in the mark.
-   This is the record strip of the page and the fastest read on the site.
+   This is the record strip of the page and the fastest read on the site; `/contact`
+   uses the same primitive with three facts.
 
 At 680px the page stacks: name, portrait band, claim, actions, record strip in two
 columns (one column at 360px). The hero fills the viewport exactly, so on a desktop
@@ -127,32 +130,43 @@ call, so it cannot invent a fact about Dylan and there is no key to expire.
 
 Under the record strip sits one more band: a year of GitHub contributions, a grid
 of squares in ink density with the date range and the total on one line above it.
-It is the only live data on the page. It takes the same hairline as the strip and
-no accent beyond the mark under the word GitHub, which is the band's only way out.
-Pointing at a square names that day in the same line.
+It is the only live data on the page. It runs the full measure, so the year reads as
+a calendar block rather than a small chart with an empty column beside it, and the
+band ends on the same edge as the strip above. It takes the same hairline as the
+strip and no accent beyond the mark under the word GitHub, which is the band's only
+way out. Pointing at a square names that day in the same line.
 
-The page is 76rem wide with a `clamp(1.25rem, 5vw, 3.5rem)` gutter. Sections on the
-inner pages are separated by a single hairline plus `clamp(3.5rem, 7vw, 6rem)` of
-air. The footer's links start on that same left line, under the content, rather than
-running to the right edge.
+The page is 76rem wide with a `clamp(1.25rem, 5vw, 3.5rem)` gutter. An inner page's
+sections are separated by air, and by a rule that belongs to the section heading: it
+runs from the end of the title to the right edge, so one line per section is tied to
+the structure instead of a line drawn across the page between every band. The
+footer's links start on that same left line, under the content, rather than running
+to the right edge.
 
-`/work` lists the four case studies with their one-line summaries and stack, each
-carrying its lead plate as a small hairline-framed thumbnail at the right of the
-row, then the remaining work as compact rows, which carry a plate too wherever one
-exists. The index opens on a title screen instead of a row: the name, the intro, the
-question field, a four-up cover of the lead plates and `Email me` fill the first
-screen exactly, and the list starts below the fold. The cover uses the same hairline
-frame as every other plate and carries no caption or alt text, because it repeats the
-rows; the cover and the head action step out of the way the moment the page is being
-searched, so a question puts its matches on the first screen. On a phone the block is
-centred, and `--header-h` grows to the two-row height so the fill lands on the fold.
-The page ends on the one action worth taking: a hairline, `Open to full-time roles,
-Melbourne or remote.` and `Email me`. `/work/<slug>` uses one template for all
+The measure is used, not just set. Every inner page composes on it: the ledgers on
+`/experience`, the contact record and the work rows all reach the right edge, because
+a 76rem canvas holding one 58ch column reads as an empty page with a margin.
+
+`/work` opens straight into its content: title, intro and the question field sit
+tight under the header with no reserved viewport behind them. The first case study is
+the lead and carries its plate at the full measure with its own ledger line beneath
+(year, title, summary, stack), so the page opens on the work itself at a size worth
+looking at. The other three follow as ruled rows carrying their lead plate as a small
+hairline-framed thumbnail at the right, then the remaining work as a denser index:
+three columns (year, name, what it was) on a rule light enough to read as an appendix
+rather than a second set of case studies. The lead and the index step out of the way
+the moment the page is being searched, so a question puts its matches on the first
+screen. The page ends on the one action worth taking: a hairline, `Open to full-time
+roles, Melbourne or remote.` and `Email me`. `/work/<slug>` uses one template for all
 fourteen items: back link, title, a meta line with hairline separators, the stack,
 the summary, a lead plate, the engineering notes, video, the remaining plates, the
 private-work note, and a previous and next project that stay inside the item's own
-group, so the four case studies read as a loop. `/experience` carries the roles,
-study, tools and background. `/contact` carries the email at display size and the
+group, so the four case studies read as a loop. The engineering notes run the full
+measure in two columns, because five facts in a 58ch column leave half the page
+empty. `/experience` carries the roles and study as four-column ledgers (when, where,
+what, place), the tools and the background. `/contact` carries the email at display
+size, the links, and the record strip ruled off beneath them: based, availability and
+work rights, so the page ends on the facts a hiring manager needs rather than on four
 links. A wrong address lists the four case studies rather than ending at an apology.
 `/resume/` stays a separate static page, and its three case-study titles link to
 their pages on screen.
@@ -180,8 +194,9 @@ Six authored moments, each with a job:
   exponential ease-out, the second line 70ms behind the first. The name assembles;
   the rest of the page fades and rises 8px over 360ms with a 45ms stagger.
 - **Record strip.** The rule above the facts is drawn left to right over 420ms as the
-  strip arrives, so the band reads as freshly ruled rather than already printed. Every
-  section rule on an inner page draws the same way when its page arrives.
+  strip arrives, so the band reads as freshly ruled rather than already printed. A
+  section heading's rule draws the same way when its page arrives, which is why the
+  divider sits on the heading instead of across the page.
 - **Marker.** One ink rule sits under the current section in the header and slides
   between links over 320ms when the route changes, so a move reads as a single marker
   travelling instead of two underlines swapping. It is measured from the live links,
@@ -204,11 +219,12 @@ Six authored moments, each with a job:
   link fades its underline in over 180ms, the contact address draws the mark across
   its ink rule over 240ms, and a contribution square takes a one-pixel ink ring, so
   a single day can be read without turning the year into a chart.
-- **Record field.** The rule under the question draws left to right over 240ms
-  when the field takes focus or holds a question, so the line reads as freshly
-  ruled rather than already printed. The slash hint fades out over 130ms once
-  the field has the focus, because it has been used, and Clear fades in over
-  130ms. The field never moves.
+- **Record field.** The rule belongs to the field rather than the row, so the slash
+  hint and Clear sit outside it and the line ends where the answer is written. It
+  draws left to right over 240ms when the field takes focus or holds a question, so
+  the line reads as freshly ruled rather than already printed. The slash hint fades
+  out over 130ms once the field has the focus, because it has been used, and Clear
+  fades in over 130ms. The field never moves.
 - **Record answer.** A new answer rises 8px over 200ms on the same curve as the
   rest of the page, and only when the sentence actually changes, so a repeated
   match stays still while a new one is written. A filtered set arrives together:
@@ -226,8 +242,9 @@ Six authored moments, each with a job:
   it repeats what the Work page already lists.
 
 Route content fades in over 180ms. Hover and focus colour changes take 130ms, an
-underline thickens, an action steps up a pixel, and a captured screen zooms 1.02
-inside its frame. Nothing floats, parallaxes, reveals on scroll or loops.
+underline thickens, an action steps up a pixel, and a captured screen zooms in
+slightly inside its frame: 1.02 for a plate, 1.015 for the lead on `/work`, which is
+already large enough not to need more. Nothing floats, parallaxes, reveals on scroll or loops.
 `prefers-reduced-motion` removes the duration and the delay, and the lightbox opens in
 place. The page listens to scroll nowhere.
 

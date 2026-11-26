@@ -1,10 +1,13 @@
 import {
+  AVAILABILITY,
   CV_URL,
   EMAIL,
   GITHUB_URL,
   LINKEDIN_URL,
+  LOCATION,
   MAILTO,
   POSITIONING,
+  WORK_RIGHTS,
 } from "../content";
 
 type ContactProps = {
@@ -58,6 +61,21 @@ export function Contact({ hasCv }: ContactProps) {
               </a>
             )}
           </div>
+
+          <dl className="record contact__record">
+            <div>
+              <dt>Based</dt>
+              <dd>{LOCATION}</dd>
+            </div>
+            <div>
+              <dt>Availability</dt>
+              <dd className="contact__available">{AVAILABILITY}</dd>
+            </div>
+            <div>
+              <dt>Work rights</dt>
+              <dd>{WORK_RIGHTS}</dd>
+            </div>
+          </dl>
         </div>
       </section>
     </>

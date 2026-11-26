@@ -30,13 +30,12 @@ export function Experience({ hasCv }: ExperienceProps) {
             {roles.map((role) => (
               <li className="roles__item" key={role.id}>
                 <p className="roles__when">{role.when}</p>
-                <div>
-                  <h3 className="roles__company">{role.company}</h3>
-                  <p className="roles__detail">
-                    {role.title}, {role.place}
-                    {role.note ? ` (${role.note})` : ""}
-                  </p>
-                </div>
+                <h3 className="roles__company">{role.company}</h3>
+                <p className="roles__detail">{role.title}</p>
+                <p className="roles__place">
+                  {role.place}
+                  {role.note ? ` (${role.note})` : ""}
+                </p>
               </li>
             ))}
           </ol>
@@ -50,13 +49,11 @@ export function Experience({ hasCv }: ExperienceProps) {
             {study.map((item) => (
               <li className="study__item" key={item.title}>
                 <p className="study__when">{item.when}</p>
-                <div>
-                  <p className="study__title">{item.title}</p>
-                  <p className="study__place">
-                    {item.place}
-                    {item.note ? ` (${item.note})` : ""}
-                  </p>
-                </div>
+                <p className="study__title">{item.title}</p>
+                <p className="study__place">
+                  {item.place}
+                  {item.note ? ` (${item.note})` : ""}
+                </p>
               </li>
             ))}
           </ul>

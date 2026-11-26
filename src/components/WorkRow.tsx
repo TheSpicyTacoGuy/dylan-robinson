@@ -20,7 +20,13 @@ export function WorkRow({ item, detail, step }: WorkRowProps) {
   return (
     <li className="work-list__item" style={style}>
       <a
-        className={shot ? "work-row work-row--shot" : "work-row"}
+        className={[
+          "work-row",
+          detail === "summary" ? "work-row--summary" : "work-row--role",
+          shot ? "work-row--shot" : "",
+        ]
+          .filter(Boolean)
+          .join(" ")}
         href={`/work/${item.slug}`}
         onClick={handleLinkClick}
         data-route

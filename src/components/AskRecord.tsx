@@ -133,21 +133,23 @@ export function AskRecord({ query, onQueryChange, result }: AskRecordProps) {
       </label>
 
       <div className="ask__row">
-        <input
-          ref={inputRef}
-          id={fieldId}
-          className="ask__input"
-          type="search"
-          value={query}
-          onChange={(event) => onQueryChange(event.target.value)}
-          onKeyDown={handleKeyDown}
-          aria-describedby={noteId}
-          placeholder="What have you built with MySQL?"
-          autoComplete="off"
-          autoCapitalize="none"
-          spellCheck={false}
-          maxLength={120}
-        />
+        <div className="ask__field">
+          <input
+            ref={inputRef}
+            id={fieldId}
+            className="ask__input"
+            type="search"
+            value={query}
+            onChange={(event) => onQueryChange(event.target.value)}
+            onKeyDown={handleKeyDown}
+            aria-describedby={noteId}
+            placeholder="What have you built with MySQL?"
+            autoComplete="off"
+            autoCapitalize="none"
+            spellCheck={false}
+            maxLength={120}
+          />
+        </div>
         <span className="ask__key" aria-hidden="true">
           /
         </span>

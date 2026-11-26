@@ -79,7 +79,7 @@ export function Home({ hasCv }: HomeProps) {
           </a>
         </div>
 
-        <dl className="hero__facts rise" style={rise(5)}>
+        <dl className="record hero__facts rise" style={rise(5)}>
           <div>
             <dt>Role</dt>
             <dd>Software developer</dd>

@@ -72,7 +72,7 @@ export function WorkItemPage({ item }: WorkItemPageProps) {
 
       {item.facts.length > 0 && (
         <div className="wrap">
-          <div className="case__section">
+          <div className="case__section case__section--wide">
             <h2>How it works</h2>
             <ul className="case__facts">
               {item.facts.map((fact) => (
