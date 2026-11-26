@@ -617,19 +617,24 @@ export const workItems: WorkItem[] = [
 ];
 
 /**
- * The lists read as a record: work that is still running first, then the most
- * recently finished work, down to the oldest. Same-year items keep the order
- * they were written in, so a new item lands where it belongs without the list
- * being re-sorted by hand.
+ * Where an item sits in the record: work that says when it started and is still
+ * running leads, then the most recent year, down to the oldest. A project that
+ * only says "Present" sits just under this year's finished builds, because it
+ * is real but lighter than a build. Same-year items keep the order they were
+ * written in, so a new item lands in its place without the list being sorted by
+ * hand.
  */
-const lastYear = (when: string) => {
-  if (/\b(?:present|now)\b/i.test(when)) return 9999;
-  const years = when.match(/\d{4}/g);
-  return years ? Math.max(...years.map(Number)) : 0;
+const THIS_YEAR = new Date().getFullYear();
+
+const yearRank = (when: string) => {
+  const years = (when.match(/\d{4}/g) ?? []).map(Number);
+  const latest = years.length > 0 ? Math.max(...years) : 0;
+  if (!/\b(?:present|now)\b/i.test(when)) return latest;
+  return years.length > 0 ? 9999 : THIS_YEAR - 0.5;
 };
 
 export const workInOrder = [...workItems].sort(
-  (a, b) => lastYear(b.when) - lastYear(a.when),
+  (a, b) => yearRank(b.when) - yearRank(a.when),
 );
 
 export const featuredWork = workInOrder.filter((item) => item.featured);
