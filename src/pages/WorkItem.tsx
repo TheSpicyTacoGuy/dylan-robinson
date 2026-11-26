@@ -1,5 +1,5 @@
 import { Plates } from "../components/Plates";
-import { type WorkItem, workItems } from "../content";
+import { type WorkItem, workInOrder } from "../content";
 import { handleLinkClick } from "../lib/router";
 
 type WorkItemPageProps = {
@@ -8,8 +8,9 @@ type WorkItemPageProps = {
 
 export function WorkItemPage({ item }: WorkItemPageProps) {
   // Previous and next stay inside the same group, so the four case studies read as
-  // a set and the shorter client work reads as its own list.
-  const group = workItems.filter((entry) => entry.featured === item.featured);
+  // a set and the shorter client work reads as its own list. Both follow the
+  // order the work page lists them in.
+  const group = workInOrder.filter((entry) => entry.featured === item.featured);
   const position = group.findIndex((entry) => entry.slug === item.slug);
   const previous = group[(position - 1 + group.length) % group.length];
   const next = group[(position + 1) % group.length];

@@ -34,7 +34,8 @@
       "source": "/work/dressage-scoring-and-results-portal",
       "destination": "/index.html"
     },
-    { "source": "/work/access-database-rebuild", "destination": "/index.html" }
+    { "source": "/work/access-database-rebuild", "destination": "/index.html" },
+    { "source": "/work/this-portfolio-site", "destination": "/index.html" }
   ],
   "headers": [
     {

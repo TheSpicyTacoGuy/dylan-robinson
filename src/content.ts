@@ -539,6 +539,18 @@ export const otherProjects: Project[] = [
       "I fixed and extended the Access database and data-entry portal for Smokemaster, including a new inventory system and tracking for timber moving between the mill and storage. I also stacked timber and helped with equipment maintenance.",
     tech: "Microsoft Access, SQL",
   },
+  {
+    title: "This portfolio site",
+    when: "2026",
+    role: "Solo, design and build",
+    summary:
+      "The site you are reading. React 19 and TypeScript on Vite, with a hand-written router, three self-hosted font cuts instanced with fontTools, one serverless endpoint that fetches the GitHub calendar, and a content security policy that names no third-party origin. The build ships about 70 kB of JavaScript, and there is no analytics script.",
+    tech: "React 19, TypeScript, Vite, Tailwind CSS v4, Vercel",
+    link: {
+      label: "Read the repository",
+      href: "https://github.com/TheSpicyTacoGuy/dylan-robinson",
+    },
+  },
 ];
 
 /**
@@ -604,8 +616,24 @@ export const workItems: WorkItem[] = [
   })),
 ];
 
-export const featuredWork = workItems.filter((item) => item.featured);
-export const otherWork = workItems.filter((item) => !item.featured);
+/**
+ * The lists read as a record: work that is still running first, then the most
+ * recently finished work, down to the oldest. Same-year items keep the order
+ * they were written in, so a new item lands where it belongs without the list
+ * being re-sorted by hand.
+ */
+const lastYear = (when: string) => {
+  if (/\b(?:present|now)\b/i.test(when)) return 9999;
+  const years = when.match(/\d{4}/g);
+  return years ? Math.max(...years.map(Number)) : 0;
+};
+
+export const workInOrder = [...workItems].sort(
+  (a, b) => lastYear(b.when) - lastYear(a.when),
+);
+
+export const featuredWork = workInOrder.filter((item) => item.featured);
+export const otherWork = workInOrder.filter((item) => !item.featured);
 
 export const workBySlug = new Map(
   workItems.map((item) => [item.slug, item]),
