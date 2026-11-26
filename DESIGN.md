@@ -133,11 +133,21 @@ Pointing at a square names that day in the same line.
 
 The page is 76rem wide with a `clamp(1.25rem, 5vw, 3.5rem)` gutter. Sections on the
 inner pages are separated by a single hairline plus `clamp(3.5rem, 7vw, 6rem)` of
-air.
+air. The footer's links start on that same left line, under the content, rather than
+running to the right edge.
 
 `/work` lists the four case studies with their one-line summaries and stack, each
 carrying its lead plate as a small hairline-framed thumbnail at the right of the
-row, then the remaining work as compact rows. `/work/<slug>` uses one template for all
+row, then the remaining work as compact rows, which carry a plate too wherever one
+exists. The index opens on a title screen instead of a row: the name, the intro, the
+question field, a four-up cover of the lead plates and `Email me` fill the first
+screen exactly, and the list starts below the fold. The cover uses the same hairline
+frame as every other plate and carries no caption or alt text, because it repeats the
+rows; the cover and the head action step out of the way the moment the page is being
+searched, so a question puts its matches on the first screen. On a phone the block is
+centred, and `--header-h` grows to the two-row height so the fill lands on the fold.
+The page ends on the one action worth taking: a hairline, `Open to full-time roles,
+Melbourne or remote.` and `Email me`. `/work/<slug>` uses one template for all
 fourteen items: back link, title, a meta line with hairline separators, the stack,
 the summary, a lead plate, the engineering notes, video, the remaining plates, the
 private-work note, and a previous and next project that stay inside the item's own

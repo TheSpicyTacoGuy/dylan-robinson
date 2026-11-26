@@ -10,10 +10,7 @@ type WorkRowProps = {
 };
 
 export function WorkRow({ item, detail, step }: WorkRowProps) {
-  const shot =
-    detail === "summary"
-      ? (item.plates.find((plate) => plate.wide) ?? item.plates[0])
-      : undefined;
+  const shot = item.plates.find((plate) => plate.wide) ?? item.plates[0];
   const shotIsTall = shot ? shot.height > shot.width : false;
   const style =
     step === undefined

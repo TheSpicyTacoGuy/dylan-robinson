@@ -1,9 +1,12 @@
 import { useMemo, useState } from "react";
 import { AskRecord } from "../components/AskRecord";
 import { WorkRow } from "../components/WorkRow";
-import { featuredWork, otherWork } from "../content";
+import { MAILTO, featuredWork, otherWork } from "../content";
 import { useDebouncedValue } from "../hooks";
 import { searchRecord } from "../lib/record-search";
+
+const coverPlate = (item: (typeof featuredWork)[number]) =>
+  item.plates.find((plate) => plate.wide) ?? item.plates[0];
 
 export function WorkIndex() {
   const [query, setQuery] = useState("");
@@ -15,13 +18,50 @@ export function WorkIndex() {
 
   return (
     <>
-      <div className="wrap page-head">
+      <div
+        className={
+          filtering ? "wrap page-head" : "wrap page-head page-head--fill"
+        }
+      >
         <h1>Work</h1>
         <p>
           Four detailed case studies, plus selected client, university and
           open-source work.
         </p>
         <AskRecord query={query} onQueryChange={setQuery} result={result} />
+
+        {/* The cover shows the work before the list argues for it. It repeats
+            the plates in the rows below, so it carries no alt text and steps
+            out of the way as soon as the page is being searched. */}
+        {!filtering && (
+          <>
+            <div className="page-head__cover">
+              {featuredWork.map((item) => {
+                const plate = coverPlate(item);
+                if (!plate) return null;
+                return (
+                  <img
+                    key={item.slug}
+                    src={plate.src}
+                    srcSet={plate.srcSet}
+                    sizes="(min-width: 681px) 22vw, 44vw"
+                    alt=""
+                    width={plate.width}
+                    height={plate.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                );
+              })}
+            </div>
+
+            <div className="page-head__actions">
+              <a className="action action--solid" href={MAILTO}>
+                Email me
+              </a>
+            </div>
+          </>
+        )}
       </div>
 
       {filtering ? (
@@ -68,6 +108,13 @@ export function WorkIndex() {
                   <WorkRow key={item.slug} item={item} detail="role" />
                 ))}
               </ul>
+
+              <div className="section__close">
+                <p>Open to full-time roles, Melbourne or remote.</p>
+                <a className="action action--solid" href={MAILTO}>
+                  Email me
+                </a>
+              </div>
             </div>
           </section>
         </>
