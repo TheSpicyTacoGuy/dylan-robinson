@@ -112,7 +112,8 @@ the fold.
 Under the record strip sits one more band: a year of GitHub contributions, a grid
 of squares in ink density with the date range and the total on one line above it.
 It is the only live data on the page. It takes the same hairline as the strip and
-no accent, because the mark belongs to availability.
+no accent beyond the mark under the word GitHub, which is the band's only way out.
+Pointing at a square names that day in the same line.
 
 The page is 76rem wide with a `clamp(1.25rem, 5vw, 3.5rem)` gutter. Sections on the
 inner pages are separated by a single hairline plus `clamp(3.5rem, 7vw, 6rem)` of
@@ -123,9 +124,12 @@ carrying its lead plate as a small hairline-framed thumbnail at the right of the
 row, then the remaining work as compact rows. `/work/<slug>` uses one template for all
 fourteen items: back link, title, a meta line with hairline separators, the stack,
 the summary, a lead plate, the engineering notes, video, the remaining plates, the
-private-work note, and the next project. `/experience` carries the roles, study,
-tools and background. `/contact` carries the email at display size and the links.
-`/resume/` stays a separate static page.
+private-work note, and a previous and next project that stay inside the item's own
+group, so the four case studies read as a loop. `/experience` carries the roles,
+study, tools and background. `/contact` carries the email at display size and the
+links. A wrong address lists the four case studies rather than ending at an apology.
+`/resume/` stays a separate static page, and its three case-study titles link to
+their pages on screen.
 
 ## Controls
 
@@ -161,7 +165,10 @@ Six authored moments, each with a job:
   browsers and reduced motion switch instantly.
 - **Contribution plot.** When the calendar arrives, the squares are plotted from left
   to right, a column every 6ms, over 240ms. It runs once for that arrival and never
-  repeats, so the year reads as newly filled in.
+  repeats, so the year reads as newly filled in. Pointing at a square rings it and
+  names the day in the band's own line, date on the left and count on the right, in
+  place of the range and total. It replaces the browser's tooltip, so the figure
+  arrives at once instead of after a delay.
 - **Lightbox.** The dialog fades over 180ms and the backdrop over 200ms. The stage
   image starts at the box of the plate that was clicked and settles over 260ms, so
   the full size view grows out of the thumbnail. Closing runs the same move in

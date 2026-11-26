@@ -224,6 +224,13 @@ a {
   line-height: 1.4;
 }
 
+.cv-entry__title a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 0.5pt;
+  text-underline-offset: 0.18em;
+}
+
 .cv-entry__prose {
   margin-top: 0;
 }

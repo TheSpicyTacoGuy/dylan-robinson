@@ -83,7 +83,19 @@ const banner = () => {
 const entry = (item: ResumeEntry) => {
   const row = el("article", "cv-entry");
   const body = el("div", "cv-entry__body");
-  body.append(el("h3", "cv-entry__title", item.title));
+  const title = el("h3", "cv-entry__title");
+
+  if (item.titleLink) {
+    const link = el("a", undefined, item.titleLink.label);
+    link.href = item.titleLink.href;
+    title.append(
+      link,
+      document.createTextNode(item.title.slice(item.titleLink.label.length)),
+    );
+  } else {
+    title.textContent = item.title;
+  }
+  body.append(title);
 
   for (const text of item.paragraphs ?? []) {
     body.append(el("p", "cv-entry__prose", text));

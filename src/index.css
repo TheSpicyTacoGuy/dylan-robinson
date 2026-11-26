@@ -692,6 +692,19 @@ button {
   font-variant-numeric: tabular-nums;
 }
 
+.hero__activity-link {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--mark);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  transition: text-decoration-thickness 130ms ease;
+}
+
+.hero__activity-link:hover {
+  text-decoration-thickness: 2px;
+}
+
 .hero__plot {
   display: grid;
   grid-auto-flow: column;
@@ -1106,6 +1119,57 @@ button {
   font-size: 1.1rem;
 }
 
+/* A wrong address still shows the work, so the page is a fork rather than a
+   dead end. */
+.not-found__list {
+  max-width: 36rem;
+  margin: clamp(1.5rem, 4vw, 2.25rem) 0 0;
+  padding: 0;
+  border-top: 1px solid var(--rule);
+  list-style: none;
+}
+
+.not-found__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-inline: -0.6rem;
+  padding: 0.9rem 0.6rem;
+  border-bottom: 1px solid var(--rule);
+  color: inherit;
+  text-decoration: none;
+  transition: background-color 120ms ease;
+}
+
+.not-found__row:hover {
+  background: var(--paper-sunk);
+}
+
+.not-found__title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+}
+
+.not-found__row:hover .not-found__title {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.26em;
+}
+
+.not-found__year {
+  flex: none;
+  color: var(--ink-soft);
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.not-found__more {
+  margin-top: clamp(1.25rem, 3vw, 1.75rem);
+}
+
 /* Case study */
 
 .case__head {
@@ -1227,16 +1291,27 @@ button {
 }
 
 .case__next {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
   margin-top: clamp(3rem, 6vw, 5rem);
   padding-top: 1.5rem;
   border-top: 1px solid var(--rule);
   font-family: var(--font-ui);
   font-size: var(--step-small);
+}
+
+.case__step {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+}
+
+.case__step--next {
+  align-items: flex-end;
+  text-align: right;
 }
 
 .case__next span {
@@ -1607,6 +1682,15 @@ button {
     max-width: 11rem;
     aspect-ratio: 2 / 3;
     justify-self: start;
+  }
+
+  .case__next {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .case__step--next {
+    align-items: flex-start;
+    text-align: left;
   }
 
   .work-row__year {

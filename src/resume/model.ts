@@ -24,6 +24,8 @@ import {
 export type ResumeEntry = {
   when: string;
   title: string;
+  /** Screen only: the part of the title that links to the case study. */
+  titleLink?: { label: string; href: string };
   points?: string[];
   paragraphs?: string[];
   note?: string;
@@ -79,6 +81,9 @@ const projectEntry = (project: CaseStudy | Project): ResumeEntry => {
   return {
     when: dates(project.when),
     title: url ? `${project.title}, ${url}` : project.title,
+    titleLink: isCaseStudy(project)
+      ? { label: project.title, href: `/work/${project.id}` }
+      : undefined,
     paragraphs: [
       project.summary,
       ...(isCaseStudy(project) ? project.facts.slice(0, 1) : []),

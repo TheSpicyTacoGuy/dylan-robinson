@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { CSSProperties } from "react";
+import { GITHUB_URL } from "../content";
 
 type Day = {
   date: string;
@@ -36,6 +37,7 @@ const commits = (count: number) =>
  */
 export function Contributions() {
   const [calendar, setCalendar] = useState<Calendar | null>(null);
+  const [hovered, setHovered] = useState<Day | null>(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -74,11 +76,35 @@ export function Contributions() {
   return (
     <div className="hero__activity">
       <div className="hero__activity-head">
-        <p>Contributions to GitHub, {range}</p>
-        <p className="hero__activity-total">{numberOf.format(total)} total</p>
+        <p>
+          {hovered ? (
+            longDate.format(toDate(hovered.date))
+          ) : (
+            <>
+              Contributions to{" "}
+              <a
+                className="hero__activity-link"
+                href={GITHUB_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GitHub
+              </a>
+              , {range}
+            </>
+          )}
+        </p>
+        <p className="hero__activity-total">
+          {hovered ? commits(hovered.count) : `${numberOf.format(total)} total`}
+        </p>
       </div>
 
-      <div className="hero__plot" role="img" aria-label={summary}>
+      <div
+        className="hero__plot"
+        role="img"
+        aria-label={summary}
+        onPointerLeave={() => setHovered(null)}
+      >
         {weeks.map((week, column) => (
           <div
             className="hero__week"
@@ -92,7 +118,7 @@ export function Contributions() {
               <span
                 key={day.date}
                 className={`hero__day hero__day--${day.level}`}
-                title={`${longDate.format(toDate(day.date))}: ${commits(day.count)}`}
+                onPointerEnter={() => setHovered(day)}
               />
             ))}
           </div>

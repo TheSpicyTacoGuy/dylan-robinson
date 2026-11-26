@@ -7,8 +7,12 @@ type WorkItemPageProps = {
 };
 
 export function WorkItemPage({ item }: WorkItemPageProps) {
-  const index = workItems.findIndex((entry) => entry.slug === item.slug);
-  const next = workItems[(index + 1) % workItems.length];
+  // Previous and next stay inside the same group, so the four case studies read as
+  // a set and the shorter client work reads as its own list.
+  const group = workItems.filter((entry) => entry.featured === item.featured);
+  const position = group.findIndex((entry) => entry.slug === item.slug);
+  const previous = group[(position - 1 + group.length) % group.length];
+  const next = group[(position + 1) % group.length];
 
   const splitLead =
     item.platesLayout !== "phones" &&
@@ -123,17 +127,30 @@ export function WorkItemPage({ item }: WorkItemPageProps) {
         </div>
       )}
 
-      <div className="wrap case__next">
-        <span>Next project</span>
-        <a
-          className="link-quiet"
-          href={`/work/${next.slug}`}
-          onClick={handleLinkClick}
-          data-route
-        >
-          {next.title}
-        </a>
-      </div>
+      <nav className="wrap case__next" aria-label="More work">
+        <div className="case__step">
+          <span>Previous project</span>
+          <a
+            className="link-quiet"
+            href={`/work/${previous.slug}`}
+            onClick={handleLinkClick}
+            data-route
+          >
+            {previous.title}
+          </a>
+        </div>
+        <div className="case__step case__step--next">
+          <span>Next project</span>
+          <a
+            className="link-quiet"
+            href={`/work/${next.slug}`}
+            onClick={handleLinkClick}
+            data-route
+          >
+            {next.title}
+          </a>
+        </div>
+      </nav>
     </article>
   );
 }
