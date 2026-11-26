@@ -47,7 +47,11 @@ export function WorkRow({ item, detail, step }: WorkRowProps) {
             <img
               src={shot.src}
               srcSet={shot.srcSet}
-              sizes="9.5rem"
+              sizes={
+                shotIsTall
+                  ? "(min-width: 681px) 6rem, 11rem"
+                  : "(min-width: 681px) 9.5rem, 92vw"
+              }
               alt=""
               width={shot.width}
               height={shot.height}
