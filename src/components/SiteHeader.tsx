@@ -1,9 +1,9 @@
-import { CV_URL } from "../content";
+import { CV_URL, featuredWork } from "../content";
 import { handleLinkClick } from "../lib/router";
 import { applyTheme, useTheme } from "../theme";
 import { flushSync } from "react-dom";
-import { useLayoutEffect, useRef } from "react";
-import type { MouseEvent } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import type { MouseEvent, PointerEvent as ReactPointerEvent } from "react";
 
 type SiteHeaderProps = {
   hasCv: boolean;
@@ -52,6 +52,63 @@ export function SiteHeader({ hasCv, current }: SiteHeaderProps) {
   const isDark = resolved === "dark";
   const navRef = useRef<HTMLElement>(null);
   const markRef = useRef<HTMLSpanElement>(null);
+  const closePreviewTimer = useRef<number | undefined>(undefined);
+  const openPreviewTimer = useRef<number | undefined>(undefined);
+  const [previewOpen, setPreviewOpen] = useState(false);
+
+  // The strip is a pointer affordance only: it duplicates the four case studies
+  // that the Work page already lists, so it stays out of the tab order and is
+  // never shown on touch, where the tap goes straight to the page. Opened on a
+  // mouse only, and closed on a short delay so the pointer can cross the gap
+  // between the link and the strip.
+  const cancelPreviewClose = () => {
+    if (closePreviewTimer.current) {
+      window.clearTimeout(closePreviewTimer.current);
+      closePreviewTimer.current = undefined;
+    }
+  };
+
+  const cancelPreviewOpen = () => {
+    if (openPreviewTimer.current) {
+      window.clearTimeout(openPreviewTimer.current);
+      openPreviewTimer.current = undefined;
+    }
+  };
+
+  const schedulePreviewClose = () => {
+    cancelPreviewOpen();
+    cancelPreviewClose();
+    closePreviewTimer.current = window.setTimeout(
+      () => setPreviewOpen(false),
+      160,
+    );
+  };
+
+  // A short dwell before opening, so crossing Work on the way to another link
+  // does not flash the strip open.
+  const openPreview = (event: ReactPointerEvent<HTMLAnchorElement>) => {
+    if (event.pointerType !== "mouse") return;
+    cancelPreviewClose();
+    cancelPreviewOpen();
+    openPreviewTimer.current = window.setTimeout(
+      () => setPreviewOpen(true),
+      130,
+    );
+  };
+
+  useEffect(() => {
+    setPreviewOpen(false);
+    if (openPreviewTimer.current) window.clearTimeout(openPreviewTimer.current);
+    if (closePreviewTimer.current) window.clearTimeout(closePreviewTimer.current);
+  }, [current]);
+
+  useEffect(
+    () => () => {
+      if (openPreviewTimer.current) window.clearTimeout(openPreviewTimer.current);
+      if (closePreviewTimer.current) window.clearTimeout(closePreviewTimer.current);
+    },
+    [],
+  );
 
   // The rule under the current section slides between links, so a route change
   // reads as the marker moving instead of one underline vanishing while another
@@ -134,7 +191,13 @@ export function SiteHeader({ hasCv, current }: SiteHeaderProps) {
   };
 
   return (
-    <header className="site-header">
+    <header
+      className="site-header"
+      onPointerLeave={schedulePreviewClose}
+      onKeyDown={(event) => {
+        if (event.key === "Escape") setPreviewOpen(false);
+      }}
+    >
       <div className="wrap site-header__inner">
         <a
           className="brand"
@@ -153,6 +216,8 @@ export function SiteHeader({ hasCv, current }: SiteHeaderProps) {
             href="/work"
             aria-current={current === "work" ? "page" : undefined}
             onClick={handleLinkClick}
+            onPointerEnter={openPreview}
+            onPointerLeave={schedulePreviewClose}
             data-route
           >
             Work
@@ -195,6 +260,32 @@ export function SiteHeader({ hasCv, current }: SiteHeaderProps) {
         >
           {isDark ? <SunIcon /> : <MoonIcon />}
         </button>
+      </div>
+
+      <div
+        className={previewOpen ? "nav-preview is-open" : "nav-preview"}
+        aria-hidden="true"
+        inert={!previewOpen}
+        onPointerEnter={cancelPreviewClose}
+        onPointerLeave={schedulePreviewClose}
+      >
+        <div className="wrap">
+          <ul className="nav-preview__list">
+            {featuredWork.map((item) => (
+              <li key={item.slug}>
+                <a
+                  className="nav-preview__link"
+                  href={`/work/${item.slug}`}
+                  onClick={handleLinkClick}
+                  data-route
+                >
+                  <span className="nav-preview__title">{item.title}</span>
+                  <span className="nav-preview__year">{item.when}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </header>
   );

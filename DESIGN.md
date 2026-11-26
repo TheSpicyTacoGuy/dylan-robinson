@@ -104,8 +104,10 @@ The home page is one screen, built as a two-column title page with a record stri
    This is the record strip of the page and the fastest read on the site.
 
 At 680px the page stacks: name, portrait band, claim, actions, record strip in two
-columns (one column at 360px). Without the GitHub band the page fits one 390x844
-screen apart from a few pixels; with it the band is the only thing below the fold.
+columns (one column at 360px). The hero fills the viewport exactly, so on a desktop
+screen the footer begins just below the fold. Without the GitHub band the page fits
+one 390x844 screen apart from a few pixels; with it the band is the only thing below
+the fold.
 
 Under the record strip sits one more band: a year of GitHub contributions, a grid
 of squares in ink density with the date range and the total on one line above it.
@@ -116,8 +118,9 @@ The page is 76rem wide with a `clamp(1.25rem, 5vw, 3.5rem)` gutter. Sections on 
 inner pages are separated by a single hairline plus `clamp(3.5rem, 7vw, 6rem)` of
 air.
 
-`/work` lists the four case studies with their one-line summaries and stack, then
-the remaining work as compact rows. `/work/<slug>` uses one template for all
+`/work` lists the four case studies with their one-line summaries and stack, each
+carrying its lead plate as a small hairline-framed thumbnail at the right of the
+row, then the remaining work as compact rows. `/work/<slug>` uses one template for all
 fourteen items: back link, title, a meta line with hairline separators, the stack,
 the summary, a lead plate, the engineering notes, video, the remaining plates, the
 private-work note, and the next project. `/experience` carries the roles, study,
@@ -147,7 +150,8 @@ Six authored moments, each with a job:
   exponential ease-out, the second line 70ms behind the first. The name assembles;
   the rest of the page fades and rises 8px over 360ms with a 45ms stagger.
 - **Record strip.** The rule above the facts is drawn left to right over 420ms as the
-  strip arrives, so the band reads as freshly ruled rather than already printed.
+  strip arrives, so the band reads as freshly ruled rather than already printed. Every
+  section rule on an inner page draws the same way when its page arrives.
 - **Marker.** One ink rule sits under the current section in the header and slides
   between links over 320ms when the route changes, so a move reads as a single marker
   travelling instead of two underlines swapping. It is measured from the live links,
@@ -160,11 +164,24 @@ Six authored moments, each with a job:
   repeats, so the year reads as newly filled in.
 - **Lightbox.** The dialog fades over 180ms and the backdrop over 200ms. The stage
   image starts at the box of the plate that was clicked and settles over 260ms, so
-  the full size view grows out of the thumbnail. Stepping between plates in the open
-  dialog does not animate.
+  the full size view grows out of the thumbnail. Closing runs the same move in
+  reverse over 200ms, so the image returns to the plate it came from and focus lands
+  on that plate. Stepping between plates in the open dialog does not animate.
+- **Pointer.** A plate's caption darkens to ink while it is pointed at, a footer
+  link fades its underline in over 180ms, the contact address draws the mark across
+  its ink rule over 240ms, and a contribution square takes a one-pixel ink ring, so
+  a single day can be read without turning the year into a chart.
+- **Page title.** An inner page's h1 rises out of its own mask over 420ms, 60ms
+  behind the page, so a route change carries one authored beat and the title reads
+  as newly set.
+- **Work preview.** Pointing at Work opens a strip of the four case studies under the
+  header over 160ms. It closes on a 160ms delay so the pointer can cross from the link
+  into the strip, and it is never shown on touch or offered to the keyboard, because
+  it repeats what the Work page already lists.
 
-Route content fades in over 180ms. Hover and focus colour changes take 130ms, and an
-underline thickens. Nothing floats, parallaxes, reveals on scroll or loops.
+Route content fades in over 180ms. Hover and focus colour changes take 130ms, an
+underline thickens, an action steps up a pixel, and a captured screen zooms 1.02
+inside its frame. Nothing floats, parallaxes, reveals on scroll or loops.
 `prefers-reduced-motion` removes the duration and the delay, and the lightbox opens in
 place. The page listens to scroll nowhere.
 

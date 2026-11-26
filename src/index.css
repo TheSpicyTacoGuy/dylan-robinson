@@ -281,6 +281,82 @@ button {
   color: var(--ink);
 }
 
+/* Pointing at Work opens a quiet strip of the four case studies under the
+   header, so the index can be read without leaving the page. Pointer only: the
+   links duplicate the Work page, so they stay out of the tab order and no strip
+   opens on touch, where the tap goes straight through to the index. */
+.nav-preview {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  border-bottom: 1px solid var(--rule-strong);
+  background: var(--paper-sunk);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease,
+    visibility 0s linear 160ms;
+}
+
+.nav-preview.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease,
+    visibility 0s;
+}
+
+.nav-preview__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: auto auto;
+  gap: 0 1.5rem;
+  margin: 0;
+  padding: 0.85rem 0 1rem;
+  list-style: none;
+}
+
+.nav-preview__list li {
+  display: contents;
+}
+
+/* Two shared rows keep every title and every year on the same lines, even when
+   one title wraps and the others do not. */
+.nav-preview__link {
+  display: grid;
+  grid-row: span 2;
+  grid-template-rows: subgrid;
+  align-content: center;
+  row-gap: 0.15rem;
+  min-height: 2.75rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.nav-preview__title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.nav-preview__year {
+  color: var(--ink-soft);
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.nav-preview__link:hover .nav-preview__title {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.28em;
+}
+
 .icon-button {
   display: grid;
   place-items: center;
@@ -326,14 +402,18 @@ button {
   align-items: center;
   min-height: 2.75rem;
   color: var(--ink-soft);
-  text-decoration: none;
-  transition: color 130ms ease;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+  transition:
+    color 130ms ease,
+    text-decoration-color 180ms ease;
 }
 
 .site-footer__links a:hover {
   color: var(--ink);
-  text-decoration: underline;
-  text-underline-offset: 0.3em;
+  text-decoration-color: currentColor;
 }
 
 /* The theme change expands from the control that made it, so the switch has a
@@ -376,6 +456,7 @@ button {
 
 .action:hover {
   background: var(--paper-sunk);
+  transform: translateY(-1px);
 }
 
 .action:active {
@@ -405,6 +486,7 @@ button {
   text-decoration-color: var(--mark);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.3em;
+  transition: text-decoration-thickness 130ms ease;
 }
 
 .link-quiet:hover {
@@ -419,7 +501,7 @@ button {
 .hero {
   display: flex;
   align-items: center;
-  min-height: calc(100svh - 3.5rem - 3.25rem);
+  min-height: calc(100svh - 3.5rem - 1px);
   padding-block: clamp(1.75rem, 5vh, 3.5rem);
 }
 
@@ -661,6 +743,14 @@ button {
   background: var(--ink);
 }
 
+/* Pointing at a square rings it, so a single day can be read without turning
+   the year into a chart. The ring stays in ink: the mark belongs to
+   availability. */
+.hero__day:hover {
+  outline: 1px solid var(--ink);
+  outline-offset: -1px;
+}
+
 /* Entrances are short and eased once: a page settles, it does not perform. */
 
 .page {
@@ -695,8 +785,23 @@ button {
 /* Sections */
 
 .section {
+  position: relative;
   padding-block: var(--section);
-  border-top: 1px solid var(--rule);
+  border-top: 1px solid transparent;
+}
+
+/* The hairline between sections is drawn the way the record strip is drawn: it
+   arrives ruled rather than printed, once, as the page settles. */
+.section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: var(--rule);
+  transform-origin: left center;
+  animation: rule-draw 420ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
 .section__head {
@@ -791,6 +896,45 @@ button {
   text-underline-offset: 0.28em;
 }
 
+/* The case studies carry their lead plate, so the index shows the work rather
+   than only naming it. The frame is the same hairline and sunk paper as a plate
+   on a case page, and the shot is mounted whole instead of cropped. */
+.work-row--shot {
+  grid-template-columns: 5rem minmax(0, 1fr) 9.5rem;
+}
+
+.work-row__shot {
+  grid-column: 3;
+  grid-row: 1 / span 3;
+  align-self: center;
+  justify-self: end;
+  width: 9.5rem;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  background: var(--paper-sunk);
+}
+
+.work-row__shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 240ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* A phone capture is mounted portrait, so it fills its frame instead of
+   sitting as a strip in the middle of a landscape one. */
+.work-row__shot--tall {
+  width: 6rem;
+  aspect-ratio: 2 / 3;
+}
+
+.work-row:hover .work-row__shot img,
+.work-row:focus-visible .work-row__shot img {
+  transform: scale(1.03);
+}
+
 /* Experience */
 
 .prose p {
@@ -883,7 +1027,9 @@ button {
 }
 
 .contact__mail {
+  position: relative;
   display: inline-block;
+  min-height: 2.75rem;
   padding-bottom: 0.08em;
   border-bottom: 2px solid var(--ink);
   color: var(--ink);
@@ -893,8 +1039,29 @@ button {
   text-decoration: none;
 }
 
-.contact__mail:hover {
+/* The address is the one display size link on the site, so it carries the one
+   drawn underline: the mark runs across the ink rule when it is pointed at. */
+.contact__mail::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: var(--mark);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 240ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.contact__mail:hover,
+.contact__mail:focus-visible {
   color: var(--mark);
+}
+
+.contact__mail:hover::after,
+.contact__mail:focus-visible::after {
+  transform: scaleX(1);
 }
 
 .contact__links {
@@ -912,6 +1079,24 @@ button {
 
 .page-head h1 {
   font-size: var(--step-h1);
+}
+
+/* The page title arrives the way the name does on the home page: it rises out
+   of its own mask once, so a route change has a single authored beat. */
+.page-head h1,
+.case__head h1 {
+  animation: head-rise 420ms cubic-bezier(0.16, 1, 0.3, 1) 60ms both;
+}
+
+@keyframes head-rise {
+  from {
+    clip-path: inset(0 0 100% 0);
+    transform: translateY(0.12em);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    transform: none;
+  }
 }
 
 .page-head p {
@@ -1097,15 +1282,27 @@ button {
   display: block;
   width: 100%;
   padding: 0;
+  overflow: hidden;
   border: 1px solid var(--rule);
   background: var(--paper-sunk);
   cursor: zoom-in;
+  transition: border-color 160ms ease;
+}
+
+.plate__button:hover {
+  border-color: var(--rule-strong);
 }
 
 .plate img {
   display: block;
   width: 100%;
   height: auto;
+  transition: transform 240ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.plate__button:hover img,
+.plate__button:focus-visible img {
+  transform: scale(1.02);
 }
 
 .plate__caption {
@@ -1113,6 +1310,11 @@ button {
   color: var(--ink-soft);
   font-family: var(--font-ui);
   font-size: 0.75rem;
+  transition: color 160ms ease;
+}
+
+.plate:hover .plate__caption {
+  color: var(--ink);
 }
 
 .clip {
@@ -1308,6 +1510,10 @@ button {
     display: none;
   }
 
+  .nav-preview {
+    display: none;
+  }
+
   .hero__grid {
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
@@ -1383,6 +1589,26 @@ button {
     background: none;
   }
 
+  .work-row--shot {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .work-row__shot {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: stretch;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin-top: 0.6rem;
+  }
+
+  .work-row__shot--tall {
+    width: 100%;
+    max-width: 11rem;
+    aspect-ratio: 2 / 3;
+    justify-self: start;
+  }
+
   .work-row__year {
     grid-row: auto;
     grid-column: 1;
@@ -1423,6 +1649,12 @@ button {
   }
 }
 
+@media (hover: none) {
+  .nav-preview {
+    display: none;
+  }
+}
+
 @media (max-width: 360px) {
   .hero__facts {
     grid-template-columns: minmax(0, 1fr);
@@ -1440,6 +1672,18 @@ button {
     transition-duration: 0.001ms !important;
     animation-duration: 0.001ms !important;
     animation-delay: 0ms !important;
+  }
+
+  .action:hover,
+  .plate__button:hover img,
+  .plate__button:focus-visible img,
+  .work-row:hover .work-row__shot img,
+  .work-row:focus-visible .work-row__shot img {
+    transform: none;
+  }
+
+  .nav-preview {
+    transition: none;
   }
 }
 
@@ -1484,6 +1728,10 @@ button {
 
   .section {
     border-top: 1px solid #cccccc;
+  }
+
+  .section::before {
+    display: none;
   }
 
   a {
