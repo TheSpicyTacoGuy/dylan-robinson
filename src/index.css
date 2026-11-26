@@ -948,6 +948,177 @@ button {
   transform: scale(1.03);
 }
 
+/* Ask the record */
+
+/* A question set on the page the way a line is set on a form: a ruled line to
+   write on, the label above it, and no box around it. The answer sits under
+   the rule, so the page reads as answering rather than searching. */
+.ask {
+  max-width: 46rem;
+  margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+
+.ask__label {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: var(--ink-soft);
+  font-family: var(--font-ui);
+  font-size: var(--step-small);
+}
+
+.ask__row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+/* The rule under the field draws left to right when the field is asked
+   something, the same way a section rule arrives when its page does. */
+.ask__row::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 240ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.ask__row:focus-within::after,
+.ask__row:has(.ask__input:not(:placeholder-shown))::after {
+  transform: none;
+}
+
+.ask__row:has(input:focus-visible) {
+  border-bottom-color: var(--ink);
+}
+
+.ask__input {
+  flex: 1;
+  min-width: 0;
+  min-height: 2.75rem;
+  padding: 0.3rem 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  line-height: 1.4;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* The ring sits on the field itself, at the site's 2px mark and 3px offset, so
+   the control shows focus without the row growing a second border. */
+.ask__input:focus-visible {
+  outline: 2px solid var(--mark);
+  outline-offset: 3px;
+  border-radius: 0;
+}
+
+.ask__input::placeholder {
+  color: var(--ink-soft);
+  opacity: 1;
+}
+
+.ask__input::-webkit-search-cancel-button {
+  display: none;
+}
+
+/* The slash is the way in for anyone who reads the page with a keyboard. It
+   steps aside once the field has the focus, because it has been used. */
+.ask__key {
+  flex: none;
+  padding: 0 0.35rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  color: var(--ink-soft);
+  font-family: var(--font-ui);
+  font-size: var(--step-meta);
+  line-height: 1.5;
+  transition: opacity 130ms ease;
+}
+
+.ask__row:focus-within .ask__key {
+  opacity: 0;
+}
+
+/* A phone has no slash key to press. */
+@media (hover: none) {
+  .ask__key {
+    display: none;
+  }
+}
+
+.ask__clear {
+  flex: none;
+  min-height: 2.75rem;
+  padding: 0 0.25rem;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: var(--step-small);
+  text-decoration: underline;
+  text-decoration-color: var(--mark);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+  animation: page-in 130ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  transition: text-decoration-thickness 130ms ease;
+}
+
+.ask__clear:hover {
+  text-decoration-thickness: 2px;
+}
+
+.ask .ask__note {
+  max-width: 58ch;
+  margin-top: 0.7rem;
+  color: var(--ink-soft);
+  font-family: var(--font-ui);
+  font-size: var(--step-meta);
+}
+
+.ask .ask__answer {
+  max-width: 56ch;
+  margin-top: 0;
+  color: var(--ink);
+  font-size: 1.125rem;
+  line-height: 1.45;
+}
+
+.ask .ask__answer:not(:empty) {
+  margin-top: 1rem;
+}
+
+/* The answer is rewritten in place as the question changes, so each new
+   sentence arrives on the same small rise the page uses elsewhere. */
+.ask__answer-text {
+  display: block;
+  animation: rise 200ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+/* The words that were asked, in the one colour that carries information. */
+.ask__term {
+  background: none;
+  color: var(--mark);
+}
+
+/* A filtered list arrives as a set rather than a page: each row rises on the
+   same curve, a beat behind the one above it, so a new answer reads as newly
+   written down. */
+.work-list--matches > .work-list__item {
+  animation: rise 200ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--rise, 0) * 20ms);
+}
+
 /* Experience */
 
 .prose p {

@@ -109,6 +109,22 @@ screen the footer begins just below the fold. Without the GitHub band the page f
 one 390x844 screen apart from a few pixels; with it the band is the only thing below
 the fold.
 
+## The record answers questions
+
+`/work` opens with one question field above the lists: `Ask the record`, set on a
+ruled line rather than in a box, with the answer under the rule. It reads the
+titles, stacks, summaries and notes in `src/content.ts` and nothing else, so a new
+work item is searchable the moment it is added and no list has to be kept in step.
+A question is matched on its own words with the words that carry no subject
+dropped, a shorter name maps to the thing the record already names (`db` to SQL and
+the databases, `js` to JavaScript), and the reply quotes the visitor's wording back
+in the mark colour: `Two items list "postgres" in the stack.` Matching fills a
+`Matches` list in relevance order. When nothing matches, it says so, names the
+tools the record does lead with, and leaves the record on the page rather than
+showing an empty screen. The slash key focuses the field from anywhere, Escape
+clears it, and Clear is a plain underlined word. There is no model and no network
+call, so it cannot invent a fact about Dylan and there is no key to expire.
+
 Under the record strip sits one more band: a year of GitHub contributions, a grid
 of squares in ink density with the date range and the total on one line above it.
 It is the only live data on the page. It takes the same hairline as the strip and
@@ -178,6 +194,19 @@ Six authored moments, each with a job:
   link fades its underline in over 180ms, the contact address draws the mark across
   its ink rule over 240ms, and a contribution square takes a one-pixel ink ring, so
   a single day can be read without turning the year into a chart.
+- **Record field.** The rule under the question draws left to right over 240ms
+  when the field takes focus or holds a question, so the line reads as freshly
+  ruled rather than already printed. The slash hint fades out over 130ms once
+  the field has the focus, because it has been used, and Clear fades in over
+  130ms. The field never moves.
+- **Record answer.** A new answer rises 8px over 200ms on the same curve as the
+  rest of the page, and only when the sentence actually changes, so a repeated
+  match stays still while a new one is written. A filtered set arrives together:
+  each row rises 8px over 200ms, 20ms behind the one above it, and the section
+  rule draws above it as it does on any other section. The record waits for a
+  120ms pause before answering, so a typed word reveals one set rather than
+  restarting the reveal at every keystroke. On a question it cannot answer, the
+  record returns underneath rather than settling on an empty screen.
 - **Page title.** An inner page's h1 rises out of its own mask over 420ms, 60ms
   behind the page, so a route change carries one authored beat and the title reads
   as newly set.

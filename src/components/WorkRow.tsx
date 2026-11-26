@@ -1,20 +1,27 @@
+import type { CSSProperties } from "react";
 import type { WorkItem } from "../content";
 import { handleLinkClick } from "../lib/router";
 
 type WorkRowProps = {
   item: WorkItem;
   detail: "summary" | "role";
+  /** Position in a filtered list, so a set of rows can arrive one beat apart. */
+  step?: number;
 };
 
-export function WorkRow({ item, detail }: WorkRowProps) {
+export function WorkRow({ item, detail, step }: WorkRowProps) {
   const shot =
     detail === "summary"
       ? (item.plates.find((plate) => plate.wide) ?? item.plates[0])
       : undefined;
   const shotIsTall = shot ? shot.height > shot.width : false;
+  const style =
+    step === undefined
+      ? undefined
+      : ({ "--rise": Math.min(step, 8) } as CSSProperties);
 
   return (
-    <li className="work-list__item">
+    <li className="work-list__item" style={style}>
       <a
         className={shot ? "work-row work-row--shot" : "work-row"}
         href={`/work/${item.slug}`}
