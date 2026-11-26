@@ -20,6 +20,8 @@ dist-ssr
 
 # Local agent tooling, its binaries and per machine settings
 .codex/
+.taste-skill/
+/shots/
 .impeccable/config.local.json
 *.exe
 
